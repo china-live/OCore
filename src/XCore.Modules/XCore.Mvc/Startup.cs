@@ -20,7 +20,7 @@ namespace XCore.Mvc
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcModules(_applicationServices);
+            services.AddMvcModules(_applicationServices).AddSessionStateTempDataProvider();
             services.AddResponseCompression();
             services.AddResponseCaching();
         }

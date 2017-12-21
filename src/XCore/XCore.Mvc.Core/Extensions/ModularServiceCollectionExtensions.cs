@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -43,7 +44,7 @@ namespace XCore.Mvc.Core
         /// <param name="services"></param>
         /// <param name="applicationServices"></param>
         /// <returns></returns>
-        public static IServiceCollection AddMvcModules(this IServiceCollection services,
+        public static IMvcBuilder AddMvcModules(this IServiceCollection services,
             IServiceProvider applicationServices)
         {
             services.TryAddSingleton(new ApplicationPartManager());
@@ -77,9 +78,9 @@ namespace XCore.Mvc.Core
             // Order important
             builder.AddJsonFormatters();
 
-            //builder.AddCors();
+            builder.AddCors();
 
-            return services;
+            return new MvcBuilder(builder.Services, builder.PartManager);
         }
 
         public static void AddTagHelpers(this IServiceProvider serviceProvider, string assemblyName)

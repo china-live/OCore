@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.QQ;
+using Microsoft.AspNetCore.Authentication.WeChat;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -66,6 +67,9 @@ namespace XCore.Identity
             {
                 qqOptions.AppId = Configuration["Authentication:QQ:AppId"];
                 qqOptions.AppKey = Configuration["Authentication:QQ:AppKey"];
+            }).AddWeChat(wechatOptions => {
+                wechatOptions.AppId = Configuration["Authentication:WeChat:AppId"];
+                wechatOptions.AppSecret = Configuration["Authentication:WeChat:AppSecret"];
             });
 
             //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

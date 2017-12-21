@@ -3,8 +3,9 @@
   <Import Project="Dependencies.props" />
 
   <PropertyGroup>
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>beta1</VersionSuffix>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionSuffix>beta</VersionSuffix>
     <VersionSuffix Condition="'$(VersionSuffix)'!='' AND '$(BuildNumber)' != ''">$(VersionSuffix)-$(BuildNumber)</VersionSuffix>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>portable</DebugType>
