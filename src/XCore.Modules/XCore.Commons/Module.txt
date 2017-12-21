@@ -1,0 +1,8 @@
+﻿Name: Xcore Commons
+AntiForgery: enabled
+Author: LDMING
+Version: 2.0.x
+OrchardVersion: 2.0.x
+Priority: -2
+Description: Sets up the common services to run a SaaS application based on the XCore Framework.
+Category: Infrastructure

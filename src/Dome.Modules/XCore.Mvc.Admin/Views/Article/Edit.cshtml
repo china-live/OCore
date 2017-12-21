@@ -1,0 +1,400 @@
+﻿@model CreateAndEditArticleViewModel
+@{
+    ViewBag.CurrentPageName = "22";
+    var categorys = ViewData["Categorys"] as List<SelectListItem>;
+}
+<div class="page-content">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="#">首页</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>内容管理</span>
+            </li>
+        </ul>
+    </div>
+    <h1 class="page-title">
+        添加文章 @*<small>选择要预约的时间段</small>*@
+    </h1>
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="portlet light bordered">
+                <div class="portlet-title tabbable-line">
+                    <ul class="nav nav-tabs" style="float:left;">
+                        <li class="active">
+                            <a href="#BaseInfoTab" data-toggle="tab" aria-expanded="true">
+                                基本信息
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a href="#BaseInfoTab2" data-toggle="tab" aria-expanded="false">
+                                内容
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#BaseInfoTab3" data-toggle="tab" aria-expanded="false">
+                                封面
+                            </a>
+                        </li>
+                    </ul>
+                    @*<div class="actions">
+                            <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                <button id="SaveAllSettingsButton" class="btn sbold green">
+
+                                    <i class="fa fa-save"></i>
+                                </button>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="portlet-body form">
+                    <form action="@Url.Action("Edit")" class="form-horizontal" id="form1" method="post">
+                        <div class="form-body">
+                            <div class="tab-content" id="tabPanel">
+                                <div class="tab-pane active" id="BaseInfoTab">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            标题
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            <input type="hidden" id="id" name="id" value="@Model.Id" />
+                                            <input type="text" id="Title" name="Title" value="@Model.Title" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            所属分类
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            @*<input type="text" id="CoverImg" name="CoverImg" value="@Model.CategoryName" class="form-control" />*@
+
+                                            <select name="CategoryName" id="CategoryName" class="form-control">
+                                                @foreach (var item in categorys)
+                                                {
+                                                    if (item.Value == Model.CategoryName)
+                                                    {
+                                                        <option value="@item.Value" selected="selected">@item.Text</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            来源
+                                            <span class="required"> </span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            <input type="text" id="Source" name="Source" value="@Model.Source" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            是否发布
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            @if (Model.Status == 1)
+                                            {
+                                                <input name="Status" type="checkbox" class="form-control make-switch" data-on-text="&nbsp;是&nbsp;" data-off-text="&nbsp;否&nbsp;" data-on-color="success" data-off-color="warning" data-size="normal" checked="checked" value="1">
+                                            }
+                                            else
+                                            {
+                                                <input name="Status" type="checkbox" class="form-control make-switch" data-on-text="&nbsp;是&nbsp;" data-off-text="&nbsp;否&nbsp;" data-on-color="success" data-off-color="warning" data-size="normal" value="1">
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="BaseInfoTab2">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            内容
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-9">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="temp-content" id="temp-content" value="@Model.Content" disabled="disabled" />
+                                            <script id="editor" type="text/plain" name="Content" style="width:100%;min-height:480px;">
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-5">
+                                            <div class="md-checkbox-inline">
+                                                <div class="md-checkbox">
+                                                    <input type="checkbox" id="checkbox1_3" name="checkboxes2[]" value="1" checked="checked" class="md-check">
+                                                    <label for="checkbox1_3">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> 自动从内容中提取摘要
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none;" id="form-desc">
+                                        <label class="control-label col-md-2">
+                                            摘要
+                                            <span class="required"> </span>
+                                        </label>
+                                        <div class="col-md-7">
+                                            <textarea id="Description" name="Description" class="form-control" rows="4">
+                                    @Model.Description
+                                    </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="BaseInfoTab3">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            封面
+                                            <span class="required"> </span>
+                                        </label>
+                                        <div class="col-md-9">
+                                            <input type="hidden" id="CoverImg" name="CoverImg" value="@Model.CoverImg"/>
+                                            <input type="file" id="UploadFile"  class="form-control" data-preview-file-type="text" />
+
+                                            @*<div class="fileinput fileinput-new" data-provides="fileinput" id="input-id">
+                                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                                                    <div>
+                                                        <span class="btn red btn-outline btn-file">
+                                                            <span class="fileinput-new"> 选择图片 </span>
+                                                            <span class="fileinput-exists"> 更改 </span>
+                                                            <input type="file" name="...">
+                                                        </span>
+                                                        <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> 移除 </a>
+                                                    </div>
+                                                </div>*@
+                                            <div class="clearfix margin-top-10">
+                                                <span class="label label-danger">NOTE!</span> 只支持上传.jpg、.png格式的图像文件。
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn green"><i class="fa fa-check"></i>保存</button>
+                                    <button type="button" class="btn grey-salsa btn-outline to-list">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+    </div>
+</div>
+@section style{
+    <link href="~/lib/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/js/Base64.min.js"></script>
+    <script src="~/plugins/ueditor/ueditor.config.min.js"></script>
+    <script src="~/plugins/ueditor/ueditor.all.min.js"></script>
+    <script src="~/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/themes/fa/theme.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/plugins/piexif.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/plugins/purify.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/plugins/sortable.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/locales/zh.js"></script>
+
+    <script type="text/javascript">
+        var CurrentPage = function () {
+            var InitEditer = function (vm){
+                var $content = $("#temp-content");
+                //实例化编辑器
+                //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+                vm.ue = UE.getEditor('editor', {
+                    allowDivTransToP: false
+                });
+                vm.ue.ready(function () {
+                    var _txtContent = $content.val();
+                    $content.val("");
+                    vm.ue.setContent(utf8to16(base64decode(_txtContent)));
+                });
+                return vm;
+            }
+
+            var handleLogin = function (vm) {
+
+                var $loginForm = $('#form1');
+
+                $loginForm.validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    ignore: "",
+                    rules: {
+                        Title: {
+                            required: true,
+                            maxlength: 100
+                        }
+                    },
+
+                    messages: {
+                        Title: {
+                            required: "文章标题不能为空"
+                        }
+                    },
+
+                    invalidHandler: function (event, validator) { //提交表单时显示错误信息
+                        //$('.alert-danger', $('.login-form')).show();
+                        //alert.hide();
+                        //error1.show();
+                    },
+
+                    highlight: function (element) { // 高亮显示出错误的输入项（input）
+                        $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) { //
+                        label.closest('.form-group').removeClass('has-error');
+                        label.remove();
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if (element.closest('.input-icon').size() === 1) {
+                            error.insertAfter(element.closest('.input-icon'));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                        //error.insertAfter(element.closest('.input-icon'));
+                    },
+
+                    submitHandler: function (form) {
+                        if ($("#checkbox1_3").prop("checked")) {
+                            var desc = $("#Description").val();
+                            var desc_txt = vm.ue.getContentTxt();// vm.ue.getPlainTxt();
+                            var len = desc_txt.length > 500 ? 500 : desc_txt.length;
+                            desc_txt = desc_txt.substr(0, len);
+                            $("#Description").val(desc_txt);
+                        }
+                    }
+                });
+
+                $loginForm.find('input').keypress(function (e) {
+                    if (e.which == 13) {
+                        if ($('#form1').valid()) {
+                            $('#form1').submit(); //form validation success, call ajax form submit
+                        }
+                        return false;
+                    }
+                });
+
+                $loginForm.submit(function (e) {
+                    e.preventDefault();
+
+                    if (!$('#form1').valid()) {
+                        return;
+                    }
+                    //console.log("seee");
+
+                    App.blockUI({
+                        message: "正在提交，请稍后...",
+                        boxed: true
+                    });
+
+                    var data = $loginForm.serialize()
+                    var token = $("input[name='__RequestVerificationToken']").val();
+                    $.ajax({
+                        dataType: "json",
+                        type: "POST",
+                        url: $loginForm.attr('action'),
+                        data: data,
+                        headers:
+                        {
+                            "RequestVerificationToken": token
+                        },
+                        success: handleResponse
+                    });
+                });
+
+                var handleResponse = function(json) {
+                      App.unblockUI();
+                      if (json.success) {
+                          $("#id").val(json.targetUrl);
+                          App.notify.success("修改已成功保存到服务器！", "保存成功");
+                      } else if (json.errors[0] != undefined) {
+                          App.notify.error(json.errors[0].message,"出现错误");
+                      } else {
+                          App.notify.error("服务器错误，请联系管理员解决！", "出现错误");
+                      }
+                 }
+            }
+
+            return {
+                init: function (vm) {
+                    var viewModel = InitEditer(vm);
+
+                    handleLogin(viewModel);
+                }
+            };
+        }();
+
+        $(function () {
+             var vm = {
+                @*"ForgetPage_url":"@Url.Action("Forget", "Home")",
+                "RegisterPage_url":"@Url.Action("Register", "Home")",
+                "HomePage_url": "@ViewData["ReturnUrl"]" === "" ? "@Url.Action("Index", "Home")" : "@ViewData["ReturnUrl"]"*@
+            };
+
+            if (CurrentPage) {
+                CurrentPage.init(vm);
+             }
+
+
+            $("#checkbox1_3").click(function () {
+                if ($(this).prop("checked")) {
+                    $("#form-desc").slideUp("slow");
+
+                } else {
+                    $("#form-desc").slideDown("slow");
+                }
+            });
+
+            $("#UploadFile").fileinput({
+                language: 'zh', //设置语言
+                autoReplace: true,
+                multiple: false,
+                maxFileCount:1,
+                uploadUrl: "@Url.Action("UploadFilesAjaxAsync")",
+                allowedFileExtensions: ["jpg", "png"],
+                dropZoneEnabled: false,
+                initialPreview: [
+                    "<img src='" + $("#CoverImg").val() + "' class='file-preview-image' alt='Cover' title='Cover' style='margin-top:0px; max-height:100%; max-width:100%;'>"
+                ]
+            }).on("fileuploaded", function (event, data, previewId, index) {
+
+                $("#CoverImg").val(data.response);
+                console.log(event);
+                console.log(data.response);
+                console.log(previewId);
+                console.log(index);
+            });
+        });
+    </script>
+}

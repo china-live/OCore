@@ -1,0 +1,3 @@
+﻿Name: Xcore Migrator
+Author: LDMING
+Priority: -2

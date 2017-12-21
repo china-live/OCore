@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XCore.Entities\XCore.Entities.csproj" />
+    <ProjectReference Include="..\XCore.Modules.Abstractions\XCore.Modules.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

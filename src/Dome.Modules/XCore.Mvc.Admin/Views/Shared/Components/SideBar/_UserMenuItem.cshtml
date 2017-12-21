@@ -1,0 +1,53 @@
+﻿@model SidebarViewModel
+@{
+    List<Nav> currentNavList = Model.TempMenu;
+    List<Nav> navList = Model.Menu;
+    if (currentNavList.Count > 0)
+    {
+        <ul class="sub-menu">
+            @foreach (var item in currentNavList)
+            {
+                var subList = navList.FindAll(c => c.pId == item.id && c.visible);//取出当前菜单的子菜单列表
+
+                Model.TempMenu = subList;
+
+                var class1 = "nav-item";
+                if (item.active)
+                {
+                    class1 += " active";
+                }
+
+                var class2 = "nav-link";
+                if (subList.Count > 0)
+                {
+                    class2 += " nav-toggle";
+                }
+                <li class="@class1">
+                    <a href="@item.href"  class="@class2">
+                        @if (!string.IsNullOrWhiteSpace(item.icon))
+                        {
+                            <i class="@item.icon"></i>
+                        }
+                        <span class="title">@item.text</span>
+                        @if (item.active)
+                        {
+                            <span class="selected"></span>
+                        }
+                        @if (subList.Count > 0)
+                        {
+                            if (item.active)
+                            {
+                                <span class="arrow open"></span>
+                            }
+                            else
+                            {
+                                <span class="arrow"></span>
+                            }
+                        }
+                    </a>
+                    @Html.Partial("Components/SideBar/_UserMenuItem", Model)
+                </li>
+            }
+        </ul>
+    }
+}

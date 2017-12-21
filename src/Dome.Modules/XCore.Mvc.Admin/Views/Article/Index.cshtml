@@ -1,0 +1,38 @@
+﻿@model List<XCore.Article.Article> 
+@{
+    ViewBag.CurrentPageName = "21";
+    var model = Model ?? new List<XCore.Article.Article>();
+}
+<div class="page-content">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="@Url.Action("index","home")">首页</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>内容管理</span>
+            </li>
+        </ul>
+    </div>
+    <h1 class="page-title">
+        添加文章 @*<small>选择要预约的时间段</small>*@
+    </h1>
+    <div class="row">
+        <div class="col-md-12 ">
+             @foreach (var item in model)
+             {
+                 <div>
+                   @item.Id  @item.Title  @item.CategoryName  <a href="@Url.Action("edit","article",new { id=item.Id})">编辑</a>
+                 </div>
+             }
+        </div>
+    </div>
+
+    <div class="clearfix">
+    </div>
+</div>
+
+@section scripts{
+ 
+}

@@ -1,0 +1,20 @@
+﻿<div>
+    <nav id="1" name="首页" icon="icon-home" href="@Url.Action("index","home")">
+    </nav>
+    <nav id="2" name="新闻管理" icon="icon-note" href="javascript:;">
+        <nav id="21" name="新闻列表" href="@Url.Action("index", "article")"></nav>
+        <nav id="22" name="添加新闻" href="@Url.Action("edit","article",new { id=0})"></nav>
+    </nav>
+    <nav id="3" name="视频管理" icon="icon-note" href="javascript:;">
+        <nav id="31" name="视频列表" href="@Url.Action("index", "video")"></nav>
+        <nav id="32" name="添加视频" href="@Url.Action("edit","video",new { id=0}))"></nav>
+    </nav>
+</div>
+
+@*
+    id           系统中每一个页面会对应一个唯一Id  (必须，唯一)
+    name         菜单名称（必须）
+    icon         菜单图标（必须）
+    href         菜单连接地址，无地址请使用“javascript:;”或“javascript:void(0);”（必须）
+    visible      是否显示（可选，默认为显示）
+*@

@@ -1,0 +1,71 @@
+﻿@model XCore.Mvc.Admin.Models.ExternalLoginRegisterViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>关联本地帐户</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="robots" content="none" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="~/XCore.Mvc.Admin/fonts/fonts-open-sans.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h2 class="text-danger">关联本地帐户</h2>
+            <p class="text-danger">第三方登录需要关联一个本地帐户</p>
+        </header>
+        <div>
+            <p class="text-info">
+                您已成功使用<strong>@ViewData["LoginProvider"]</strong>登录<br />
+                1.如果你有本地帐户，请点击“关联已有帐号”返回登录页使用本地账号进行登录，登录后在帐户管理面进行关联。<br />
+                2.如果你没有本地帐户，请填写下面表单进行注册，注册成功后，需等待管理员核实，核实成功后方可登录系统。
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" id="form1">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FullName"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-primary" role="button" href="javascript:;">注册新的账号</a>
+            <a class="btn btn-default" role="button" href="@Url.Action("index","home")">关联已有帐号</a>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            $(".btn-primary").on("click", function () {
+                $("#form1").submit();
+            });
+        });
+    </script>
+</body>
+</html>

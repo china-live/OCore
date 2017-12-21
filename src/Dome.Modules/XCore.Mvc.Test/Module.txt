@@ -1,0 +1,2 @@
+﻿Name: Mvc Test
+Dependencies: XCore.Mvc

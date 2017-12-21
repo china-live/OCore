@@ -1,0 +1,2 @@
+﻿Name: XCore.Tree
+Dependencies: XCore.Tree.Core

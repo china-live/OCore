@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XCore.DeferredTasks.Abstractions\XCore.DeferredTasks.Abstractions.csproj" />
+    <ProjectReference Include="..\XCore.Environment.Shell.Abstractions\XCore.Environment.Shell.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

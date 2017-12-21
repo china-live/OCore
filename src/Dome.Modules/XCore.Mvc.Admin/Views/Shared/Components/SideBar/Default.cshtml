@@ -1,0 +1,87 @@
+﻿@model SidebarViewModel
+@{
+    //var currentPage = ViewBag.CurrentPageName as string;
+
+    List<Nav> navList = Model.Menu;
+
+    var activeParents = new string[] { };
+
+    //检索当前菜单项将其设置为活动
+    var query = from nav in navList
+                where nav.id.ToString() == Model.CurrentPageName
+                select nav;
+    foreach (var item in query)
+    {
+        item.active = true;
+        activeParents = item.parents.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+    }
+
+    //检索当前菜单项的所有父级菜单设置为活动
+    var query2 = from nav in navList
+                 let i = nav.id.ToString()
+                 where activeParents.Contains(i)
+                 select nav;
+    foreach (var item in query2)
+    {
+        //item.open = true;
+        item.active = true;
+    }
+
+    int ii = 0;
+    int L = 0;
+    var query3 = from nav in navList
+                 where nav.depth == 1 && nav.visible
+                 select nav;
+    L = query3.Count();
+
+    foreach (var item in query3)
+    {
+        ii++;
+        var class1 = "nav-item";
+        if (ii == 1)
+        {
+            class1 += " start"; //加入开始标识，表示菜单从这里开始（效果：去掉菜单前的分割线）
+        }
+        if (item.active)
+        {
+            class1 += " active open";
+        }
+        if (ii == L)
+        {
+            class1 += " last";
+        }
+
+        var subList = navList.FindAll(c => c.pId == item.id && c.visible);//取出当前菜单的子菜单列表
+
+        Model.TempMenu = subList;
+
+        var class2 = "nav-link";
+        if (subList.Count > 0)
+        {
+            class2 += " nav-toggle";
+        }
+
+        <li class="@class1">
+            <a href="@item.href" class="@class2">
+                <i class="@item.icon"></i>
+                <span class="title">@item.text</span>
+                @if (item.active)
+                {
+                    <span class="selected"></span>
+                }
+                @if (subList.Count > 0)
+                {
+                    if (item.active)
+                    {
+                        <span class="arrow open"></span>
+                    }
+                    else
+                    {
+                        <span class="arrow"></span>
+                    }
+                }
+            </a>
+            @Html.Partial("Components/SideBar/_UserMenuItem", Model)
+        </li>
+    }
+}

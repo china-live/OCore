@@ -1,0 +1,394 @@
+﻿@model CreateAndEditVideoViewModel
+@{
+    ViewBag.CurrentPageName = "32";
+    var categorys = ViewData["Categorys"] as List<SelectListItem>;
+}
+<div class="page-content">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="#">首页</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>视频管理</span>
+            </li>
+        </ul>
+    </div>
+    <h1 class="page-title">
+        添加视频 @*<small>选择要预约的时间段</small>*@
+    </h1>
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-share font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">添加视频</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <form action="@Url.Action("Edit")" class="form-horizontal" id="form1" method="post">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    标题
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-5">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" id="id" name="id" value="@Model.Id" />
+                                    <input type="text" id="Title" name="Title" value="@Model.Title" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    所属分类
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-5">
+                                    @*<input type="text" id="CoverImg" name="CoverImg" value="@Model.CategoryName" class="form-control" />*@
+
+                                    <select name="CategoryName" id="CategoryName" class="form-control">
+                                        @foreach (var item in categorys)
+                                        {
+                                            if (item.Value == Model.CategoryName)
+                                            {
+                                                <option value="@item.Value" selected="selected">@item.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    封面
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <input type="text" id="CoverImg" name="CoverImg" value="@Model.CoverImg" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    AppId
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <input type="text" id="AppId" name="AppId" value="@Model.AppId" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    FileId
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <input type="text" id="FileId" name="FileId" value="@Model.FileId" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    是否发布
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-5">
+                                    @if (Model.Status == 1)
+                                    {
+                                        <input name="Status" type="checkbox" class="form-control make-switch" data-on-text="&nbsp;是&nbsp;" data-off-text="&nbsp;否&nbsp;" data-on-color="success" data-off-color="warning" data-size="normal" checked="checked" value="1">
+                                    }
+                                    else
+                                    {
+                                        <input name="Status" type="checkbox" class="form-control make-switch" data-on-text="&nbsp;是&nbsp;" data-off-text="&nbsp;否&nbsp;" data-on-color="success" data-off-color="warning" data-size="normal" value="1">
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:none;" id="form-desc">
+                                <label class="control-label col-md-2">
+                                    备注说明
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-7">
+                                    <textarea id="Description" name="Description" class="form-control" rows="4">
+                                    @Model.Description
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    播放数
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <input type="text" id="Click" name="Click" value="@Model.Click" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    喜欢数
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <input type="text" id="LikeCount" name="LikeCount" value="@Model.LikeCount" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    排序
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <input type="text" id="Sort" name="Sort" value="@Model.Sort" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    置顶/热门/推荐
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-5">
+                                    <div class="md-checkbox-inline">
+                                        <div class="md-checkbox">
+                                            @if (Model.IsTop)
+                                            {
+                                                <input type="checkbox" id="IsTop" name="IsTop" value="true" checked="checked" class="md-check">
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" id="IsTop" name="IsTop" value="true" class="md-check">
+                                            }
+
+                                            <label for="IsTop">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> 置顶
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            @if (Model.IsHot)
+                                            {
+                                                <input type="checkbox" id="IsRed" name="IsRed" value="true" checked="checked" class="md-check">
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" id="IsRed" name="IsRed" value="true" class="md-check">
+                                            }
+
+                                            <label for="IsRed">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> 热门
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            @if (Model.IsRed)
+                                            {
+                                                <input type="checkbox" id="IsHot" name="IsHot" value="true" checked="checked" class="md-check">
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" id="IsHot" name="IsHot" value="true" class="md-check">
+                                            }
+                                            
+                                            <label for="IsHot">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> 推荐
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    发布时间
+                                    <span class="required"> </span>
+                                </label>
+                                <div class="col-md-5">
+                                    <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control"  autocomplete="off"  id="CreateTime" name="CreateTime" value="@Model.CreateTime.ToString("yyyy-MM-dd")" readonly>
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <!-- /input-group -->
+                                    @*<span class="help-block"> Select date </span>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn green">保存</button>
+                                    <button type="button" class="btn default to-list">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+    </div>
+</div>
+@section style{ 
+<link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" asp-append-version="true" />
+@*<link href="~/lib/bootstrap-timepicker/css/timepicker.min.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/lib/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/lib/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" asp-append-version="true" />*@
+} 
+@section scripts{
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+@*<script src="~/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script src="~/lib/moment/min/moment.min.js"></script>
+<script src="~/lib/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+<script src="~/lib/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>*@
+
+    <script type="text/javascript">
+        var CurrentPage = function () {
+            var handleLogin = function (vm) {
+
+                var $loginForm = $('#form1');
+
+                $loginForm.validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    ignore: "",
+                    rules: {
+                        Title: {
+                            required: true,
+                            maxlength: 100
+                        }
+                    },
+
+                    messages: {
+                        Title: {
+                            required: "标题不能为空"
+                        }
+                    },
+
+                    invalidHandler: function (event, validator) { //提交表单时显示错误信息
+                        //$('.alert-danger', $('.login-form')).show();
+                        //alert.hide();
+                        //error1.show();
+                    },
+
+                    highlight: function (element) { // 高亮显示出错误的输入项（input）
+                        $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) { //
+                        label.closest('.form-group').removeClass('has-error');
+                        label.remove();
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if (element.closest('.input-icon').size() === 1) {
+                            error.insertAfter(element.closest('.input-icon'));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                        //error.insertAfter(element.closest('.input-icon'));
+                    },
+
+                    submitHandler: function (form) {
+ 
+                    }
+                });
+
+                $loginForm.find('input').keypress(function (e) {
+                    if (e.which == 13) {
+                        if ($('#form1').valid()) {
+                            $('#form1').submit(); //form validation success, call ajax form submit
+                        }
+                        return false;
+                    }
+                });
+
+                $loginForm.submit(function (e) {
+                    e.preventDefault();
+
+                    if (!$('#form1').valid()) {
+                        return;
+                    }
+                    //console.log("seee");
+
+                    App.blockUI({
+                        message: "正在提交，请稍后...",
+                        boxed: true
+                    });
+
+                    var data = $loginForm.serialize()
+                    var token = $("input[name='__RequestVerificationToken']").val();
+                    $.ajax({
+                        //contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        type: "POST",
+                        url: $loginForm.attr('action'),
+                        data: data,
+                        headers:
+                        {
+                            "RequestVerificationToken": token
+                        },
+                        success: handleResponse
+                    });
+                });
+
+                var handleResponse = function(json) {//JSON.stringify()
+                      App.unblockUI();
+                      if (json.success) {
+                          $("#id").val(json.targetUrl);
+                          App.notify.success("修改已成功保存到服务器！", "保存成功");
+                      } else if (json.errors[0] != undefined) {
+                          App.notify.error(json.errors[0].message, "出现错误");
+                      } else {
+                          App.notify.error("服务器错误，请联系管理员解决！", "出现错误");
+                      }
+                 }
+            }
+
+            return {
+                init: function (vm) {
+ 
+                    handleLogin(vm);
+                }
+            };
+        }();
+
+        $(function () {
+             var vm = {
+                @*"ForgetPage_url":"@Url.Action("Forget", "Home")",
+                "RegisterPage_url":"@Url.Action("Register", "Home")",
+                "HomePage_url": "@ViewData["ReturnUrl"]" === "" ? "@Url.Action("Index", "Home")" : "@ViewData["ReturnUrl"]"*@
+            };
+
+            if (CurrentPage) {
+                CurrentPage.init(vm);
+             }
+
+
+            if (jQuery().datepicker) {
+                $('.date-picker').datepicker({
+                    rtl: App.isRTL(),
+                    language: 'zh-CN',
+                    orientation: "left",
+                    format: 'yyyy-mm-dd',
+                    startDate: '2015-01-01',
+                    defaultViewDate: $("#CreateTime").val(),
+                    autoclose: true
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿@model InstalledViewModel
+@{
+    ViewBag.Title = "安装系统";
+    Layout = "_Layout.cshtml";
+}
+
+<form class="form1" action="@Url.Action("Installed","Home")" method="post">
+
+    <input class="form-control" type="text"   placeholder="key" name="InstalledKey" value="@Model.InstalledKey" />
+
+    <button type="submit" class="btn green uppercase">登录</button>
+    @Html.AntiForgeryToken()
+</form>
+
+@section scripts {
+    <script>
+        var CurrentPage = function () {
+            var handleLogin = function (vm) {
+
+                var $loginForm = $('form1');
+ 
+                $loginForm.find('input').keypress(function (e) {
+                    if (e.which == 13) {
+                        if ($('.form1').valid()) {
+                            $('.form1').submit(); //form validation success, call ajax form submit
+                        }
+                        return false;
+                    }
+                });
+
+                $loginForm.submit(function (e) {
+                    e.preventDefault();
+ 
+                    App.blockUI({
+                        //animate: true,
+                        //overlayColor: 'note',
+                        message: "正在提交，请稍后...",
+                        boxed: true
+                        //animate: true,
+                        //iconOnly: true,
+                        //textOnly: true
+                    });
+
+                    var data = $loginForm.serialize()
+                    //console.log(data);
+                    var token = $("input[name='__RequestVerificationToken']").val();
+                    $.ajax({
+                        //contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        type: "POST",
+                        url: $loginForm.attr('action'),
+                        data: data,
+                        headers:
+                        {
+                            "RequestVerificationToken": token
+                        },
+                        success: handleResponse
+                    });
+                });
+
+                var handleResponse = function(json) {//JSON.stringify()
+                      App.unblockUI();
+                      //success1.hide();
+                      if (json.success) {
+                          $(".alert-success").show();
+                          setTimeout(function () {
+                              $(".alert-success").hide();
+                              location.href = vm.HomePage_url;
+                          }, 3000);
+                      } else if (json.errors[0] != undefined) {
+                          //console.log(errorinfo);
+                          $("#error").find("span").text(json.errors[0].message).show(200);
+                          $("#error").show(200).delay(5000).hide(500);
+                      }
+                 }
+            }
+
+            return {
+                init: function (vm) {
+                    handleLogin(vm);
+                }
+            };
+        }();
+
+        $(function () {
+             var vm = {
+                @*"ForgetPage_url":"@Url.Action("Forget", "Home")",
+                "RegisterPage_url":"@Url.Action("Register", "Home")",
+                "HomePage_url": "@ViewData["ReturnUrl"]" === "" ? "@Url.Action("Index", "Home")" : "@ViewData["ReturnUrl"]"*@
+            };
+
+            if (CurrentPage) {
+                CurrentPage.init(vm);
+            }
+        });
+    </script>
+}

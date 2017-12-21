@@ -1,0 +1,38 @@
+﻿@model List<XCore.Article.TencentVod>
+@{
+    ViewBag.CurrentPageName = "31";
+    var model = Model ?? new List<XCore.Article.TencentVod>();
+}
+<div class="page-content">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="#">首页</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>视频管理</span>
+            </li>
+        </ul>
+    </div>
+    <h1 class="page-title">
+        添加视频 @*<small>选择要预约的时间段</small>*@
+    </h1>
+    <div class="row">
+        <div class="col-md-12 ">
+            @foreach (var item in model)
+            {
+                <div>
+                    @item.Id  @item.Title @item.CategoryName <a href="@Url.Action("edit","video",new { id=item.Id})">编辑</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="clearfix">
+    </div>
+</div>
+
+@section scripts{
+
+}
