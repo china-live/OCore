@@ -8,23 +8,23 @@ using Microsoft.Extensions.Primitives;
 
 namespace XCore.Mvc.Core.RazorPages
 {
-    public class ModularPageActionDescriptorChangeProvider : IActionDescriptorChangeProvider
-    {
-        private readonly IFileProvider _fileProvider;
-        private readonly string _searchPattern;
+    //public class ModularPageActionDescriptorChangeProvider : IActionDescriptorChangeProvider
+    //{
+    //    private readonly IFileProvider _fileProvider;
+    //    private readonly string _searchPattern;
 
-        public ModularPageActionDescriptorChangeProvider(
-            IRazorViewEngineFileProviderAccessor fileProviderAccessor,
-            IOptions<RazorPagesOptions> razorPagesOptions)
-        {
-            _fileProvider = fileProviderAccessor.FileProvider;
-            _searchPattern = razorPagesOptions.Value.RootDirectory.TrimEnd('/')
-                + "/**/Pages/**/*" + RazorViewEngine.ViewExtension;
-        }
+    //    public ModularPageActionDescriptorChangeProvider(
+    //        IRazorViewEngineFileProviderAccessor fileProviderAccessor,
+    //        IOptions<RazorPagesOptions> razorPagesOptions)
+    //    {
+    //        _fileProvider = fileProviderAccessor.FileProvider;
+    //        _searchPattern = razorPagesOptions.Value.RootDirectory.TrimEnd('/')
+    //            + "/**/Pages/**/*" + RazorViewEngine.ViewExtension;
+    //    }
 
-        public IChangeToken GetChangeToken()
-        {
-            return _fileProvider.Watch(_searchPattern);
-        }
-    }
+    //    public IChangeToken GetChangeToken()
+    //    {
+    //        return _fileProvider.Watch(_searchPattern);
+    //    }
+    //}
 }

@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace XCore.Mvc.Core.RazorPages
 {
@@ -26,8 +22,8 @@ namespace XCore.Mvc.Core.RazorPages
             builder.Services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<IPageApplicationModelProvider, ModularPageApplicationModelProvider>());
 
-            builder.Services.Replace(
-                ServiceDescriptor.Singleton<IActionDescriptorChangeProvider, ModularPageActionDescriptorChangeProvider>());
+            //builder.Services.Replace(
+            //    ServiceDescriptor.Singleton<IActionDescriptorChangeProvider, ModularPageActionDescriptorChangeProvider>());
 
             return builder;
         }

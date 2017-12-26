@@ -125,7 +125,7 @@ namespace XCore.Mvc.Core
 
                 if (env.IsDevelopment())
                 {
-                    options.FileProviders.Insert(0, new ModuleProjectRazorFileProvider(env.ContentRootPath));
+                    options.FileProviders.Insert(0, new ModuleProjectRazorFileProvider(env));
                 }
             });
         }

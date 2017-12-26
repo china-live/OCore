@@ -39,11 +39,12 @@ namespace XCore.Environment.Shell
 
         public ILogger Logger { get; set; }
 
+        //应用更改
         public async Task ApplyChanges()
         {
             if (Logger.IsEnabled(LogLevel.Information))
             {
-                Logger.LogInformation("Applying changes for for shell '{0}'", _settings.Name);
+                Logger.LogInformation($"应用shell'{_settings.Name}'更改");
             }
 
             var loadedFeatures = await _extensionManager.LoadFeaturesAsync();

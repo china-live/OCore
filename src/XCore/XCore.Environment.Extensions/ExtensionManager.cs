@@ -382,7 +382,9 @@ namespace XCore.Environment.Extensions
                         .ManifestConfigurations
                         .FirstOrDefault(mc =>
                         {
-                            return File.Exists(Path.Combine(subDirectory.PhysicalPath, mc.ManifestFileName));
+                            //return File.Exists(Path.Combine(subDirectory.PhysicalPath, mc.ManifestFileName));
+                            var subPath = Path.Combine(searchOption.SearchPath, subDirectory.Name, mc.ManifestFileName);
+                            return _hostingEnvironment.ContentRootFileProvider.GetFileInfo(subPath).Exists;
                         }
                         );
 
