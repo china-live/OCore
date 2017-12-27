@@ -6,9 +6,17 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
     <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>-->
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
+  </ItemGroup>
   
   <ItemGroup>
     <Folder Include="wwwroot\" />
@@ -25,6 +33,7 @@
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Admin\XCore.Mvc.Admin.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.HelloWorld\XCore.Mvc.HelloWorld.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Test\XCore.Mvc.Test.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Metronic\XCore.Metronic.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Application.Mvc.Targets\XCore.Application.Mvc.Targets.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Logging.NLog\XCore.Logging.NLog.csproj" />
   </ItemGroup>

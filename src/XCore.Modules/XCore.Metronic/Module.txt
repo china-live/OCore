@@ -1,0 +1,4 @@
+﻿Name: XCore.Metronic
+Author: LDMING
+Website: http://www.ldming.com
+Version: 1.0.0
