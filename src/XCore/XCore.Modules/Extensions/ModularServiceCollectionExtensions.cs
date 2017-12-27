@@ -32,7 +32,7 @@ namespace XCore.Modules.Extensions
 
             var modularServiceCollection = new ModularServiceCollection(services);
 
-            // Use a single tenant and all features by default
+            // Use a single tenant and all features by default 单租户时默认拥有全部功能
             modularServiceCollection.Configure(internalServices =>
                 internalServices.AddAllFeaturesDescriptor()
             );
@@ -81,6 +81,7 @@ namespace XCore.Modules.Extensions
             services.AddLocalization();
             services.AddHostingShellServices();
             services.AddExtensionManagerHost();
+            services.AddWebEncoders();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddSingleton<IClock, Clock>();

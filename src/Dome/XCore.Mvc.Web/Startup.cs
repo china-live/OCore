@@ -31,8 +31,8 @@ namespace XCore.Mvc.Web
         {
             services.AddSingleton(JavaScriptEncoder.Default);
 
-            services.AddDistributedMemoryCache();
-            services.AddSession();
+            //services.AddDistributedMemoryCache();
+            //services.AddSession();
 
             services.AddModules(configure =>
                 {
@@ -71,7 +71,7 @@ namespace XCore.Mvc.Web
                 //    loggerFactory.AddConsole(Configuration);
                 //    loggerFactory.AddDebug();
             }
-            app.UseSession();
+            //app.UseSession();
 
             app.UseStaticFiles();
 

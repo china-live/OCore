@@ -71,29 +71,19 @@ namespace XCore.Modules.Extensions
                 var extensionManager = app.ApplicationServices.GetRequiredService<IExtensionManager>();
                 var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
 
-                // TODO: 配置每个模块的位置和参数（max-age）。
+                // TODO: configure the location and parameters (max-age) per module.配置每个模块的位置和参数（max-age）
                 var availableExtensions = extensionManager.GetExtensions();
                 foreach (var extension in availableExtensions)
                 {
-                    //扩展（模块）的静态文件默认放在“Content”下
-                    //先这样，以后可改为从配文件读取
-                    var contentPath = Path.Combine(extension.ExtensionFileInfo.PhysicalPath, "Content");
+                    var contentPath = extension.ExtensionFileInfo.PhysicalPath != null
+                        ? Path.Combine(extension.ExtensionFileInfo.PhysicalPath, "Content")
+                        : null;
+
                     var contentSubPath = Path.Combine(extension.SubPath, "Content");
 
-                    if (Directory.Exists(contentPath))
+                    if (env.ContentRootFileProvider.GetDirectoryContents(contentSubPath).Exists)
                     {
                         IFileProvider fileProvider;
-                        //if (env.IsDevelopment())
-                        //{
-                        //    fileProvider = new CompositeFileProvider(
-                        //        new ModuleProjectContentFileProvider(env, contentSubPath),
-                        //        new PhysicalFileProvider(contentPath));
-                        //}
-                        //else
-                        //{
-                        //    fileProvider = new PhysicalFileProvider(contentPath);
-                        //}
-
                         if (env.IsDevelopment())
                         {
                             var fileProviders = new List<IFileProvider>();

@@ -80,7 +80,7 @@ namespace XCore.Environment.Shell.Builders
             // OrderBy performs a stable sort so order is preserved among equal Order values.
             startups = startups.OrderBy(s => s.Order);
 
-            
+
             if (_logger.IsEnabled(LogLevel.Debug))
             {
                 _logger.LogDebug("扩展模块服务注册 开始");
@@ -90,7 +90,10 @@ namespace XCore.Environment.Shell.Builders
             foreach (var startup in startups)
             {
                 if (_logger.IsEnabled(LogLevel.Debug))
+                {
                     _logger.LogDebug(startup.ToString());
+                }
+
 
                 var feature = blueprint.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value.FeatureInfo;
                 featureAwareServiceCollection.SetCurrentFeature(feature);

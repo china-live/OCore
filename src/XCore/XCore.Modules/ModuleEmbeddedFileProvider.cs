@@ -52,20 +52,32 @@ namespace XCore.Modules
                 var assetPaths = _environment.GetModule(name).AssetPaths;
 
                 var folders = new HashSet<string>(StringComparer.Ordinal);
+                var folderSlash = folder + '/';
 
-                foreach (var assetPath in assetPaths.Where(a => a.StartsWith(folder, StringComparison.Ordinal)))
+                foreach (var assetPath in assetPaths.Where(a => a.StartsWith(folderSlash, StringComparison.Ordinal)))
                 {
-                    path = assetPath.Substring(folder.Length + 1);
-                    index = path.IndexOf('/');
+                    //path = assetPath.Substring(folder.Length + 1);
+                    //index = path.IndexOf('/');
+                    var folderPath = assetPath.Substring(folderSlash.Length);
+                    var pathIndex = folderPath.IndexOf('/');
+                    var isFilePath = pathIndex == -1;
 
-                    if (index == -1)
+                    if (isFilePath)
                     {
                         entries.Add(GetFileInfo(assetPath));
                     }
                     else
                     {
-                        folders.Add(path.Substring(0, index));
+                        folders.Add(folderPath.Substring(0, pathIndex));
                     }
+                    //if (index == -1)
+                    //{
+                    //    entries.Add(GetFileInfo(assetPath));
+                    //}
+                    //else
+                    //{
+                    //    folders.Add(path.Substring(0, index));
+                    //}
                 }
 
                 entries.AddRange(folders.Select(f => new EmbeddedDirectoryInfo(f)));
