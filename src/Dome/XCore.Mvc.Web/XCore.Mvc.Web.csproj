@@ -6,7 +6,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
     <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>-->
   </PropertyGroup>
@@ -25,11 +25,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="$(AspNetCoreVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup" Version="$(AspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
     <!-- This reference is necessary for view precompilation to work on publish -->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Dome.Modules\XCore.Migrator\XCore.Migrator.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Admin\XCore.Mvc.Admin.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.HelloWorld\XCore.Mvc.HelloWorld.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Test\XCore.Mvc.Test.csproj" />

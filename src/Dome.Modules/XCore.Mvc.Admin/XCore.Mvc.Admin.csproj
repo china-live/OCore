@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\XCore\XCore.Article.Core\XCore.Article.Core.csproj" />
-    <ProjectReference Include="..\..\..\src\XCore\XCore.Identity.Core\XCore.Identity.Core.csproj" />
     <ProjectReference Include="..\..\..\src\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
-    <ProjectReference Include="..\..\..\src\XCore\XCore.Mvc.Core\XCore.Mvc.Core.csproj" />
     <ProjectReference Include="..\..\..\src\XCore\XCore.Security.Abstractions\XCore.Security.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\src\XCore\XCore.Web.Common\XCore.Web.Common.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Article\XCore.Article.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Identity\XCore.Identity.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Tree\XCore.Tree.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.UEditor\XCore.UEditor.csproj" />
   </ItemGroup>

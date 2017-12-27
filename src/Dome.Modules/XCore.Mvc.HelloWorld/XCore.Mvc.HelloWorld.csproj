@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
-    <ProjectReference Include="..\..\..\src\XCore\XCore.Mvc.Core\XCore.Mvc.Core.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" />
   </ItemGroup>
 
 </Project>
