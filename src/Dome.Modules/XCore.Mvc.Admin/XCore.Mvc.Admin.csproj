@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\js\main.js" />
-    <None Remove="Content\js\main.js" />
-    <None Remove="Content\js\main.min.js" />
-    <None Remove="Content\js\main.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\src\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
     <ProjectReference Include="..\..\..\src\XCore\XCore.Security.Abstractions\XCore.Security.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\src\XCore\XCore.Web.Common\XCore.Web.Common.csproj" />

@@ -14,34 +14,55 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="robots" content="none" />
     <link rel="shortcut icon" href="~/favicon.ico" />
-    <link href="~/fonts/fonts-open-sans.css" rel="stylesheet"/>
+    <environment include="Development">
+        <link href="~/XCore.Metronic/fonts/fonts-open-sans.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/sweetalert/css/sweetalert.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/toastr/toastr.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/jcrop/css/jquery.Jcrop.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/plugins/famfamfam-flags/dist/sprite/famfamfam-flags.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/XCore.Metronic/fonts/fonts-open-sans.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/simple-line-icons/css/simple-line-icons.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/sweetalert/css/sweetalert.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/toastr/toastr.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/jcrop/css/jquery.Jcrop.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/plugins/famfamfam-flags/dist/sprite/famfamfam-flags.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+ 
+    @*<environment include="Development">
+            <link href="~/XCore.Metronic/plugins/datatables/datatables.min.css" rel="stylesheet" />
+            <link href="~/XCore.Metronic/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" />
+        </environment>
+        <environment exclude="Development">
+            <link href="~/XCore.Metronic/plugins/datatables/datatables.min.css" rel="stylesheet" asp-append-version="true" />
+            <link href="~/XCore.Metronic/plugins/datatables/plugins/bootstrap/datatables.bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        </environment>*@
 
-    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
-    <link href="~/lib/sweetalert/dist/sweetalert.css" rel="stylesheet" />
-    <link href="~/lib/toastr/toastr.css" rel="stylesheet" />
-    <link href="~/lib/Jcrop/css/Jcrop.css" rel="stylesheet" />
-    <link href="~/XCore.Mvc.Admin/metronic/assets/global/plugins/datatables/datatables.all.min.css" rel="stylesheet" />
-    <link href="~/lib/famfamfam-flags/dist/sprite/famfamfam-flags.css" rel="stylesheet" />
+    @RenderSection("css", false)
 
-    @RenderSection("globalcss", false)
-
-    <link href="~/XCore.Mvc.Admin/metronic/assets/global/css/components.css" rel="stylesheet" type="text/css" />
-    <link href="~/XCore.Mvc.Admin/metronic/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="~/XCore.Mvc.Admin/metronic/assets/layouts/layout/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="~/XCore.Mvc.Admin/metronic/assets/layouts/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
-    <link href="~/XCore.Mvc.Admin/metronic/assets/layouts/layout/css/custom.css" rel="stylesheet" type="text/css" />
-
-    @*<link rel="stylesheet" href="~/view-resources/Areas/Admin/Layout/_ChatBar.css" asp-append-version="true" />*@
-
-    @*<link href="~/Common/Styles/core.css" rel="stylesheet" />*@
-
+    <environment include="Development">
+        <link href="~/XCore.Metronic/css/components.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/css/plugins.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/layouts/layout/css/layout.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/layouts/layout/css/themes/darkblue.css" rel="stylesheet" />
+        <link href="~/XCore.Metronic/layouts/layout/css/custom.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/XCore.Metronic/css/components.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/css/plugins.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/layouts/layout/css/layout.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/XCore.Metronic/layouts/layout/css/custom.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
     @RenderSection("style", required: false)
-    <script type="text/javascript">
-
-    </script>
 </head>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -63,7 +84,8 @@
                         <li class="heading">
                             <h3 class="uppercase">@*Features*@</h3>
                         </li>
-                        @*<li class="sidebar-search-wrapper">
+                        @*
+                            <li class="sidebar-search-wrapper">
                                 <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                                 <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
                                 <form class="sidebar-search  sidebar-search-bordered " action="page_general_search_3.html" method="POST">
@@ -102,50 +124,93 @@
     </div>
 
     <!--[if lt IE 9]>
-    <script src="@Url.Content("~")/lib/respond/dest/respond.min.js"></script>
-    <script src="@Url.Content("~")/lib/excanvas/excanvas.js"></script>
-    <script src="@Url.Content("~")/plugins/ie8.fix.min.js"></script>
+    <script src="@Url.Content("~")/XCore.Metronic/plugins/respond.min.js"></script>
+    <script src="@Url.Content("~")/XCore.Metronic/plugins/excanvas.min.js"></script>
+    <script src="@Url.Content("~")/XCore.Metronic/plugins/ie8.fix.min.js"></script>
     <![endif]-->
+    <environment include="Development">
+        <script src="~/XCore.Metronic/plugins/jquery.js">@*1.12.4*@</script>
+        <script src="~/XCore.Metronic/plugins/bootstrap/js/bootstrap.js">@*3.3.7*@</script>
+        <script src="~/XCore.Metronic/plugins/json2/json2.js"></script>
+        <script src="~/XCore.Metronic/plugins/js.cookie.js">@*2.1.3*@</script>
+        <script src="~/XCore.Metronic/plugins/jquery-slimscroll/jquery.slimscroll.js">@*1.3.2*@</script>
+        <script src="~/XCore.Metronic/plugins/jquery.blockui.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery.form.js"></script>
+        <script src="~/XCore.Metronic/plugins/bootstrap-switch/js/bootstrap-switch.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery-validation/js/jquery.validate.js">@*1.17.0*@</script>
+        <script src="~/XCore.Metronic/plugins/jquery-validation/js/additional-methods.js"></script>
+        <script src="~/XCore.Metronic/plugins/Jcrop/js/jquery.color.js"></script>
+        <script src="~/XCore.Metronic/plugins/Jcrop/js/jquery.Jcrop.js">@*0.9.12*@</script>
+        <script src="~/XCore.Metronic/plugins/spin.js/spin.js">@*Ajax Loading*@</script>
+        <script src="~/XCore.Metronic/plugins/spin.js/jquery.spin.js"></script>
+        <script src="~/XCore.Metronic/plugins/sweetalert/js/sweetalert.js">@*原生js提示框 *@</script>
+        <script src="~/XCore.Metronic/plugins/toastr/toastr.js">@*消息提示插件*@</script>
+        <script src="~/XCore.Metronic/plugins/moment/min/moment-with-locales.js"></script>
+        <script src="~/XCore.Metronic/plugins/moment-timezone/builds/moment-timezone-with-data.js"></script>
+        <script src="~/XCore.Metronic/plugins/underscore.js">@*js增强扩展*@</script>
+        <script src="~/XCore.Metronic/plugins/mustache.js/mustache.js">@*模板引擎*@</script>
+        <script src="~/XCore.Metronic/plugins/jquery-timeago/jquery.timeago.js">@*将时间戳转换成如: 5分钟前, 约3小时前这样的更友好易读的时间轴*@</script>
+        <script src="~/XCore.Metronic/plugins/localforage/dist/localforage.js">@*本地存储*@</script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/XCore.Metronic/plugins/jquery.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/json2/json2.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/js.cookie.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery.blockui.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery.form.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery-validation/js/additional-methods.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/Jcrop/js/jquery.color.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/Jcrop/js/jquery.Jcrop.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/spin.js/spin.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/spin.js/jquery.spin.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/sweetalert/js/sweetalert.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/toastr/toastr.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/moment/min/moment-with-locales.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/underscore.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/mustache.js/mustache.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/jquery-timeago/jquery.timeago.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/localforage/dist/localforage.min.js"></script>
+    </environment>
+
+    @*<environment include="Development">
+        表格相关
+        <script src="~/XCore.Metronic/plugins/scripts/datatables.js"></script>
+        <script src="~/XCore.Metronic/plugins/datatables/datatables.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/XCore.Metronic/plugins/scripts/datatables.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/datatables/datatables.min.js"></script>
+        <script src="~/XCore.Metronic/plugins/datatables/plugins/bootstrap/datatables.bootstrap.min.js"></script>
+    </environment>*@
  
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/json2/json2.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/js-cookie/src/js.cookie.js"></script>
-    <script src="~/lib/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <script src="~/lib/blockUI/jquery.blockUI.js"></script>
-    <script src="~/lib/jquery-form/src/jquery.form.js"></script>
-    <script src="~/lib/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
-    <script src="~/lib/Jcrop/js/jquery.color.js"></script>
-    <script src="~/lib/Jcrop/js/Jcrop.js"></script>
-    <script src="~/lib/spin.js/spin.js">@*Ajax Loading*@</script>
-    <script src="~/lib/spin.js/jquery.spin.js"></script>
-    <script src="~/lib/sweetalert/dist/sweetalert.min.js">@*原生js提示框 *@</script>
-    <script src="~/lib/toastr/toastr.js">@*消息提示插件*@</script>
-    <script src="~/lib/moment/min/moment-with-locales.js"></script>
-    <script src="~/lib/moment-timezone/builds/moment-timezone-with-data.js"></script>
-    <script src="~/lib/underscore/underscore.js">@*js增强扩展*@</script>
-    <script src="~/lib/mustache.js/mustache.js">@*模板引擎*@</script>
-    <script src="~/lib/jquery-timeago/jquery.timeago.js"></script>
-    <script src="~/lib/signalr/jquery.signalR.js"></script>
-    <script src="~/lib/localforage/dist/localforage.js"></script>
-    <script src="~/XCore.Mvc.Admin/metronic/assets/global/plugins/datatables/datatables.all.min.js"></script>
+    @RenderSection("js", required: false)
 
-
-    <script src="~/XCore.Mvc.Admin/metronic/assets/global/scripts/app.js"></script>
-    <script src="~/XCore.Mvc.Admin/metronic/assets/layouts/layout/scripts/layout.js"></script>
-    <script src="~/XCore.Mvc.Admin/metronic/assets/layouts/global/scripts/quick-sidebar.js"></script>
-    <script src="~/XCore.Mvc.Admin/metronic/assets/layouts/global/scripts/quick-nav.js"></script>
+    <environment include="Development">
+        <script src="~/XCore.Metronic/scripts/app.js"></script>
+        <script src="~/XCore.Metronic/layouts/layout/scripts/layout.js"></script>
+        <script src="~/XCore.Metronic/layouts/global/scripts/quick-sidebar.js"></script>
+        <script src="~/XCore.Metronic/layouts/global/scripts/quick-nav.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/XCore.Metronic/scripts/app.min.js"></script>
+        <script src="~/XCore.Metronic/layouts/layout/scripts/layout.min.js"></script>
+        <script src="~/XCore.Metronic/layouts/global/scripts/quick-sidebar.min.js"></script>
+        <script src="~/XCore.Metronic/layouts/global/scripts/quick-nav.min.js"></script>
+    </environment>
 
     <script src="~/js/app.toastr.js"></script>
 
-    <script src="~/lib/jquery-validation/src/localization/messages_zh.js" asp-append-version="true"></script>
     <script type="text/javascript">
-        window.UEDITOR_HOME_URL = "@Url.Content("~")/";
+        @*window.UEDITOR_HOME_URL = "@Url.Content("~")/";*@
         $(function () {
-            App.setAssetsPath('@Url.Content("~")/XCore.Mvc.Admin/metronic/assets/');
-        });
+            App.setAssetsPath('@Url.Content("~")/XCore.Metronic/');
+    });
     </script>
     @RenderSection("scripts", required: false)
 </body>

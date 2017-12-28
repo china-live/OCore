@@ -1,0 +1,98 @@
+[
+  {
+    "outputFileName": "Content/fonts/fonts-open-sans.min.css",
+    "inputFiles": [
+      "Content/fonts/fonts-open-sans.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/fonts/fonts-ptsans-narrow.min.css",
+    "inputFiles": [
+      "Content/fonts/fonts-ptsans-narrow.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/fonts/fonts-sourcesans-pro.min.css",
+    "inputFiles": [
+      "Content/fonts/fonts-sourcesans-pro.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/jquery.easing.min.js",
+    "inputFiles": [
+      "Content/plugins/jquery.easing.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/jquery.mockjax.min.js",
+    "inputFiles": [
+      "Content/plugins/jquery.mockjax.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/jquery.parallax.min.js",
+    "inputFiles": [
+      "Content/plugins/jquery.parallax.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/json2/json2.min.js",
+    "inputFiles": [
+      "Content/plugins/json2/json2.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/json2/json_parse_state.min.js",
+    "inputFiles": [
+      "Content/plugins/json2/json_parse_state.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/json2/cycle.min.js",
+    "inputFiles": [
+      "Content/plugins/json2/cycle.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/json2/json_parse.min.js",
+    "inputFiles": [
+      "Content/plugins/json2/json_parse.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/js.cookie.min.js",
+    "inputFiles": [
+      "Content/plugins/js.cookie.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/spin.js/jquery.spin.min.js",
+    "inputFiles": [
+      "Content/plugins/spin.js/jquery.spin.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/underscore-min.min.js",
+    "inputFiles": [
+      "Content/plugins/underscore-min.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/jquery-timeago/jquery.timeago.min.js",
+    "inputFiles": [
+      "Content/plugins/jquery-timeago/jquery.timeago.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/datatables/plugins/bootstrap/datatables.bootstrap.min.css",
+    "inputFiles": [
+      "Content/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/plugins/datatables/plugins/bootstrap/datatables.bootstrap.min.js",
+    "inputFiles": [
+      "Content/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js"
+    ]
+  }
+]
