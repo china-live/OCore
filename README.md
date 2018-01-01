@@ -51,12 +51,19 @@
 * XCore.Mvc.Authorization（废弃）
 * XCore.ResourceManagement.Abstractions（）
 * XCore.ResourceManagement（闲置）
+## Targets模块
+* XCore.Module.Targets
+* XCore.Application.Targets
+* XCore.Application.Mvc.Targets
 
 > 标明（闲置）的模块表示从OrchardCore移植过来，但还未使用过，包括在该项目的示例Demo中也未经验证过。
 - - - -
-下面这些模块虽然也叫模块，但是和上面列举的有一点小小的区别。
+下面这些模块和上面列举的有一点小小的区别，因为上面的这些模块是直接基于NETStandard.Library的标准的.NET Core类库项目。为了方便描述，我们统称为“框架模块”。下面这些模块则是依赖于XCore.Module的，也就是需要引用XCore.Module.Abstractions并继承StartupBase向XCore注册[1],属于真正意义上的XCore模块。同样为了方便描述，我们统称为“XCore模块”。但源代码中，“框架模块”放置在XCore目录内，“XCore模块”放置在XCore.Modules目录内[2]。
+那么我们在开发时如果区别呢？或者说我们在开发时如何决策一个模块属于那个类型。这个没有明显的界限，但是一般情况下XCore.Module模块是具体的业务模块或前端界面相关的，多数不会直接被复用，在开发不同的项目时都需要重新开发或定制。对一些开发过程中比较稳定的、抽象的、可复用的
+代码提取出来封装成核心模板、抽象模块、工具模块等等，放置在框架模块分类中。
 
 
 
-
+* [1]:XCore内置了一个专用的模块XCore.Module.Targets来用于模块开发，在引用XCore.Module.Abstractions的同时也处理一些MSBuild相关的东西，所以实际开发时直接引用XCore.Module.Targets就可以了。
+* [2]:并不是一定要这么放，只是为了源码风格统一个约定而已。当然也不可能把所有模块全塞到这两个目录内，随着开发时间越来越长，项目越来越多，日积月垒会有很多模块，新添加一些目录来区分这些模块十分必要。这时候你可以用同样的命名方式新添加两个目录，一个用来放框架相关的，一个用来放业务相关的。命名方式参见源码的Demo，有两个名叫Demo和Demo.Modules目录。约定不带.Modules结尾的目录放置框架模块，带.Modules的用来放置业务模块。
 
