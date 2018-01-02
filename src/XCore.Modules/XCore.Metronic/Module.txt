@@ -4,4 +4,4 @@ Website: http://www.ldming.com
 Version: 1.0.0
 XCoreVersion: 1.1.x
 Description: 对Metronic4.7.5的封装，清理Metronic中的示例页面和图片，增加一些实用插件。
-Category:Admin Theming
+Category: Admin Theming
