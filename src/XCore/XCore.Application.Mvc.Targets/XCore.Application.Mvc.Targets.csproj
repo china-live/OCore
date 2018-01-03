@@ -15,8 +15,8 @@
   -->
   
   <ItemGroup>
-    <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" />
-    <ProjectReference Include="..\XCore.Application.Targets\XCore.Application.Targets.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\XCore.Application.Targets\XCore.Application.Targets.csproj" PrivateAssets="none" />
   </ItemGroup>
 
 </Project>
