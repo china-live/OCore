@@ -4,7 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-
+  <!-- Add the XCore.Module.props file in the package -->
+  <ItemGroup>
+    <None Include="XCore.Module.Targets.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\XCore.Module.Targets.props</PackagePath>
+    </None>
+    <None Include="Package.Build.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\Package.Build.props</PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XCore.Modules.Abstractions\XCore.Modules.Abstractions.csproj" />
   </ItemGroup>

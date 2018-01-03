@@ -1,4 +1,4 @@
-﻿Name: OrchardCore.Diagnostics.Elm
+﻿Name: XCore.Diagnostics.Elm
 Author: The Orchard Team
 Website: http://orchardproject.net
 Version: 2.0.x

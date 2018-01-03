@@ -4,5 +4,18 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+  
+  <!--
+    You can inject nuget targets and props via nuget. 
+    Say you have a package named “MyPackage”. NuGet will add an MSBuild import to 
+    build/$targetFramework/$packageId.props and build/$targetFramework/$packageId.targets. 
+    You can optionally leave out the $targetFramework subdirectory. 
+    Caution: this will make NuGet treat your packages as compatible with “any” target framework.
+  -->
 
+  <ItemGroup>
+    <None Include="XCore.Application.Targets.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\XCore.Application.Targets.targets</PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
