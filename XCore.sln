@@ -113,7 +113,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.UEditor", "src\XCore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Migrator", "src\Dome.Modules\XCore.Migrator\XCore.Migrator.csproj", "{C6C108B9-8493-4BA0-B420-4ED180EB149D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCore.Metronic", "src\XCore.Modules\XCore.Metronic\XCore.Metronic.csproj", "{8CE8CEF6-7ECF-4E40-9CCE-23B577B2C447}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Metronic", "src\XCore.Modules\XCore.Metronic\XCore.Metronic.csproj", "{8CE8CEF6-7ECF-4E40-9CCE-23B577B2C447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCore.DisplayManagement", "src\XCore\XCore.DisplayManagement\XCore.DisplayManagement.csproj", "{F302CD43-E3DB-4A66-8989-9A8BF8541F82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -305,6 +307,10 @@ Global
 		{8CE8CEF6-7ECF-4E40-9CCE-23B577B2C447}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE8CEF6-7ECF-4E40-9CCE-23B577B2C447}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE8CEF6-7ECF-4E40-9CCE-23B577B2C447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F302CD43-E3DB-4A66-8989-9A8BF8541F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F302CD43-E3DB-4A66-8989-9A8BF8541F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F302CD43-E3DB-4A66-8989-9A8BF8541F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F302CD43-E3DB-4A66-8989-9A8BF8541F82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -364,6 +370,7 @@ Global
 		{22B11074-3039-4E9A-8691-C5B03638EB72} = {CA55674E-52DD-472C-B8AD-2611D2EC47AC}
 		{C6C108B9-8493-4BA0-B420-4ED180EB149D} = {0A9C407F-0BEF-4177-BFBE-C2B9CB3DC8FF}
 		{8CE8CEF6-7ECF-4E40-9CCE-23B577B2C447} = {CA55674E-52DD-472C-B8AD-2611D2EC47AC}
+		{F302CD43-E3DB-4A66-8989-9A8BF8541F82} = {4C6A1CEE-EE77-44EB-B374-43D6D27BF6A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {898A87EC-3DDA-4ED8-92A9-C78FE4A09796}
