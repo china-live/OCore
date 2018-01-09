@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.HelloWorld\XCore.Mvc.HelloWorld.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Test\XCore.Mvc.Test.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Metronic\XCore.Metronic.csproj" />
+    <ProjectReference Include="..\..\XCore.Themes\TheAdmin\TheAdmin.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Application.Mvc.Targets\XCore.Application.Mvc.Targets.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Logging.NLog\XCore.Logging.NLog.csproj" />
   </ItemGroup>

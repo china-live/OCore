@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\XCore\XCore.BackgroundTasks\XCore.BackgroundTasks.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.DeferredTasks\XCore.DeferredTasks.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.DisplayManagement\XCore.DisplayManagement.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Environment.Extensions\XCore.Environment.Extensions.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />

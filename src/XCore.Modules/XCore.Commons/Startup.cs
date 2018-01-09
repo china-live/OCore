@@ -7,6 +7,7 @@ using System;
 using System.Reflection;
 using XCore.BackgroundTasks;
 using XCore.DeferredTasks;
+using XCore.DisplayManagement;
 using XCore.EntityFrameworkCore;
 using XCore.Modules;
 using XCore.Mvc.Core;
@@ -36,7 +37,7 @@ namespace XCore.Commons
             //services.AddCaching();
             //services.AddShellDescriptorStorage();
             //services.AddExtensionManager();
-            //services.AddTheming();
+            services.AddTheming();
             //services.AddLiquidViews();
         }
 
