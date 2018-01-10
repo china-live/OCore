@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using System;
+using System.Collections.Generic;
+using XCore.DisplayManagement.Shapes;
 
 namespace XCore.DisplayManagement.Layout
 {

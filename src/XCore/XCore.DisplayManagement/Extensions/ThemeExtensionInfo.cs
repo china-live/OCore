@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.FileProviders;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using XCore.Environment.Extensions;

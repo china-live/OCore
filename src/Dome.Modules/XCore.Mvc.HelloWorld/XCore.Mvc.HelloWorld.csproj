@@ -6,6 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\src\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Admin\XCore.Admin.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" />

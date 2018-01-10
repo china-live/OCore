@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\XCore.Environment.Cache.Abstractions\XCore.Environment.Cache.Abstractions.csproj" />
     <ProjectReference Include="..\XCore.Environment.Extensions.Abstractions\XCore.Environment.Extensions.Abstractions.csproj" />
     <ProjectReference Include="..\XCore.Mvc.Core\XCore.Mvc.Core.csproj" />
   </ItemGroup>

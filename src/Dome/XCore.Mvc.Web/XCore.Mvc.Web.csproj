@@ -19,6 +19,14 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Content Remove="Views\_Layout.cshtml" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Views\_Layout.cshtml" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   
@@ -36,6 +44,7 @@
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Admin\XCore.Mvc.Admin.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.HelloWorld\XCore.Mvc.HelloWorld.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Test\XCore.Mvc.Test.csproj" />
+    <ProjectReference Include="..\..\XCore.Modules\XCore.Commons\XCore.Commons.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Metronic\XCore.Metronic.csproj" />
     <ProjectReference Include="..\..\XCore.Themes\TheAdmin\TheAdmin.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Application.Mvc.Targets\XCore.Application.Mvc.Targets.csproj" />

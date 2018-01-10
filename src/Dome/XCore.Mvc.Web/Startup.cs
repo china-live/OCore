@@ -110,5 +110,7 @@ namespace XCore.Mvc.Web
                 await context.Response.WriteAsync("</tbody></table>");
             }));
         }
+
+       
     }
 }

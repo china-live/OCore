@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using XCore.DisplayManagement.Layout;
 
 namespace XCore.DisplayManagement.Razor
 {
     public abstract class RazorPage<TModel> : Microsoft.AspNetCore.Mvc.Razor.RazorPage<TModel>
     {
         private dynamic _displayHelper;
-        private IShapeFactory _shapeFactory;
+        //private IShapeFactory _shapeFactory;
 
         private void EnsureDisplayHelper()
         {
