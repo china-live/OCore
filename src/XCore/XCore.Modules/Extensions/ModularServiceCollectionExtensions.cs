@@ -3,11 +3,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using XCore.Environment.Extensions;
 using XCore.Environment.Extensions.Manifests;
 using XCore.Environment.Shell;
+using XCore.Environment.Shell.Descriptor;
 using XCore.Environment.Shell.Descriptor.Models;
+using XCore.Environment.Shell.Descriptor.Settings;
 
 namespace XCore.Modules.Extensions
 {
@@ -24,10 +27,6 @@ namespace XCore.Modules.Extensions
             // registered. This is also called by AddMvcCore() but some applications that do not enlist into MVC will need it too.
             // 上面的英文大意是：ModularRouterMiddleware 是用在使用MVC框架时的路由处理，但有的应用可能不需要引入MVC框架。
             services.AddRouting();
-
-            //services.AddSingleton<IEntityManager>(new EfInit().GetDefaultEntityManager());
-
-
 
 
             var modularServiceCollection = new ModularServiceCollection(services);
@@ -73,6 +72,46 @@ namespace XCore.Modules.Extensions
 
             return modules;
         }
+
+        /// <summary>
+        /// Registers tenants defined in configuration.
+        /// 在web根目录下放置tenants.json配置租户信息
+        /// </summary>
+        public static ModularServiceCollection WithTenants(this ModularServiceCollection modules)
+        {
+            modules.Configure(services =>
+            {
+                services.AddSingleton<IShellSettingsConfigurationProvider, FileShellSettingsConfigurationProvider>();
+                services.AddScoped<IShellDescriptorManager, FileShellDescriptorManager>();
+                services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
+                services.AddScoped<ShellSettingsWithTenants>();
+            });
+
+            return modules;
+        }
+
+        /// <summary>
+        /// Registers a single tenant with the specified set of features.
+        /// </summary>
+        public static ModularServiceCollection WithFeatures(
+            this ModularServiceCollection modules,
+            params string[] featureIds)
+        {
+            var featuresList = featureIds.Select(featureId => new ShellFeature(featureId)).ToList();
+
+            modules.Configure(services =>
+            {
+                foreach (var feature in featuresList)
+                {
+                    services.AddTransient(sp => feature);
+                };
+
+                services.AddSetFeaturesDescriptor(featuresList);
+            });
+
+            return modules;
+        }
+
 
         public static IServiceCollection AddWebHost(this IServiceCollection services)
         {

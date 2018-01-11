@@ -1,23 +1,27 @@
 ﻿using XCore.Environment.Shell.Descriptor.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace XCore.Environment.Shell.Descriptor.Settings
 {
     /// <summary>
-    /// Implements <see cref="IShellDescriptorManager"/> by returning a single tenant with a specified set
-    /// of features. This class can be registered as a singleton as its state never changes.
+    /// Implements <see cref="IShellDescriptorManager"/> by returning the features from a configuration file.
     /// </summary>
-    public class SetFeaturesShellDescriptorManager : IShellDescriptorManager
+    public class FileShellDescriptorManager : IShellDescriptorManager
     {
-        private readonly IEnumerable<ShellFeature> _shellFeatures;
+        private readonly ShellSettingsWithTenants _shellSettings;
         private ShellDescriptor _shellDescriptor;
 
-        public SetFeaturesShellDescriptorManager(IEnumerable<ShellFeature> shellFeatures)
+        public FileShellDescriptorManager(ShellSettingsWithTenants shellSettings)
         {
-            _shellFeatures = shellFeatures;
+            if (shellSettings == null)
+            {
+                throw new ArgumentException(nameof(shellSettings));
+            }
+
+            _shellSettings = shellSettings;
         }
 
         public Task<ShellDescriptor> GetShellDescriptorAsync()
@@ -26,7 +30,7 @@ namespace XCore.Environment.Shell.Descriptor.Settings
             {
                 _shellDescriptor = new ShellDescriptor
                 {
-                    Features = _shellFeatures.ToList()
+                    Features = _shellSettings.Features.Select(x => new ShellFeature(x)).ToList()
                 };
             }
 

@@ -9,6 +9,7 @@ using XCore.BackgroundTasks;
 using XCore.DeferredTasks;
 using XCore.DisplayManagement;
 using XCore.EntityFrameworkCore;
+using XCore.Environment.Shell.Data;
 using XCore.Modules;
 using XCore.Mvc.Core;
 using XCore.ResourceManagement;
@@ -35,7 +36,7 @@ namespace XCore.Commons
             services.AddResourceManagement();
             //services.AddGeneratorTagFilter();
             //services.AddCaching();
-            //services.AddShellDescriptorStorage();
+            services.AddShellDescriptorStorage();
             //services.AddExtensionManager();
             services.AddTheming();
             //services.AddLiquidViews();

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\XCore.Common\XCore.Common.csproj" />
     <ProjectReference Include="..\XCore.Environment.Extensions.Abstractions\XCore.Environment.Extensions.Abstractions.csproj" />
   </ItemGroup>
 

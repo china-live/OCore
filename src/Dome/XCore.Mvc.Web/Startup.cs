@@ -10,6 +10,7 @@ using XCore.Modules.Extensions;
 using XCore.Environment.Extensions.Manifests;
 using XCore.Environment.Extensions;
 using XCore.Environment.Shell.Data;
+using XCore.DisplayManagement;
 
 namespace XCore.Mvc.Web
 {
@@ -37,16 +38,18 @@ namespace XCore.Mvc.Web
             services.AddDistributedMemoryCache();
             services.AddSession();
 
-            //services.AddThemingHost();
+            services.AddThemingHost();
             services.AddManifestDefinition("Theme.txt", "theme");
 
-            services.AddExtensionLocation("Themes");
+            //services.AddExtensionLocation("Themes");
             services.AddSitesFolder();
 
-            services.AddModules(configure =>
+            services.AddModules(modules =>
                 {
-                    configure.WithConfiguration(Configuration);
-                    //configure.WithDefaultFeatures("XCore.Commons");
+                    modules.WithConfiguration(Configuration);
+                    //modules.WithDefaultFeatures("XCore.Commons");
+                    modules.WithDefaultFeatures(
+                    "XCore.Mvc", "XCore.Mvc.Admin", "XCore.Mvc.HelloWorld", "XCore.Mvc.Test","XCore.Commons");
                 }
             );
 

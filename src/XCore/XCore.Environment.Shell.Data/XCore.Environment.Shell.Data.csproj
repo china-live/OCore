@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\XCore.Common\XCore.Common.csproj" />
     <ProjectReference Include="..\XCore.Environment.Shell\XCore.Environment.Shell.csproj" />
   </ItemGroup>
 

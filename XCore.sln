@@ -131,7 +131,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Environment.Cache.Abs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Environment.Cache", "src\XCore\XCore.Environment.Cache\XCore.Environment.Cache.csproj", "{F12758D1-3441-4BD4-AF65-53903A995212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCore.Environment.Shell.Data", "src\XCore\XCore.Environment.Shell.Data\XCore.Environment.Shell.Data.csproj", "{44BE6F61-F435-4814-9901-98C22DD21228}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Environment.Shell.Data", "src\XCore\XCore.Environment.Shell.Data\XCore.Environment.Shell.Data.csproj", "{44BE6F61-F435-4814-9901-98C22DD21228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCore.Environment.Shell.Persistent", "src\XCore\XCore.Environment.Shell.Persistent\XCore.Environment.Shell.Persistent.csproj", "{F0DFB1FB-38F6-43AD-9F7D-8AE666DD84A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCore.Environment.Shell.EntityFrameworkCore", "src\XCore\XCore.Environment.Shell.EntityFrameworkCore\XCore.Environment.Shell.EntityFrameworkCore.csproj", "{EACB0649-4FF2-45FB-AC7E-4E399BC073A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -355,6 +359,14 @@ Global
 		{44BE6F61-F435-4814-9901-98C22DD21228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44BE6F61-F435-4814-9901-98C22DD21228}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44BE6F61-F435-4814-9901-98C22DD21228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0DFB1FB-38F6-43AD-9F7D-8AE666DD84A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0DFB1FB-38F6-43AD-9F7D-8AE666DD84A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0DFB1FB-38F6-43AD-9F7D-8AE666DD84A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0DFB1FB-38F6-43AD-9F7D-8AE666DD84A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EACB0649-4FF2-45FB-AC7E-4E399BC073A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACB0649-4FF2-45FB-AC7E-4E399BC073A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACB0649-4FF2-45FB-AC7E-4E399BC073A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACB0649-4FF2-45FB-AC7E-4E399BC073A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -423,6 +435,8 @@ Global
 		{2F11FA08-D4AD-4049-9267-A62D1040D914} = {3430F126-07B1-4FA0-814D-3F0D47B15D1C}
 		{F12758D1-3441-4BD4-AF65-53903A995212} = {3430F126-07B1-4FA0-814D-3F0D47B15D1C}
 		{44BE6F61-F435-4814-9901-98C22DD21228} = {4C6A1CEE-EE77-44EB-B374-43D6D27BF6A4}
+		{F0DFB1FB-38F6-43AD-9F7D-8AE666DD84A1} = {4C6A1CEE-EE77-44EB-B374-43D6D27BF6A4}
+		{EACB0649-4FF2-45FB-AC7E-4E399BC073A9} = {4C6A1CEE-EE77-44EB-B374-43D6D27BF6A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {898A87EC-3DDA-4ED8-92A9-C78FE4A09796}
