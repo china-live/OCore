@@ -9,6 +9,7 @@ using XCore.Logging;
 using XCore.Modules.Extensions;
 using XCore.Environment.Extensions.Manifests;
 using XCore.Environment.Extensions;
+using XCore.Environment.Shell.Data;
 
 namespace XCore.Mvc.Web
 {
@@ -38,7 +39,9 @@ namespace XCore.Mvc.Web
 
             //services.AddThemingHost();
             services.AddManifestDefinition("Theme.txt", "theme");
+
             services.AddExtensionLocation("Themes");
+            services.AddSitesFolder();
 
             services.AddModules(configure =>
                 {
