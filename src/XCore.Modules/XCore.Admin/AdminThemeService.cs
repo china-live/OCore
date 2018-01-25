@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using XCore.Settings;
-using XCore.Environment.Extensions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using XCore.Environment.Extensions;
+using XCore.Settings;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace XCore.Admin
 {

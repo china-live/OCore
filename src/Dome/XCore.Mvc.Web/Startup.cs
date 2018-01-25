@@ -11,6 +11,7 @@ using XCore.Environment.Extensions.Manifests;
 using XCore.Environment.Extensions;
 using XCore.Environment.Shell.Data;
 using XCore.DisplayManagement;
+using XCore.Environment.Shell;
 
 namespace XCore.Mvc.Web
 {

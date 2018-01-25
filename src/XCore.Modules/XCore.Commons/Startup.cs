@@ -9,6 +9,7 @@ using XCore.BackgroundTasks;
 using XCore.DeferredTasks;
 using XCore.DisplayManagement;
 using XCore.EntityFrameworkCore;
+using XCore.Environment.Shell;
 using XCore.Environment.Shell.Data;
 using XCore.Modules;
 using XCore.Mvc.Core;
