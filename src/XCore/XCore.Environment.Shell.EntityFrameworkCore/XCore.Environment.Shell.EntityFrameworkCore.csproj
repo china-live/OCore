@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\XCore.Environment.Shell\XCore.Environment.Shell.csproj" />
+  </ItemGroup>
+
 </Project>

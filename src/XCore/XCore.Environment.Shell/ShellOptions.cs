@@ -1,4 +1,7 @@
-﻿namespace XCore.Environment.Shell
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+
+namespace XCore.Environment.Shell
 {
     public class ShellOptions
     {
@@ -12,4 +15,6 @@
         /// </summary>
         public string ShellsContainerName { get; set; }
     }
+
+
 }

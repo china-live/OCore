@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <UserSecretsId>tonggentongmeng-web</UserSecretsId>
+    <UserSecretsId>xcore</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,11 +13,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="$(AspNetCoreVersion)" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Environment.Shell.EntityFrameworkCore\XCore.Environment.Shell.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Article.EntityFrameworkCore\XCore.Article.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Identity.EntityFrameworkCore\XCore.Identity.EntityFrameworkCore.csproj" />

@@ -7,6 +7,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <UserSecretsId>xcore</UserSecretsId>
     <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>-->
   </PropertyGroup>
@@ -17,15 +18,7 @@
     <EmbeddedResource Remove="App_Data\**" />
     <None Remove="App_Data\**" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Content Remove="Views\_Layout.cshtml" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Include="Views\_Layout.cshtml" />
-  </ItemGroup>
-  
+
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>

@@ -5,11 +5,36 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using XCore.Environment.Shell.Data;
+using System;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using XCore.Environment.Shell.Builders;
+using XCore.Environment.Shell.State;
 
 namespace XCore.Environment.Shell
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddHostingShellServices(this IServiceCollection services)
+        {
+            services.AddSingleton<ShellHost>();
+            services.AddSingleton<IShellHost>(sp => sp.GetRequiredService<ShellHost>());
+            services.AddSingleton<IShellDescriptorManagerEventHandler>(sp => sp.GetRequiredService<ShellHost>());
+            {
+                // Use a single default site by default, i.e. if AddMultiTenancy hasn't been called before
+                services.TryAddSingleton<IShellSettingsManager, SingleShellSettingsManager>();
+
+                services.AddSingleton<IShellContextFactory, ShellContextFactory>();
+                {
+                    services.AddSingleton<ICompositionStrategy, CompositionStrategy>();
+
+                    services.AddSingleton<IShellContainerFactory, ShellContainerFactory>();
+                }
+            }
+            services.AddSingleton<IRunningShellTable, RunningShellTable>();
+
+            return services;
+        }
+
         public static IServiceCollection AddAllFeaturesDescriptor(this IServiceCollection services)
         {
             services.AddScoped<IShellDescriptorManager, AllFeaturesShellDescriptorManager>();
@@ -46,14 +71,45 @@ namespace XCore.Environment.Shell
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddShellDescriptorStorage(this IServiceCollection services)
+        public static ShellBuilder AddShellDescriptorStorage(this IServiceCollection services)
         {
             services.AddScoped<IShellDescriptorManager, ShellDescriptorManager>();
             services.AddScoped<IShellStateManager, ShellStateManager>();
             services.AddScoped<IShellFeaturesManager, ShellFeaturesManager>();
             services.AddScoped<IShellDescriptorFeaturesManager, ShellDescriptorFeaturesManager>();
 
-            return services;
+            return new ShellBuilder(typeof(ShellDescriptor), typeof(ShellState), services);
+        }
+    }
+ 
+    public class ShellBuilder
+    {
+        public ShellBuilder(Type shellDescriptor, Type shellState, IServiceCollection services)
+        {
+            Services = services;
+            ShellDescriptor = shellDescriptor;
+            ShellState = ShellState;
+        }
+
+        public IServiceCollection Services { get; private set; }
+
+        public Type ShellDescriptor { get; private set; }
+ 
+        public Type ShellState { get; private set; }
+
+        private ShellBuilder AddScoped(Type serviceType, Type concreteType)
+        {
+            Services.AddScoped(serviceType, concreteType);
+            return this;
+        }
+
+        public ShellBuilder AddShellDescriptorStore<T>() {
+            return AddScoped(typeof(IShellDescriptorStore<>).MakeGenericType(ShellDescriptor), typeof(T));
+        }
+
+        public ShellBuilder AddShellStateStore<T>()
+        {
+            return AddScoped(typeof(IShellStateStore<>).MakeGenericType(ShellState), typeof(T));
         }
     }
 }

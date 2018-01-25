@@ -34,11 +34,14 @@ namespace XCore.Migrator
         }
     }
 
+//    class MyDesignTimeServices : IDesignTimeServices
+//    {
+//        public void ConfigureDesignTimeServices(IServiceCollection services)
+//            => services.AddSingleton<IMigrationsCodeGenerator, MyMigrationsCodeGenerator>()
+//}
+
     public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-        //string conString = "Data Source=www.dming.top;Database=XCore;UID=sa;PWD=xtcser@14582.net;MultipleActiveResultSets=true;";
-        //string conString = "Data Source=192.168.8.127;Database=TongGenTongMeng;UID=Tong;PWD=123;MultipleActiveResultSets=true;";
-
         public AppDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
@@ -56,6 +59,7 @@ namespace XCore.Migrator
             var entityManager = new MigrationEntityManager(); //MigrationEntityManager实现了IEntityManager接口
             entityManager.LoadAssemblys("XCore.Identity.EntityFrameworkCore");//加载实现了IEntityTypeConfiguration接口的类所在的程序集
             entityManager.LoadAssemblys("XCore.Article.EntityFrameworkCore");
+            entityManager.LoadAssemblys("XCore.Environment.Shell.EntityFrameworkCore");
 
             return new AppDbContext(optionsBuilder.Options, entityManager);
         }
