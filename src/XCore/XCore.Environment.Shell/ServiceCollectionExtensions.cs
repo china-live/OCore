@@ -88,7 +88,7 @@ namespace XCore.Environment.Shell
         {
             Services = services;
             ShellDescriptor = shellDescriptor;
-            ShellState = ShellState;
+            ShellState = shellState;
         }
 
         public IServiceCollection Services { get; private set; }
