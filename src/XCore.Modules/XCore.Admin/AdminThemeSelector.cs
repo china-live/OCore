@@ -28,7 +28,7 @@ namespace XCore.Admin
         {
             if (AdminAttribute.IsApplied(_httpContextAccessor.HttpContext))
             {
-                string adminThemeName = "TheAdmin";//await _adminThemeService.GetAdminThemeNameAsync();
+                string adminThemeName = await _adminThemeService.GetAdminThemeNameAsync();
                 if (String.IsNullOrEmpty(adminThemeName))
                 {
                     return null;

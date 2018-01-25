@@ -18,7 +18,7 @@ namespace XCore.Admin
             services.Configure<MvcOptions>((options) =>
             {
                 options.Filters.Add(typeof(AdminZoneFilter));
-                options.Filters.Add(typeof(LayerFilter));
+                //options.Filters.Add(typeof(LayerFilter));
                 //options.Filters.Add(typeof(AdminMenuFilter));
             });
 
@@ -29,12 +29,12 @@ namespace XCore.Admin
 
         public override void Configure(IApplicationBuilder builder, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            //routes.MapAreaRoute(
-            //    name: "Adming",
-            //    areaName: "XCore.Admin",
-            //    template: "adming",
-            //    defaults: new { controller = "Admin", action = "Index" }
-            //);
+            routes.MapAreaRoute(
+                name: "Adming",
+                areaName: "XCore.Admin",
+                template: "adming",
+                defaults: new { controller = "Admin", action = "Index" }
+            );
         }
     }
 }
