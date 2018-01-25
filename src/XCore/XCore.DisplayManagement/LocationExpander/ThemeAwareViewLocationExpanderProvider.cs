@@ -42,8 +42,7 @@ namespace XCore.DisplayManagement.LocationExpander
         }
 
         /// <inheritdoc />
-        public virtual IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context,
-                                                               IEnumerable<string> viewLocations)
+        public virtual IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context,IEnumerable<string> viewLocations)
         {
             if (!context.Values.ContainsKey("Theme"))
             {

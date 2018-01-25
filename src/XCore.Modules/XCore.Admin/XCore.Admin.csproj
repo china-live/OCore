@@ -4,10 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="AdminThemeService.cs" />
-  </ItemGroup>
-
  
   <ItemGroup>
     <ProjectReference Include="..\..\XCore\XCore.Admin.Abstractions\XCore.Admin.Abstractions.csproj" />
