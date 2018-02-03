@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\XCore\XCore.Identity.Core\XCore.Identity.Core.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Identity.EntityFrameworkCore\XCore.Identity.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Security\XCore.Security.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using System;
 using XCore.Identity.EntityFrameworkCore;
 using XCore.Modules;
+using XCore.Security;
 
 namespace XCore.Identity
 {
@@ -35,6 +36,12 @@ namespace XCore.Identity
             // We need to register it again so it is taken into account at the tenant level.
             services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
 
+            services.AddSecurity();
+            //services.Configure<AuthorizationOptions>(options =>
+            //{
+            //    options.AddPolicy("AllowProfileManagement", policy => policy.Requirements.Add(
+            //        services.BuildServiceProvider().GetRequiredService<AllowProfileManagementRequirement>()));
+            //});
 
             services.AddAuthentication(options =>
             {
