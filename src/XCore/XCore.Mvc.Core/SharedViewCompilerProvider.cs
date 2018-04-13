@@ -1,4 +1,10 @@
-锘縰sing Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
@@ -7,15 +13,12 @@ using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
 
-namespace XCore.Mvc.Core
+namespace XCore.Mvc
 {
+    /// <summary>
+    /// 共享的视图编译器提供者
+    /// </summary>
     public class SharedViewCompilerProvider : IViewCompilerProvider
     {
         private object _initializeLock = new object();

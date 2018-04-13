@@ -4,6 +4,6 @@
     {
         void Add(ShellSettings settings);
         void Remove(ShellSettings settings);
-        ShellSettings Match(string host, string appRelativeCurrentExecutionFilePath);
+        ShellSettings Match(string host, string appRelativeCurrentExecutionFilePath, bool fallbackToDefault = true);
     }
 }

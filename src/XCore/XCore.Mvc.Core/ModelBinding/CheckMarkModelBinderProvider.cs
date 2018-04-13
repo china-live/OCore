@@ -1,44 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace XCore.Mvc.Core.ModelBinding
+namespace XCore.Mvc.ModelBinding
 {
-    public class CheckMarkModelBinder : IModelBinder
-    {
-        public Task BindModelAsync(ModelBindingContext bindingContext)
-        {
-            if (bindingContext == null)
-            {
-                throw new ArgumentNullException(nameof(bindingContext));
-            }
-
-            if (bindingContext.ModelType == typeof(bool))
-            {
-                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-                if (valueProviderResult == ValueProviderResult.None)
-                {
-                    return Task.CompletedTask;
-                }
-
-                bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
-
-                if (valueProviderResult.Values == "✓")
-                {
-                    bindingContext.Result = ModelBindingResult.Success(bindingContext.ModelName);
-                }
-                else if (valueProviderResult.Values == "✗")
-                {
-                    bindingContext.Result = ModelBindingResult.Failed();
-                }
-            }
-
-            return Task.CompletedTask;
-        }
-    }
-
     /// <summary>
     /// An <see cref="IModelBinderProvider"/> for <see cref="CheckMarkModelBinder"/>
     /// </summary>

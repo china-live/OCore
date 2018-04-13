@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace XCore.Mvc.Core.RazorPages
+namespace XCore.Mvc.RazorPages
 {
     public static class ModularPageMvcCoreBuilderExtensions
     {
-        public static IMvcCoreBuilder AddModularRazorPages(this IMvcCoreBuilder builder)
+        public static IMvcCoreBuilder AddModularRazorPages(this IMvcCoreBuilder builder, IServiceProvider services)
         {
             builder.AddRazorPages(options =>
             {
                 options.RootDirectory = "/";
-                options.Conventions.Add(new DefaultModularPageRouteModelConvention());
+                var httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
+                options.Conventions.Add(new DefaultModularPageRouteModelConvention(httpContextAccessor));
             });
 
             builder.Services.TryAddEnumerable(
@@ -21,9 +24,6 @@ namespace XCore.Mvc.Core.RazorPages
 
             builder.Services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<IPageApplicationModelProvider, ModularPageApplicationModelProvider>());
-
-            //builder.Services.Replace(
-            //    ServiceDescriptor.Singleton<IActionDescriptorChangeProvider, ModularPageActionDescriptorChangeProvider>());
 
             return builder;
         }

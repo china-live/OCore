@@ -52,5 +52,15 @@ namespace XCore.Environment.Shell
         {
             return _shellDescriptorFeaturesManager.DisableFeaturesAsync(_shellDescriptor, features, force);
         }
+
+        public Task<IEnumerable<IExtensionInfo>> GetEnabledExtensionsAsync()
+        {
+            // enabled extensions are those which have at least one enabled feature.
+            var enabledIds = _extensionManager.GetFeatures().Where(f => _shellDescriptor
+                .Features.Any(sf => sf.Id == f.Id)).Select(f => f.Extension.Id).Distinct().ToArray();
+
+            // Extensions are still ordered according to the weight of their first features.
+            return Task.FromResult(_extensionManager.GetExtensions().Where(e => enabledIds.Contains(e.Id)));
+        }
     }
 }

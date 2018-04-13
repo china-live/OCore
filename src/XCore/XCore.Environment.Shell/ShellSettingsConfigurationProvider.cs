@@ -74,25 +74,4 @@ namespace XCore.Environment.Shell
 
         private string GetSettingsFilePath(string tenantFolderPath) => Path.Combine(tenantFolderPath, "Settings.txt");
     }
-
-    public class FileShellSettingsConfigurationProvider : IShellSettingsConfigurationProvider
-    {
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-        public FileShellSettingsConfigurationProvider(IHostingEnvironment hostingEnvironment)
-        {
-            _hostingEnvironment = hostingEnvironment;
-        }
-
-        public int Order => 1000;
-
-        public void AddSource(IConfigurationBuilder builder)
-        {
-            builder.AddJsonFile(Path.Combine(_hostingEnvironment.ContentRootPath, "tenants.json"));
-        }
-
-        public void SaveToSource(string name, IDictionary<string, string> configuration)
-        {
-        }
-    }
 }

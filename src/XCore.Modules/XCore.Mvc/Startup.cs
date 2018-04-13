@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using XCore.Modules;
-using XCore.Modules.Extensions;
-using XCore.Mvc.Core;
 
 namespace XCore.Mvc
 {

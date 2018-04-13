@@ -1,4 +1,5 @@
-﻿using XCore.Entities;
+﻿using Microsoft.AspNetCore.Routing;
+using XCore.Entities;
 
 namespace XCore.Settings
 {
@@ -16,6 +17,6 @@ namespace XCore.Settings
         int MaxPageSize { get; set; }
         int MaxPagedCount { get; set; }
         string BaseUrl { get; set; }
-        //RouteValueDictionary HomeRoute { get; set; }
+        RouteValueDictionary HomeRoute { get; set; }
     }
 }

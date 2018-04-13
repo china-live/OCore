@@ -1,37 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using OrchardCore.Environment.Shell;
 using XCore.Environment.Extensions;
 using XCore.Environment.Extensions.Manifests;
 using XCore.Environment.Shell;
 using XCore.Environment.Shell.Descriptor;
 using XCore.Environment.Shell.Descriptor.Models;
 using XCore.Environment.Shell.Descriptor.Settings;
+using XCore.Modules;
 
-namespace XCore.Modules.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ModularServiceCollectionExtensions
     {
+        /// <summary>
+        /// Adds modules services to the specified <see cref="Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+        /// </summary>
         public static IServiceCollection AddModules(this IServiceCollection services, Action<ModularServiceCollection> configure = null)
         {
             services.AddWebHost();
-            services.AddManifestDefinition("Module.txt", "module");
-            //services.AddExtensionLocation("Packages");
-            services.AddExtensionLocation(Application.ModulesPath);
+            services.AddManifestDefinition("module");
 
-            // ModularRouterMiddleware which is configured with UseModules() calls UserRouter() which requires the routing services to be
+            // ModularTenantRouterMiddleware which is configured with UseModules() calls UserRouter() which requires the routing services to be
             // registered. This is also called by AddMvcCore() but some applications that do not enlist into MVC will need it too.
-            // 上面的英文大意是：ModularRouterMiddleware 是用在使用MVC框架时的路由处理，但有的应用可能不需要引入MVC框架。
             services.AddRouting();
-
 
             var modularServiceCollection = new ModularServiceCollection(services);
 
-            // Use a single tenant and all features by default 单租户时默认拥有全部功能
+            // Use a single tenant and all features by default
             modularServiceCollection.Configure(internalServices =>
                 internalServices.AddAllFeaturesDescriptor()
             );
@@ -60,7 +58,8 @@ namespace XCore.Modules.Extensions
         /// Registers a default tenant with a set of features that are used to setup and configure the actual tenants.
         /// For instance you can use this to add a custom Setup module.
         /// </summary>
-        public static ModularServiceCollection WithDefaultFeatures(this ModularServiceCollection modules, params string[] featureIds)
+        public static ModularServiceCollection WithDefaultFeatures(
+            this ModularServiceCollection modules, params string[] featureIds)
         {
             modules.Configure(services =>
             {
@@ -75,7 +74,6 @@ namespace XCore.Modules.Extensions
 
         /// <summary>
         /// Registers tenants defined in configuration.
-        /// 在web根目录下放置tenants.json配置租户信息
         /// </summary>
         public static ModularServiceCollection WithTenants(this ModularServiceCollection modules)
         {
@@ -112,8 +110,8 @@ namespace XCore.Modules.Extensions
             return modules;
         }
 
-
-        public static IServiceCollection AddWebHost(this IServiceCollection services)
+        public static IServiceCollection AddWebHost(
+            this IServiceCollection services)
         {
             services.AddLogging();
             services.AddOptions();
@@ -123,9 +121,10 @@ namespace XCore.Modules.Extensions
             services.AddWebEncoders();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddSingleton<IClock, Clock>();
+            services.AddSingleton<IClock, Clock>();
 
-            services.AddScoped<IModularRouteBuilder, ModularRouteBuilder>();
+            services.AddSingleton<IPoweredByMiddlewareOptions, PoweredByMiddlewareOptions>();
+            services.AddScoped<IModularTenantRouteBuilder, ModularTenantRouteBuilder>();
 
             return services;
         }

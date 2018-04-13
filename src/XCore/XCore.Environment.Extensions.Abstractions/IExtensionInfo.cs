@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.FileProviders;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using XCore.Environment.Extensions.Features;
-using XCore.Environment.Extensions.Manifests;
 
 namespace XCore.Environment.Extensions
 {
@@ -11,11 +9,6 @@ namespace XCore.Environment.Extensions
     public interface IExtensionInfo
     {
         string Id { get; }
-
-        /// <summary>
-        /// 获取该扩展(模块)的文件信息
-        /// </summary>
-        IFileInfo ExtensionFileInfo { get; }
 
         /// <summary>
         /// 获取该扩展(模块)的文件路径

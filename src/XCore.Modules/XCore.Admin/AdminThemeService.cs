@@ -47,16 +47,17 @@ namespace XCore.Admin
 
         public async Task<string> GetAdminThemeNameAsync()
         {
-            string themeName;
-            if (!_memoryCache.TryGetValue(CacheKey, out themeName))
-            {
-                var site = await _siteService.GetSiteSettingsAsync();
-                themeName = (string)site.Properties["CurrentAdminThemeName"];
-                // themeName = (string)(site as IContent).ContentItem.Content.CurrentAdminThemeName;
-                _memoryCache.Set(CacheKey, themeName);
-            }
-
-            return themeName;
+            //string themeName;
+            //if (!_memoryCache.TryGetValue(CacheKey, out themeName))
+            //{
+            //    var site = await _siteService.GetSiteSettingsAsync();
+            //    themeName = (string)site.Properties["CurrentAdminThemeName"];
+            //    // themeName = (string)(site as IContent).ContentItem.Content.CurrentAdminThemeName;
+            //    _memoryCache.Set(CacheKey, themeName);
+            //}
+            await Task.Run(() => { });
+            //return themeName;
+            return "TheAdmin";
         }
     }
 }

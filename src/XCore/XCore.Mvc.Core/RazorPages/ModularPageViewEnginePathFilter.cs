@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace XCore.Mvc.Core.RazorPages
+namespace XCore.Mvc.RazorPages
 {
     public class ModularPageViewEnginePathFilter : IAsyncPageFilter
     {
@@ -30,3 +30,4 @@ namespace XCore.Mvc.Core.RazorPages
         }
     }
 }
+

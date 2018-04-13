@@ -10,7 +10,8 @@ namespace XCore.Environment.Extensions.Manifests
         /// <summary>
         /// Initializes a new instance of <see cref="ManifestOptions"/>.
         /// </summary>
-        public ManifestOptionsSetup() : base(options => { })
+        public ManifestOptionsSetup()
+            : base(options => { })
         {
         }
     }

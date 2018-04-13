@@ -10,7 +10,7 @@ namespace XCore.Environment.Shell
     /// </summary>
     public class ShellOptionsSetup : IConfigureOptions<ShellOptions>
     {
-        private const string AppData = "XCore_APP_DATA";
+        private const string AppData = "XCORE_APP_DATA";
         private const string DefaultAppDataPath = "App_Data";
         private const string DefaultSitesPath = "Sites";
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XCore.Environment.Extensions.Manifests;
+//using XCore.Environment.Extensions.Manifests;
+using XCore.Modules;
 
 namespace XCore.Environment.Extensions.Features
 {

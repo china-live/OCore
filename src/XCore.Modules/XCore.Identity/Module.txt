@@ -1,7 +1,0 @@
-﻿Name: XCore.Identity
-Author: LDMING
-Version: 2.0.x
-OrchardVersion: 2.0.x
-Priority: -2
-Description: Test
-FeatureDescription: TestT

@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using XCore.DisplayManagement;
-using XCore.DisplayManagement.Theming;
 using XCore.Modules;
 
 namespace XCore.Admin
@@ -15,16 +12,16 @@ namespace XCore.Admin
         {
             //services.AddNavigation();
 
-            services.Configure<MvcOptions>((options) =>
-            {
-                options.Filters.Add(typeof(AdminZoneFilter));
-                //options.Filters.Add(typeof(LayerFilter));
-                //options.Filters.Add(typeof(AdminMenuFilter));
-            });
+            //services.Configure<MvcOptions>((options) =>
+            //{
+            //    //options.Filters.Add(typeof(AdminZoneFilter));
+            //    //options.Filters.Add(typeof(LayerFilter));
+            //    //options.Filters.Add(typeof(AdminMenuFilter));
+            //});
 
             //services.AddScoped<IPermissionProvider, Permissions>();
-            services.AddScoped<IThemeSelector, AdminThemeSelector>();
-            services.AddScoped<IAdminThemeService, AdminThemeService>();
+            //services.AddScoped<IThemeSelector, AdminThemeSelector>();
+            //services.AddScoped<IAdminThemeService, AdminThemeService>();
         }
 
         public override void Configure(IApplicationBuilder builder, IRouteBuilder routes, IServiceProvider serviceProvider)

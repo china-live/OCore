@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using XCore.Environment.Extensions;
-using XCore.Environment.Shell.Builders.Models;
+using OrchardCore.Environment.Shell;
+using System;
+using System.Linq;
 using XCore.Environment.Extensions.Features;
+using XCore.Environment.Shell.Builders.Models;
 
 namespace XCore.Environment.Shell.Builders
 {

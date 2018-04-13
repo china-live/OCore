@@ -48,7 +48,7 @@ namespace XCore.Admin
             // Should only run on the front-end for a full view
             if ((context.Result is ViewResult || context.Result is PageResult) && !AdminAttribute.IsApplied(context.HttpContext))
             {
-                //var widgets = await _memoryCache.GetOrCreateAsync("OrchardCore.Layers.LayerFilter:AllWidgets", entry =>
+                //var widgets = await _memoryCache.GetOrCreateAsync("XCore.Layers.LayerFilter:AllWidgets", entry =>
                 //{
                 //    entry.AddExpirationToken(_signal.GetToken(LayerMetadataHandler.LayerChangeToken));
                 //    return _layerService.GetLayerWidgetsAsync(x => x.Published);

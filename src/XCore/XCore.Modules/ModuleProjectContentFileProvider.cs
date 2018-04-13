@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.FileProviders.Physical;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Physical;
+using Microsoft.Extensions.Primitives;
 
 namespace XCore.Modules
 {
     /// <summary>
-    /// 定制 <see cref="IFileProvider"/> 实现读取“模块项目”中的静态文件，该项只会在开发环境中使用 
+    /// This custom <see cref="IFileProvider"/> implementation provides the file contents
+    /// of Module Project Content files while in a development environment.
     /// </summary>
     public class ModuleProjectContentFileProvider : IFileProvider
     {
@@ -60,7 +61,7 @@ namespace XCore.Modules
         {
             return NotFoundDirectoryContents.Singleton;
         }
- 
+
         public IFileInfo GetFileInfo(string subpath)
         {
             if (subpath == null)

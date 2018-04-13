@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XCore.DisplayManagement.Extensions;
+using XCore.DisplayManagement.Manifest;
 using XCore.Environment.Extensions.Features;
+using XCore.Modules.Manifest;
 
 namespace XCore.DisplayManagement.Events
 {
@@ -11,7 +13,10 @@ namespace XCore.DisplayManagement.Events
     {
         public override void Building(FeatureBuildingContext context)
         {
-            if (context.ExtensionInfo.Manifest.IsTheme())
+            var moduleInfo = context.ExtensionInfo.Manifest.ModuleInfo;
+
+            if (moduleInfo is ThemeAttribute || (moduleInfo is ModuleMarkerAttribute &&
+                moduleInfo.Type.Equals("Theme", StringComparison.OrdinalIgnoreCase)))
             {
                 var extensionInfo = new ThemeExtensionInfo(context.ExtensionInfo);
 

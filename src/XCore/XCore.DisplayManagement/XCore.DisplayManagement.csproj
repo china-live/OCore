@@ -5,6 +5,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Arguments.cs" />
+    <Compile Remove="Descriptors\DefaultShapeTableManager.cs" />
+    <Compile Remove="Descriptors\Interfaces.cs" />
+    <Compile Remove="Descriptors\PlacementInfo.cs" />
+    <Compile Remove="Descriptors\ShapeAlteration.cs" />
+    <Compile Remove="Descriptors\ShapeAlterationBuilder.cs" />
+    <Compile Remove="Descriptors\ShapeDescriptor.cs" />
+    <Compile Remove="Descriptors\ShapeTable.cs" />
+    <Compile Remove="Descriptors\ShapeTableBuilder.cs" />
+    <Compile Remove="IDisplayHelperFactory.cs" />
+    <Compile Remove="Implementation\DefaultShapeFactory.cs" />
+    <Compile Remove="Implementation\DisplayHelperFactory.cs" />
+    <Compile Remove="Implementation\IShapeFactoryEvents.cs" />
+    <Compile Remove="Implementation\ShapeDisplayContext.cs" />
+    <Compile Remove="INamedEnumerable.cs" />
+    <Compile Remove="IPositioned.cs" />
+    <Compile Remove="IShape.cs" />
+    <Compile Remove="IShapeFactory.cs" />
+    <Compile Remove="Layout\ILayoutAccessor.cs" />
+    <Compile Remove="PositionWrapper.cs" />
+    <Compile Remove="Shapes\AlternatesCollection.cs" />
+    <Compile Remove="Shapes\Composite.cs" />
+    <Compile Remove="Shapes\Shape.cs" />
+    <Compile Remove="Shapes\ShapeDebugView.cs" />
+    <Compile Remove="Shapes\ShapeMetadata.cs" />
+    <Compile Remove="Zones\FlatPositionComparer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.0.1" />
   </ItemGroup>
@@ -13,6 +42,14 @@
     <ProjectReference Include="..\XCore.Environment.Cache.Abstractions\XCore.Environment.Cache.Abstractions.csproj" />
     <ProjectReference Include="..\XCore.Environment.Extensions.Abstractions\XCore.Environment.Extensions.Abstractions.csproj" />
     <ProjectReference Include="..\XCore.Mvc.Core\XCore.Mvc.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Descriptors\" />
+    <Folder Include="Implementation\" />
+    <Folder Include="Layout\" />
+    <Folder Include="Shapes\" />
+    <Folder Include="Zones\" />
   </ItemGroup>
 
 </Project>

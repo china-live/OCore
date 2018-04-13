@@ -7,17 +7,11 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <UserSecretsId>4614e660-c1f5-4559-9fe7-add68f6aaa7c</UserSecretsId>
     <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>-->
   </PropertyGroup>
   
-  <ItemGroup>
-    <Compile Remove="App_Data\**" />
-    <Content Remove="App_Data\**" />
-    <EmbeddedResource Remove="App_Data\**" />
-    <None Remove="App_Data\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -25,7 +19,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="$(AspNetCoreVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup" Version="$(AspNetCoreVersion)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
     <!-- This reference is necessary for view precompilation to work on publish -->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.1" PrivateAssets="All" />
@@ -38,9 +32,11 @@
     <ProjectReference Include="..\..\Dome.Modules\XCore.Mvc.Test\XCore.Mvc.Test.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Commons\XCore.Commons.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Metronic\XCore.Metronic.csproj" />
+    <ProjectReference Include="..\..\XCore.Themes\SafeMode\SafeMode.csproj" />
     <ProjectReference Include="..\..\XCore.Themes\TheAdmin\TheAdmin.csproj" />
+    <ProjectReference Include="..\..\XCore.Themes\TheTheme\TheTheme.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Application.Mvc.Targets\XCore.Application.Mvc.Targets.csproj" />
-    <ProjectReference Include="..\..\XCore\XCore.Environment.Shell.Data\XCore.Environment.Shell.Data.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Logging.NLog\XCore.Logging.NLog.csproj" />
   </ItemGroup>
+
 </Project>

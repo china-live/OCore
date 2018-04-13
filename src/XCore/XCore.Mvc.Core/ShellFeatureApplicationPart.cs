@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyModel;
 using XCore.Environment.Shell.Builders.Models;
 
-namespace XCore.Mvc.Core
+namespace XCore.Mvc
 {
     /// <summary>
     /// An <see cref="ApplicationPart"/> backed by an <see cref="Assembly"/>.
@@ -45,7 +45,7 @@ namespace XCore.Mvc.Core
             get
             {
                 var shellBluePrint = _httpContextAccessor.HttpContext.RequestServices?.GetRequiredService<ShellBlueprint>();
-                return shellBluePrint?.Dependencies.Keys.Select(type => type.GetTypeInfo()) ?? Enumerable.Empty<TypeInfo>();
+                return shellBluePrint?.Dependencies.Keys.Select(type => IntrospectionExtensions.GetTypeInfo(type)) ?? Enumerable.Empty<TypeInfo>();
             }
         }
 

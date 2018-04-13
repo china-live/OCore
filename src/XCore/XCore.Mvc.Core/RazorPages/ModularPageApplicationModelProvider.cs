@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.DependencyInjection;
 using XCore.Environment.Extensions;
-using XCore.Environment.Shell;
 using XCore.Environment.Shell.Descriptor.Models;
 
-namespace XCore.Mvc.Core.RazorPages
+namespace XCore.Mvc.RazorPages
 {
     public class ModularPageApplicationModelProvider : IPageApplicationModelProvider
     {
@@ -32,14 +31,12 @@ namespace XCore.Mvc.Core.RazorPages
             {
                 if (_paths == null)
                 {
-                    //var shellFeaturesManager = _httpContextAccessor.HttpContext.RequestServices.GetService<IShellFeaturesManager>();
-                    //_paths = shellFeaturesManager.GetEnabledFeaturesAsync().GetAwaiter().GetResult()
                     var extensionManager = _httpContextAccessor.HttpContext.RequestServices.GetService<IExtensionManager>();
                     var shellDescriptor = _httpContextAccessor.HttpContext.RequestServices.GetService<ShellDescriptor>();
-                    
-                    //Pages paths of all available modules which are enabled in the current shell.
+
+                    // Pages paths of all available modules which are enabled in the current shell.
                     _paths = extensionManager.GetFeatures().Where(f => shellDescriptor.Features.Any(sf => sf.Id == f.Id))
-                                           .Select(f => '/' + f.Extension.SubPath + "/Pages/").Distinct();
+                        .Select(f => '/' + f.Extension.SubPath + "/Pages/").Distinct();
                 }
             }
         }
@@ -52,3 +49,4 @@ namespace XCore.Mvc.Core.RazorPages
         }
     }
 }
+

@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 using XCore.DeferredTasks;
 using XCore.Environment.Extensions;
-using XCore.Environment.Shell.State;
 using XCore.Environment.Extensions.Features;
-using XCore.Environment.Extensions.Manifests;
-using System.Threading.Tasks;
-using XCore.Environment.Extensions.Utility;
-using System.Collections.Generic;
+using XCore.Environment.Shell.State;
 using XCore.Modules;
 
 namespace XCore.Environment.Shell
 {
+    //public interface IShellStateUpdater
+    //{
+    //    Task ApplyChanges();
+    //}
+
     public class ShellStateUpdater : IShellStateUpdater
     {
         private readonly ShellSettings _settings;
@@ -27,7 +29,7 @@ namespace XCore.Environment.Shell
             IExtensionManager extensionManager,
             IEnumerable<IFeatureEventHandler> featureEventHandlers,
             IDeferredTaskEngine deferredTaskEngine,
-            ILogger<ShellStateCoordinator> logger)
+            ILogger<ShellStateUpdater> logger)
         {
             _deferredTaskEngine = deferredTaskEngine;
             _settings = settings;
@@ -39,12 +41,11 @@ namespace XCore.Environment.Shell
 
         public ILogger Logger { get; set; }
 
-        //应用更改
         public async Task ApplyChanges()
         {
             if (Logger.IsEnabled(LogLevel.Information))
             {
-                Logger.LogInformation($"应用shell'{_settings.Name}'更改");
+                Logger.LogInformation("Applying changes for for shell '{0}'", _settings.Name);
             }
 
             var loadedFeatures = await _extensionManager.LoadFeaturesAsync();

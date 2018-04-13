@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.FileProviders;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using XCore.DisplayManagement.Manifest;
 using XCore.Environment.Extensions;
 using XCore.Environment.Extensions.Features;
-using XCore.Environment.Extensions.Manifests;
 
 namespace XCore.DisplayManagement.Extensions
 {
-    public class ThemeExtensionInfo : IExtensionInfo
+    public interface IThemeExtensionInfo : IExtensionInfo { }
+
+    public class ThemeExtensionInfo : IThemeExtensionInfo
     {
         private readonly IExtensionInfo _extensionInfo;
 
@@ -17,7 +17,8 @@ namespace XCore.DisplayManagement.Extensions
         {
             _extensionInfo = extensionInfo;
 
-            var baseTheme = _extensionInfo.Manifest.ConfigurationRoot["basetheme"];
+            var themeInfo = _extensionInfo.Manifest.ModuleInfo as ThemeAttribute;
+            var baseTheme = themeInfo?.BaseTheme;
 
             if (baseTheme != null && baseTheme.Length != 0)
             {
@@ -26,7 +27,6 @@ namespace XCore.DisplayManagement.Extensions
         }
 
         public string Id => _extensionInfo.Id;
-        public IFileInfo ExtensionFileInfo => _extensionInfo.ExtensionFileInfo;
         public string SubPath => _extensionInfo.SubPath;
         public IManifestInfo Manifest => _extensionInfo.Manifest;
         public IEnumerable<IFeatureInfo> Features => _extensionInfo.Features;

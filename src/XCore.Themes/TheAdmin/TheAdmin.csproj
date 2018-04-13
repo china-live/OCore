@@ -10,12 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
-    <Folder Include="Content\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\XCore\XCore.DisplayManagement\XCore.DisplayManagement.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Theme.Targets\XCore.Theme.Targets.csproj" />
   </ItemGroup>
 

@@ -10,6 +10,9 @@ using XCore.Mvc.LocationExpander;
 
 namespace XCore.DisplayManagement.LocationExpander
 {
+    /// <summary>
+    /// 自定义主题视图查找位置的提供者
+    /// </summary>
     public class ThemeAwareViewLocationExpanderProvider : IViewLocationExpanderProvider
     {
         private readonly IExtensionManager _extensionManager;
@@ -42,7 +45,8 @@ namespace XCore.DisplayManagement.LocationExpander
         }
 
         /// <inheritdoc />
-        public virtual IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context,IEnumerable<string> viewLocations)
+        public virtual IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context,
+                                                               IEnumerable<string> viewLocations)
         {
             if (!context.Values.ContainsKey("Theme"))
             {
@@ -53,7 +57,7 @@ namespace XCore.DisplayManagement.LocationExpander
 
             var currentThemeAndBaseThemesOrdered = _extensionManager
                 .GetFeatures(new[] { currentThemeId })
-                .Where(x => x.Extension.Manifest.IsTheme())
+                .Where(x => x.Extension.IsTheme())
                 .Reverse();
 
             if (context.ActionContext.ActionDescriptor is PageActionDescriptor page)
@@ -74,7 +78,9 @@ namespace XCore.DisplayManagement.LocationExpander
                         {
                             if (moduleId != theme.Id)
                             {
-                                var themeViewsPath = "/" + theme.Extension.SubPath + "/Views/" + moduleId;
+                                var themeViewsPath = '/' + theme.Extension.SubPath + "/Views";
+                                var themeViewsAreaPath = themeViewsPath + '/' + context.AreaName;
+                                yield return themeViewsAreaPath + "/Shared/{0}" + RazorViewEngine.ViewExtension;
                                 yield return themeViewsPath + "/Shared/{0}" + RazorViewEngine.ViewExtension;
                             }
                         }
@@ -90,8 +96,10 @@ namespace XCore.DisplayManagement.LocationExpander
                 {
                     if (context.AreaName != theme.Id)
                     {
-                        var themeViewsPath = '/' + theme.Extension.SubPath + "/Views/" + context.AreaName;
-                        result.Add(themeViewsPath + "/{1}/{0}" + RazorViewEngine.ViewExtension);
+                        var themeViewsPath = '/' + theme.Extension.SubPath + "/Views";
+                        var themeViewsAreaPath = themeViewsPath + '/' + context.AreaName;
+                        result.Add(themeViewsAreaPath + "/{1}/{0}" + RazorViewEngine.ViewExtension);
+                        result.Add(themeViewsAreaPath + "/Shared/{0}" + RazorViewEngine.ViewExtension);
                         result.Add(themeViewsPath + "/Shared/{0}" + RazorViewEngine.ViewExtension);
                     }
                 }

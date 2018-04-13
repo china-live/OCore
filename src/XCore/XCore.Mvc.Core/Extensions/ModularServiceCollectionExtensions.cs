@@ -1,4 +1,7 @@
-锘縰sing Microsoft.AspNetCore.Hosting;
+using System;
+using System.Linq;
+using System.Reflection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -7,26 +10,18 @@ using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
-using System.Linq;
-using System.Reflection;
 using XCore.Modules;
-using XCore.Mvc.Core.ModelBinding;
-using XCore.Mvc.Core.RazorPages;
 using XCore.Mvc.LocationExpander;
+using XCore.Mvc.ModelBinding;
+using XCore.Mvc.RazorPages;
 
-namespace XCore.Mvc.Core
+namespace XCore.Mvc
 {
     public static class ModularServiceCollectionExtensions
     {
-        /// <summary>
-        /// 鐢ㄤ簬澶氱鎴峰簲鐢ㄦ椂鐨凪VC妯″潡娉ㄥ唽
-        /// </summary>
-        /// <param name="moduleServices"></param>
-        /// <param name="applicationServices"></param>
-        /// <returns></returns>
         public static ModularServiceCollection AddMvcModules(this ModularServiceCollection moduleServices,
             IServiceProvider applicationServices)
         {
@@ -38,23 +33,15 @@ namespace XCore.Mvc.Core
             return moduleServices;
         }
 
-        /// <summary>
-        /// 鐢ㄤ簬鍗曞簲鐢ㄦ椂鐨凪VC妯″潡娉ㄥ唽
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="applicationServices"></param>
-        /// <returns></returns>
-        public static IMvcBuilder AddMvcModules(this IServiceCollection services,
+        public static MvcBuilder AddMvcModules(this IServiceCollection services,
             IServiceProvider applicationServices)
         {
             services.TryAddSingleton(new ApplicationPartManager());
 
-            services.AddScoped<IViewRenderService, ViewRenderService>();
-
             var builder = services.AddMvcCore(options =>
             {
-                //Do we need this ?
-               options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
+                // Do we need this?
+                options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
                 options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
             });
 
@@ -62,14 +49,13 @@ namespace XCore.Mvc.Core
             builder.AddViews();
             builder.AddViewLocalization();
 
-            
-
             AddModularFrameworkParts(applicationServices, builder.PartManager);
 
             builder.AddModularRazorViewEngine(applicationServices);
-            builder.AddModularRazorPages();
+            builder.AddModularRazorPages(applicationServices);
 
             // Use a custom IViewCompilerProvider so that all tenants reuse the same ICompilerCache instance
+            // 使用自定义IViewCompilerProvider，以便使所有租户重用同一个ICompilerCache实例
             builder.Services.Replace(new ServiceDescriptor(typeof(IViewCompilerProvider), typeof(SharedViewCompilerProvider), ServiceLifetime.Singleton));
 
             AddMvcModuleCoreServices(services);
@@ -78,9 +64,8 @@ namespace XCore.Mvc.Core
             // Order important
             builder.AddJsonFormatters();
 
-            builder.AddCors();
-
             return new MvcBuilder(builder.Services, builder.PartManager);
+            //return services;
         }
 
         public static void AddTagHelpers(this IServiceProvider serviceProvider, string assemblyName)
@@ -102,13 +87,13 @@ namespace XCore.Mvc.Core
 
         private static void AddDefaultFrameworkParts(ApplicationPartManager partManager)
         {
-            var mvcTagHelpersAssembly = typeof(InputTagHelper).GetTypeInfo().Assembly;
+            var mvcTagHelpersAssembly = typeof(InputTagHelper).Assembly;
             if (!partManager.ApplicationParts.OfType<AssemblyPart>().Any(p => p.Assembly == mvcTagHelpersAssembly))
             {
                 partManager.ApplicationParts.Add(new AssemblyPart(mvcTagHelpersAssembly));
             }
 
-            var mvcRazorAssembly = typeof(UrlResolutionTagHelper).GetTypeInfo().Assembly;
+            var mvcRazorAssembly = typeof(UrlResolutionTagHelper).Assembly;
             if (!partManager.ApplicationParts.OfType<AssemblyPart>().Any(p => p.Assembly == mvcRazorAssembly))
             {
                 partManager.ApplicationParts.Add(new AssemblyPart(mvcRazorAssembly));
@@ -130,11 +115,10 @@ namespace XCore.Mvc.Core
             });
         }
 
-        //mvc妯″潡鏍稿績鏈嶅姟
         internal static void AddMvcModuleCoreServices(IServiceCollection services)
         {
             services.Replace(
-                ServiceDescriptor.Scoped<IModularRouteBuilder, ModularRouteBuilder>());
+                ServiceDescriptor.Scoped<IModularTenantRouteBuilder, ModularTenantRouteBuilder>());
 
             services.AddScoped<IViewLocationExpanderProvider, DefaultViewLocationExpanderProvider>();
             services.AddScoped<IViewLocationExpanderProvider, ModularViewLocationExpanderProvider>();

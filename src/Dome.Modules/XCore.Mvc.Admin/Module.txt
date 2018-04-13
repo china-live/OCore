@@ -1,2 +1,0 @@
-﻿Name: MVC Admin
-Dependencies: XCore.Mvc
