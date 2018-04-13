@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
-    <ProjectReference Include="..\..\XCore.Modules\XCore.Admin\XCore.Admin.csproj" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" />
   </ItemGroup>
 

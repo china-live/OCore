@@ -97,7 +97,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Article", "src\XCore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Identity", "src\XCore.Modules\XCore.Identity\XCore.Identity.csproj", "{C8259686-2FF0-4FDF-AAD4-5989F17523C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo.Modules", "Demo.Modules", "{0A9C407F-0BEF-4177-BFBE-C2B9CB3DC8FF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0A9C407F-0BEF-4177-BFBE-C2B9CB3DC8FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCore.Mvc.Admin", "src\Dome.Modules\XCore.Mvc.Admin\XCore.Mvc.Admin.csproj", "{83D72377-7114-443C-A313-29FE116BC057}"
 EndProject
