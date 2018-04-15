@@ -9,9 +9,10 @@
     <ProjectReference Include="..\..\XCore\XCore.DeferredTasks\XCore.DeferredTasks.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Environment.Extensions\XCore.Environment.Extensions.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Environment.Shell.EntityFrameworkCore\XCore.Environment.Shell.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Environment.Shell\XCore.Environment.Shell.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Mvc.Core\XCore.Mvc.Core.csproj" />
-    <ProjectReference Include="..\..\XCore\XCore.ResourceManagement\XCore.ResourceManagement.csproj" />
   </ItemGroup>
 
 </Project>

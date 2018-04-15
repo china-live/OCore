@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.FileProviders;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace XCore.Modules.FileProviders
 {

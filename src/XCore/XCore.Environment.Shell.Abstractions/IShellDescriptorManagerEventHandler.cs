@@ -14,4 +14,6 @@ namespace XCore.Environment.Shell
         /// </summary>
         Task Changed(ShellDescriptor descriptor, string tenant);
     }
+
+    
 }

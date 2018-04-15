@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.AspNetCore.Http;
 using XCore.Environment.Shell;
 
 namespace XCore.Modules
 {
     public static class RunningShellTableExtensions
     {
-        //private const string XForwardedHost = "X-Forwarded-Host";
-
         public static ShellSettings Match(this IRunningShellTable table, HttpContext httpContext)
         {
             if (httpContext == null)
@@ -21,7 +19,8 @@ namespace XCore.Modules
             // to the value of X-Forwarded-Host when UseIISIntegration() is invoked.
             // The same way .Scheme contains the protocol that the user set and not what a proxy
             // could be using (see X-Forwarded-Proto).
-            return table.Match(httpRequest.Host.ToString(), httpRequest.Path);
+
+            return table.Match(httpRequest.Host.ToString(), httpRequest.Path, true);
         }
     }
 }

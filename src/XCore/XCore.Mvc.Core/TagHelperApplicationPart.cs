@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace XCore.Mvc.Core
+namespace XCore.Mvc
 {
     public class TagHelperApplicationPart : ApplicationPart, IApplicationPartTypeProvider
     {
@@ -19,6 +19,6 @@ namespace XCore.Mvc.Core
         public override string Name => _assembly.GetName().Name + ".TagHelpers";
 
         public IEnumerable<TypeInfo> Types => _assembly.ExportedTypes
-            .Select(t => t.GetTypeInfo()).Where(t => t.IsSubclassOf(typeof(TagHelper)));
+            .Select(t => IntrospectionExtensions.GetTypeInfo(t)).Where(t => t.IsSubclassOf(typeof(TagHelper)));
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using XCore.Environment.Extensions;
 using XCore.Environment.Extensions.Features;
 
-namespace XCore.Mvc.Core
+namespace XCore.Mvc
 {
     /// <summary>
     /// Adds an area route constraint using the name of the module.

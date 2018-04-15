@@ -19,7 +19,7 @@ using XCore.Web.Common;
 
 namespace XCore.Mvc.Admin.Controllers
 {
-
+    
     public class HomeController : Controller
     {
         private readonly UserManager<User> userManager;

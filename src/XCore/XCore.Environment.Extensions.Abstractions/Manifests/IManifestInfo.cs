@@ -1,13 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using XCore.Modules.Manifest;
 
-namespace XCore.Environment.Extensions.Manifests
+namespace XCore.Environment.Extensions
 {
-    /// <summary>
-    /// Madifest是个XML的描述文件，对于每个DLL有DLL的Manifest文件，对于每个应用程序Application也有自己的Manifest。
-    /// XCore和Orchard一样，描述文件通常是Module.txt文件，存储格式为Yaml
-    /// </summary>
     public interface IManifestInfo
     {
         bool Exists { get; }
@@ -18,6 +15,23 @@ namespace XCore.Environment.Extensions.Manifests
         string Website { get; }
         Version Version { get; }
         IEnumerable<string> Tags { get; }
-        IConfigurationRoot ConfigurationRoot { get; }
+        ModuleAttribute ModuleInfo { get; }
+    }
+
+    public class NotFoundManifestInfo : IManifestInfo
+    {
+        public NotFoundManifestInfo(string subPath)
+        {
+        }
+
+        public bool Exists => false;
+        public string Name => null;
+        public string Description => null;
+        public string Type => null;
+        public string Author => null;
+        public string Website => null;
+        public Version Version => null;
+        public IEnumerable<string> Tags => Enumerable.Empty<string>();
+        public ModuleAttribute ModuleInfo => null;
     }
 }

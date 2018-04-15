@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using XCore.Environment.Extensions.Manifests;
+﻿using System.Collections.Generic;
 
 namespace XCore.Environment.Extensions.Features
 {

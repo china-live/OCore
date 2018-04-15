@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using XCore.EntityFrameworkCore;
+using XCore.Environment.Shell.State;
 
 namespace XCore.Migrator.Migrations
 {
@@ -109,6 +110,80 @@ namespace XCore.Migrator.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("XCore_TencentVods");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellDescriptor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("SerialNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("XCore_ShellDescriptor");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellFeature", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ShellDescriptorId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShellDescriptorId");
+
+                    b.ToTable("ShellFeature");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellParameter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Component");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ShellDescriptorId");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShellDescriptorId");
+
+                    b.ToTable("ShellParameter");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.State.ShellFeatureState", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EnableState");
+
+                    b.Property<int>("InstallState");
+
+                    b.Property<int?>("ShellStateId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShellStateId");
+
+                    b.ToTable("ShellFeatureState");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.State.ShellState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("XCore_ShellState");
                 });
 
             modelBuilder.Entity("XCore.Identity.Role", b =>
@@ -273,6 +348,27 @@ namespace XCore.Migrator.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("XCore_UserTokens");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellFeature", b =>
+                {
+                    b.HasOne("XCore.Environment.Shell.Descriptor.Models.ShellDescriptor")
+                        .WithMany("Features")
+                        .HasForeignKey("ShellDescriptorId");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellParameter", b =>
+                {
+                    b.HasOne("XCore.Environment.Shell.Descriptor.Models.ShellDescriptor")
+                        .WithMany("Parameters")
+                        .HasForeignKey("ShellDescriptorId");
+                });
+
+            modelBuilder.Entity("XCore.Environment.Shell.State.ShellFeatureState", b =>
+                {
+                    b.HasOne("XCore.Environment.Shell.State.ShellState")
+                        .WithMany("Features")
+                        .HasForeignKey("ShellStateId");
                 });
 
             modelBuilder.Entity("XCore.Identity.RoleClaim", b =>

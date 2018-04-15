@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Primitives;
 using XCore.Modules.FileProviders;
 
 namespace XCore.Modules
@@ -47,17 +47,13 @@ namespace XCore.Modules
             {
                 var path = folder.Substring(Application.ModulesRoot.Length);
                 var index = path.IndexOf('/');
-
                 var name = index == -1 ? path : path.Substring(0, index);
                 var assetPaths = _environment.GetModule(name).AssetPaths;
-
                 var folders = new HashSet<string>(StringComparer.Ordinal);
                 var folderSlash = folder + '/';
 
                 foreach (var assetPath in assetPaths.Where(a => a.StartsWith(folderSlash, StringComparison.Ordinal)))
                 {
-                    //path = assetPath.Substring(folder.Length + 1);
-                    //index = path.IndexOf('/');
                     var folderPath = assetPath.Substring(folderSlash.Length);
                     var pathIndex = folderPath.IndexOf('/');
                     var isFilePath = pathIndex == -1;
@@ -70,14 +66,6 @@ namespace XCore.Modules
                     {
                         folders.Add(folderPath.Substring(0, pathIndex));
                     }
-                    //if (index == -1)
-                    //{
-                    //    entries.Add(GetFileInfo(assetPath));
-                    //}
-                    //else
-                    //{
-                    //    folders.Add(path.Substring(0, index));
-                    //}
                 }
 
                 entries.AddRange(folders.Select(f => new EmbeddedDirectoryInfo(f)));
@@ -102,8 +90,6 @@ namespace XCore.Modules
 
                 if (index != -1)
                 {
-                    //return _environment.GetModule(path.Substring(0, index))
-                    //    .GetFileInfo(path.Substring(index + 1));
                     var moduleName = path.Substring(0, index);
                     var fileSubPath = path.Substring(index + 1);
 
@@ -121,7 +107,7 @@ namespace XCore.Modules
 
         private string NormalizePath(string path)
         {
-            return path.Replace('\\', '/').Trim('/');
+            return path.Replace('\\', '/').Trim('/').Replace("//", "/");
         }
     }
 }

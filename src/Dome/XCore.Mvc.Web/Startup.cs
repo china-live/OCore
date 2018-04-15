@@ -5,8 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Text.Encodings.Web;
+using XCore.DisplayManagement;
+using XCore.Environment.Extensions.Manifests;
+using XCore.Environment.Shell;
 using XCore.Logging;
-using XCore.Modules.Extensions;
 
 namespace XCore.Mvc.Web
 {
@@ -34,10 +36,21 @@ namespace XCore.Mvc.Web
             services.AddDistributedMemoryCache();
             services.AddSession();
 
-            services.AddModules(configure =>
+            //services.AddThemingHost();
+            //services.AddManifestDefinition("theme");
+
+            //services.AddExtensionLocation("Themes");
+            services.AddSitesFolder();
+
+            services.AddModules(modules =>
                 {
-                    configure.WithConfiguration(Configuration);
-                    //configure.WithDefaultFeatures("XCore.Commons");
+                    modules.WithConfiguration(Configuration);
+                    //modules.WithDefaultFeatures("XCore.Commons");
+                    //modules.WithDefaultFeatures(
+                    //"XCore.Mvc.Admin", 
+                    //"XCore.Mvc.HelloWorld", 
+                    //"XCore.Mvc.Test",
+                    //"XCore.Commons");
                 }
             );
 
@@ -104,5 +117,7 @@ namespace XCore.Mvc.Web
                 await context.Response.WriteAsync("</tbody></table>");
             }));
         }
+
+       
     }
 }

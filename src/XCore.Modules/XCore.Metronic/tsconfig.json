@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "outFile": "wwwroot/tsc.js",
+        "noEmitOnError": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "target": "es5"
+    },
+    "include": [
+        "Views/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "wwwroot"
+    ]
+}

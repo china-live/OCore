@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Reflection;
 using XCore.BackgroundTasks;
 using XCore.DeferredTasks;
 using XCore.EntityFrameworkCore;
+using XCore.Environment.Shell;
+using XCore.Environment.Shell.EntityFrameworkCore;
 using XCore.Modules;
-using XCore.Mvc.Core;
-using XCore.ResourceManagement;
-using XCore.ResourceManagement.TagHelpers;
 
 namespace XCore.Commons
 {
@@ -31,10 +28,10 @@ namespace XCore.Commons
             services.AddEntityFrameworkCore(defaultConnection);
 
             services.AddBackgroundTasks();
-            services.AddResourceManagement();
+            //services.AddResourceManagement();
             //services.AddGeneratorTagFilter();
             //services.AddCaching();
-            //services.AddShellDescriptorStorage();
+            services.AddShellDescriptorStorage().AddEntityFrameworkStores();
             //services.AddExtensionManager();
             //services.AddTheming();
             //services.AddLiquidViews();
@@ -42,7 +39,7 @@ namespace XCore.Commons
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            serviceProvider.AddTagHelpers(typeof(ResourcesTagHelper).GetTypeInfo().Assembly);
+            //serviceProvider.AddTagHelpers(typeof(ResourcesTagHelper).GetTypeInfo().Assembly);
             //serviceProvider.AddTagHelpers(typeof(ShapeTagHelper).GetTypeInfo().Assembly);
         }
     }

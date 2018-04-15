@@ -1,43 +1,40 @@
-ï»¿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using OrchardCore.Environment.Shell;
 using XCore.Environment.Extensions;
 using XCore.Environment.Extensions.Manifests;
 using XCore.Environment.Shell;
+using XCore.Environment.Shell.Descriptor;
 using XCore.Environment.Shell.Descriptor.Models;
+using XCore.Environment.Shell.Descriptor.Settings;
+using XCore.Modules;
 
-namespace XCore.Modules.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ModularServiceCollectionExtensions
     {
+        /// <summary>
+        /// Ìí¼ÓÄ£¿é·şÎñµ½<see cref="Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+        /// </summary>
         public static IServiceCollection AddModules(this IServiceCollection services, Action<ModularServiceCollection> configure = null)
         {
             services.AddWebHost();
-            services.AddManifestDefinition("Module.txt", "module");
-            //services.AddExtensionLocation("Packages");
-            services.AddExtensionLocation(Application.ModulesPath);
+            services.AddManifestDefinition("module");
 
-            // ModularRouterMiddleware which is configured with UseModules() calls UserRouter() which requires the routing services to be
+            // ModularTenantRouterMiddleware which is configured with UseModules() calls UserRouter() which requires the routing services to be
             // registered. This is also called by AddMvcCore() but some applications that do not enlist into MVC will need it too.
-            // ä¸Šé¢çš„è‹±æ–‡å¤§æ„æ˜¯ï¼šModularRouterMiddleware æ˜¯ç”¨åœ¨ä½¿ç”¨MVCæ¡†æ¶æ—¶çš„è·¯ç”±å¤„ç†ï¼Œä½†æœ‰çš„åº”ç”¨å¯èƒ½ä¸éœ€è¦å¼•å…¥MVCæ¡†æ¶ã€‚
             services.AddRouting();
-
-            //services.AddSingleton<IEntityManager>(new EfInit().GetDefaultEntityManager());
-
-
-
 
             var modularServiceCollection = new ModularServiceCollection(services);
 
-            // Use a single tenant and all features by default å•ç§Ÿæˆ·æ—¶é»˜è®¤æ‹¥æœ‰å…¨éƒ¨åŠŸèƒ½
+            // Use a single tenant and all features by defaultÄ¬ÈÏÇé¿öÏÂÊ¹ÓÃµ¥¸ö×â»§£¬²¢ÇÒÓµÓĞÈ«²¿¹¦ÄÜ
             modularServiceCollection.Configure(internalServices =>
                 internalServices.AddAllFeaturesDescriptor()
             );
 
-            // Let the app change the default tenant behavior and set of features
+            // Let the app change the default tenant behavior and set of features ÔÚÓ¦ÓÃÖĞÅäÖÃ¸²¸ÇÄ¬ÈÏ×â»§ºÍ¹¦ÄÜ
             configure?.Invoke(modularServiceCollection);
 
             // Register the list of services to be resolved later on
@@ -46,6 +43,9 @@ namespace XCore.Modules.Extensions
             return services;
         }
 
+        /// <summary>
+        /// ×¢²áÄ£¿éÖĞÒªÊ¹ÓÃµÄÅäÖÃÎÄ¼şÑ¡Ïî
+        /// </summary>
         public static ModularServiceCollection WithConfiguration(this ModularServiceCollection modules, IConfiguration configuration)
         {
             // Register the configuration object for modules to register options with it
@@ -60,8 +60,11 @@ namespace XCore.Modules.Extensions
         /// <summary>
         /// Registers a default tenant with a set of features that are used to setup and configure the actual tenants.
         /// For instance you can use this to add a custom Setup module.
+        /// ÏòÄ¬ÈÏ×â»§×¢²áÒ»×éÓÃÓÚÉèÖÃºÍÅäÖÃÊµ¼Ê×â»§µÄ¹¦ÄÜ¡£
+        /// ÀıÈç£¬Äú¿ÉÒÔÊ¹ÓÃËüÀ´Ìí¼Ó×Ô¶¨Òå°²×°Ä£¿é¡£
         /// </summary>
-        public static ModularServiceCollection WithDefaultFeatures(this ModularServiceCollection modules, params string[] featureIds)
+        public static ModularServiceCollection WithDefaultFeatures(
+            this ModularServiceCollection modules, params string[] featureIds)
         {
             modules.Configure(services =>
             {
@@ -74,7 +77,48 @@ namespace XCore.Modules.Extensions
             return modules;
         }
 
-        public static IServiceCollection AddWebHost(this IServiceCollection services)
+        /// <summary>
+        /// Registers tenants defined in configuration.
+        /// ×¢²áÅäÖÃÖĞ¶¨ÒåµÄ×â»§¡£ÔÚtenants.jsonÖĞÅäÖÃ²¢¶¨Òå×â»§¼°ËùÓµÓĞµÄ¹¦ÄÜ¡£ 
+        /// </summary>
+        public static ModularServiceCollection WithTenants(this ModularServiceCollection modules)
+        {
+            modules.Configure(services =>
+            {
+                services.AddSingleton<IShellSettingsConfigurationProvider, FileShellSettingsConfigurationProvider>();
+                services.AddScoped<IShellDescriptorManager, FileShellDescriptorManager>();
+                services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
+                services.AddScoped<ShellSettingsWithTenants>();
+            });
+
+            return modules;
+        }
+
+        /// <summary>
+        /// Registers a single tenant with the specified set of features.
+        /// ×¢²á¾ßÓĞÖ¸¶¨¹¦ÄÜµÄµ¥¸ö×â»§¡£
+        /// </summary>
+        public static ModularServiceCollection WithFeatures(
+            this ModularServiceCollection modules,
+            params string[] featureIds)
+        {
+            var featuresList = featureIds.Select(featureId => new ShellFeature(featureId)).ToList();
+
+            modules.Configure(services =>
+            {
+                foreach (var feature in featuresList)
+                {
+                    services.AddTransient(sp => feature);
+                };
+
+                services.AddSetFeaturesDescriptor(featuresList);
+            });
+
+            return modules;
+        }
+
+        public static IServiceCollection AddWebHost(
+            this IServiceCollection services)
         {
             services.AddLogging();
             services.AddOptions();
@@ -84,9 +128,10 @@ namespace XCore.Modules.Extensions
             services.AddWebEncoders();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddSingleton<IClock, Clock>();
+            services.AddSingleton<IClock, Clock>();
 
-            services.AddScoped<IModularRouteBuilder, ModularRouteBuilder>();
+            services.AddSingleton<IPoweredByMiddlewareOptions, PoweredByMiddlewareOptions>();
+            services.AddScoped<IModularTenantRouteBuilder, ModularTenantRouteBuilder>();
 
             return services;
         }

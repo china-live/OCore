@@ -10,6 +10,7 @@ namespace XCore.Modules
     /// An attribute that can associate a service or component with
     /// a specific feature by its name. This component will only
     /// be used if the feature is enabled.
+    /// 可以通过名称将服务或组件与特定功能相关联的属性,该组件仅在启用该功能时才会使用。
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class FeatureAttribute : Attribute
@@ -28,6 +29,7 @@ namespace XCore.Modules
     /// <summary>
     /// When used on a class, it will include the service only
     /// if the specific features are enabled.
+    /// 作用与模块的Startup类(直接或间接继承自IStartup接口的类)用来标示只有在启用了特定功能时,该模块才会提供服务。
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class RequireFeaturesAttribute : Attribute
@@ -46,7 +48,7 @@ namespace XCore.Modules
         }
 
         /// <summary>
-        /// The names of the required features.
+        /// The names of the required features.获取所需功能的名称。
         /// </summary>
         public IList<string> RequiredFeatureNames { get; }
 

@@ -26,6 +26,9 @@ namespace XCore.DisplayManagement.Theming
 
         public async Task<IExtensionInfo> GetThemeAsync()
         {
+            // 由于性能原因，每个域（请求）只处理当前主题一次。
+            //这不能缓存，因为每个请求获得不同的值。
+
             // For performance reason, processes the current theme only once per scope (request).
             // This can't be cached as each request gets a different value.
             if (_theme == null)
@@ -47,7 +50,7 @@ namespace XCore.DisplayManagement.Theming
                     return null;
                 }
 
-                // Try to load the theme to ensure it's present
+                // Try to load the theme to ensure it's present尝试加载主题，以确保它的存在。
                 foreach (var theme in themeResults)
                 {
                     var t = _extensionManager.GetExtension(theme.ThemeName);

@@ -1,0 +1,6 @@
+* text = auto
+*.css linguist-language=csharp
+*.less linguist-language=csharp
+*.js linguist-language=csharp
+*.html linguist-language=csharp
+*.cshtml linguist-language=csharp

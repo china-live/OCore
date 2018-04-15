@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.FileProviders.Embedded;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using XCore.Modules.FileProviders;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Embedded;
+using XCore.Modules.Manifest;
 
 namespace XCore.Modules
 {
@@ -59,13 +58,14 @@ namespace XCore.Modules
     {
         public const string ModulesPath = ".Modules";
         public static string ModulesRoot = ModulesPath + "/";
-        private const string ModuleNamesMap = "module.names.map";
 
         public Application(string application)
         {
             Name = application;
             Assembly = Assembly.Load(new AssemblyName(application));
-            ModuleNames = new EmbeddedFileProvider(Assembly).GetFileInfo(ModuleNamesMap).ReadAllLines();
+
+            ModuleNames = Assembly.GetCustomAttributes<ModuleNameAttribute>()
+                .Select(m => m.Name).ToArray();
         }
 
         public string Name { get; }
@@ -75,43 +75,60 @@ namespace XCore.Modules
 
     public class Module
     {
-        public const string ContentPath = "Content";
+        public const string ContentPath = "wwwroot";
         public static string ContentRoot = ContentPath + "/";
-        private const string ModuleAssetsMap = "module.assets.map";
 
         private readonly string _baseNamespace;
         private readonly DateTimeOffset _lastModified;
-
         private readonly IDictionary<string, IFileInfo> _fileInfos = new Dictionary<string, IFileInfo>();
-        //private readonly IFileProvider _fileProvider;
 
         public Module(string name)
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
                 Name = name;
-                Root = Application.ModulesRoot + Name + '/';
+                SubPath = Application.ModulesRoot + Name;
+                Root = SubPath + '/';
+
                 Assembly = Assembly.Load(new AssemblyName(name));
-                //_fileProvider = new EmbeddedFileProvider(Assembly);
-                //Assets = _fileProvider.GetFileInfo(ModuleAssetsMap).ReadAllLines().Select(a => new Asset(a));
-                Assets = new EmbeddedFileProvider(Assembly).GetFileInfo(ModuleAssetsMap).ReadAllLines().Select(a => new Asset(a));
-                AssetPaths = Assets.Select(a => a.ModuleAssetPath);
+
+                Assets = Assembly.GetCustomAttributes<ModuleAssetAttribute>()
+                    .Select(a => new Asset(a.Asset)).ToArray();
+
+                AssetPaths = Assets.Select(a => a.ModuleAssetPath).ToArray();
+
+                var moduleInfos = Assembly.GetCustomAttributes<ModuleAttribute>();
+
+                ModuleInfo =
+                    moduleInfos.Where(f => !(f is ModuleMarkerAttribute)).FirstOrDefault() ??
+                    moduleInfos.Where(f => f is ModuleMarkerAttribute).FirstOrDefault() ??
+                    new ModuleAttribute { Name = Name };
+
+                var features = Assembly.GetCustomAttributes<Manifest.FeatureAttribute>()
+                    .Where(f => !(f is ModuleAttribute));
+
+                ModuleInfo.Features.AddRange(features);
+                ModuleInfo.Id = Name;
             }
             else
             {
-                Name = Root = string.Empty;
+                Name = Root = SubPath = String.Empty;
                 Assets = Enumerable.Empty<Asset>();
                 AssetPaths = Enumerable.Empty<string>();
+                ModuleInfo = new ModuleAttribute();
             }
+
             _baseNamespace = Name + '.';
             _lastModified = DateTimeOffset.UtcNow;
         }
 
         public string Name { get; }
         public string Root { get; }
+        public string SubPath { get; }
         public Assembly Assembly { get; }
         public IEnumerable<Asset> Assets { get; }
         public IEnumerable<string> AssetPaths { get; }
+        public ModuleAttribute ModuleInfo { get; }
 
         public IFileInfo GetFileInfo(string subpath)
         {
@@ -126,8 +143,6 @@ namespace XCore.Modules
                 {
                     if (!_fileInfos.TryGetValue(subpath, out fileInfo))
                     {
-                        //_fileInfos[subpath] = fileInfo = _fileProvider.GetFileInfo(subpath);
-
                         var resourcePath = _baseNamespace + subpath.Replace('/', '>');
                         var fileName = Path.GetFileName(subpath);
 
@@ -137,7 +152,7 @@ namespace XCore.Modules
                         }
 
                         _fileInfos[subpath] = fileInfo = new EmbeddedResourceFileInfo(
-                        Assembly, resourcePath, fileName, _lastModified);
+                            Assembly, resourcePath, fileName, _lastModified);
                     }
                 }
             }
@@ -155,7 +170,7 @@ namespace XCore.Modules
 
             if (index == -1)
             {
-                ModuleAssetPath = asset;
+                ModuleAssetPath = string.Empty;
                 ProjectAssetPath = string.Empty;
             }
             else
