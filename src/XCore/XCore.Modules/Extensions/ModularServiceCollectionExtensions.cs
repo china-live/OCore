@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ModularServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds modules services to the specified <see cref="Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+        /// 添加模块服务到<see cref="Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
         /// </summary>
         public static IServiceCollection AddModules(this IServiceCollection services, Action<ModularServiceCollection> configure = null)
         {
@@ -29,12 +29,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var modularServiceCollection = new ModularServiceCollection(services);
 
-            // Use a single tenant and all features by default
+            // Use a single tenant and all features by default默认情况下使用单个租户，并且拥有全部功能
             modularServiceCollection.Configure(internalServices =>
                 internalServices.AddAllFeaturesDescriptor()
             );
 
-            // Let the app change the default tenant behavior and set of features
+            // Let the app change the default tenant behavior and set of features 在应用中配置覆盖默认租户和功能
             configure?.Invoke(modularServiceCollection);
 
             // Register the list of services to be resolved later on
@@ -43,6 +43,9 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// 注册模块中要使用的配置文件选项
+        /// </summary>
         public static ModularServiceCollection WithConfiguration(this ModularServiceCollection modules, IConfiguration configuration)
         {
             // Register the configuration object for modules to register options with it
@@ -57,6 +60,8 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Registers a default tenant with a set of features that are used to setup and configure the actual tenants.
         /// For instance you can use this to add a custom Setup module.
+        /// 向默认租户注册一组用于设置和配置实际租户的功能。
+        /// 例如，您可以使用它来添加自定义安装模块。
         /// </summary>
         public static ModularServiceCollection WithDefaultFeatures(
             this ModularServiceCollection modules, params string[] featureIds)
@@ -74,6 +79,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         /// <summary>
         /// Registers tenants defined in configuration.
+        /// 注册配置中定义的租户。在tenants.json中配置并定义租户及所拥有的功能。 
         /// </summary>
         public static ModularServiceCollection WithTenants(this ModularServiceCollection modules)
         {
@@ -90,6 +96,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         /// <summary>
         /// Registers a single tenant with the specified set of features.
+        /// 注册具有指定功能的单个租户。
         /// </summary>
         public static ModularServiceCollection WithFeatures(
             this ModularServiceCollection modules,

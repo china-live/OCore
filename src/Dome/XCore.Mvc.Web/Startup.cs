@@ -46,11 +46,11 @@ namespace XCore.Mvc.Web
                 {
                     modules.WithConfiguration(Configuration);
                     //modules.WithDefaultFeatures("XCore.Commons");
-                    modules.WithDefaultFeatures(
-                    "XCore.Mvc.Admin", 
-                    "XCore.Mvc.HelloWorld", 
-                    "XCore.Mvc.Test",
-                    "XCore.Commons");
+                    //modules.WithDefaultFeatures(
+                    //"XCore.Mvc.Admin", 
+                    //"XCore.Mvc.HelloWorld", 
+                    //"XCore.Mvc.Test",
+                    //"XCore.Commons");
                 }
             );
 

@@ -12,7 +12,23 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
     {
         public void Configure(EntityTypeBuilder<ShellDescriptor> a)
         {
-            a.ToTable("XCore_ShellDescriptor");
+            a.ToTable("ShellDescriptor");
+            a.HasKey(r => r.Id);
+        }
+    }
+    public class ShellFeatureEntityTypeConfiguration : IEntityTypeConfiguration<ShellFeature>
+    {
+        public void Configure(EntityTypeBuilder<ShellFeature> a)
+        {
+            a.ToTable("ShellFeature");
+            a.HasKey(r => r.Id);
+        }
+    }
+    public class ShellParameterEntityTypeConfiguration : IEntityTypeConfiguration<ShellParameter>
+    {
+        public void Configure(EntityTypeBuilder<ShellParameter> a)
+        {
+            a.ToTable("ShellParameter");
             a.HasKey(r => r.Id);
         }
     }
@@ -21,8 +37,19 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
     {
         public void Configure(EntityTypeBuilder<ShellState> a)
         {
-            a.ToTable("XCore_ShellState");
+            a.ToTable("ShellState");
             a.HasKey(r => r.Id);
+        }
+    }
+    public class ShellFeatureStateEntityTypeConfiguration : IEntityTypeConfiguration<ShellFeatureState>
+    {
+        public void Configure(EntityTypeBuilder<ShellFeatureState> a)
+        {
+            a.ToTable("ShellFeatureState");
+            a.HasKey(r => r.Id);
+            a.Property(e => e.InstallState);
+            a.Property(e => e.EnableState);
+            //a.HasConversion(converter);
         }
     }
 }
