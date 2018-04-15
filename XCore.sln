@@ -145,6 +145,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeMode", "src\XCore.Theme
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheTheme", "src\XCore.Themes\TheTheme\TheTheme.csproj", "{10F9B4E5-F265-464A-B603-FCE13ADF5891}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E0E55809-6CA1-4D40-8911-F7B856F203E7}"
+	ProjectSection(SolutionItems) = preProject
+		src\XCore.Build\Dependencies.AspNetCore.props = src\XCore.Build\Dependencies.AspNetCore.props
+		src\XCore.Build\Dependencies.props = src\XCore.Build\Dependencies.props
+		src\XCore.Build\XCore.Commons.props = src\XCore.Build\XCore.Commons.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

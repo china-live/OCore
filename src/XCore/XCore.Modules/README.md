@@ -1,5 +1,8 @@
 # 2018/04/11
-同步到OrchardCore dev分支，无修改
+同步到OrchardCore dev分支
+
+修改：
+ModularServiceCollectionExtensions类中添加WithConfiguration方法，注册模块中要使用的配置文件选项
 
 # Introduction
 
