@@ -26,7 +26,7 @@ namespace XCore.Mvc.HelloWorld
             (
                 name: "HelloWorld",
                 areaName: "XCore.Mvc.HelloWorld",
-                template: "{controller=Home}/{action=Index}/{id?}"
+                template: "Hello/{controller=Home}/{action=Index}/{id?}"
             );
         }
     }

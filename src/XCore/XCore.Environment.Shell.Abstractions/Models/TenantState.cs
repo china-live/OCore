@@ -11,11 +11,11 @@ namespace XCore.Environment.Shell.Models
         /// </summary>
         Uninitialized,
         /// <summary>
-        /// 已初始化
+        /// 正在初始化
         /// </summary>
         Initializing,
         /// <summary>
-        /// 正常、正在运转中
+        /// 正在运转中
         /// </summary>
         Running,
         /// <summary>

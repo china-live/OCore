@@ -11,25 +11,39 @@ namespace XCore.Logging
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseNLogWeb(this IApplicationBuilder app, ILoggerFactory loggerFactory)
-        {
-            LayoutRenderer.Register<TenantLayoutRenderer>(TenantLayoutRenderer.LayoutRendererName);
-            loggerFactory.AddNLog();
-            app.AddNLogWeb();
+        //public static IApplicationBuilder UseNLogWeb(this IApplicationBuilder app, ILoggerFactory loggerFactory)
+        //{
+        //    LayoutRenderer.Register<TenantLayoutRenderer>(TenantLayoutRenderer.LayoutRendererName);
+        //    loggerFactory.AddNLog();
+        //    app.AddNLogWeb();
 
-            return app;
-        }
+        //    return app;
+        //}
 
-        public static IApplicationBuilder UseNLogWeb(this IApplicationBuilder app, ILoggerFactory loggerFactory, IHostingEnvironment env)
-        {
-            env.ConfigureNLog($"{env.ContentRootPath}{Path.DirectorySeparatorChar}NLog.config");
-            LayoutRenderer.Register<TenantLayoutRenderer>(TenantLayoutRenderer.LayoutRendererName);
-            loggerFactory.AddNLog();
-            app.AddNLogWeb();
-            LogManager.Configuration.Variables["configDir"] = env.ContentRootPath;
+        //public static IApplicationBuilder UseNLogWeb(this IApplicationBuilder app, ILoggerFactory loggerFactory, IHostingEnvironment env)
+        //{
+        //    env.ConfigureNLog($"{env.ContentRootPath}{Path.DirectorySeparatorChar}NLog.config");
+        //    LayoutRenderer.Register<TenantLayoutRenderer>(TenantLayoutRenderer.LayoutRendererName);
+        //    loggerFactory.AddNLog();
+        //    app.AddNLogWeb();
+        //    LogManager.Configuration.Variables["configDir"] = env.ContentRootPath;
 
            
-            return app;
+        //    return app;
+        //}
+
+        public static IWebHostBuilder UseNLogWeb(this IWebHostBuilder builder)
+        {
+            LayoutRenderer.Register<TenantLayoutRenderer>(TenantLayoutRenderer.LayoutRendererName);
+            builder.UseNLog();
+            builder.ConfigureAppConfiguration((context, configuration) =>
+            {
+                var environment = context.HostingEnvironment;
+                environment.ConfigureNLog($"{environment.ContentRootPath}{Path.DirectorySeparatorChar}NLog.config");
+                LogManager.Configuration.Variables["configDir"] = environment.ContentRootPath;
+            });
+
+            return builder;
         }
     }
 }

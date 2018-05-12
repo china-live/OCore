@@ -9,6 +9,7 @@ namespace XCore.Modules
 {
     /// <summary>
     /// Adds the X-Powered-By header with values XCore.
+    /// 该中间件提供自定义 HTTP 请求头（header ）的X-Powered-By值功能，默认值为"XCore"
     /// </summary>
     internal class PoweredByMiddleware
     {
@@ -39,8 +40,7 @@ namespace XCore.Modules
         string HeaderValue { get; set; }
     }
 
-    class PoweredByMiddlewareOptions
-        : IPoweredByMiddlewareOptions
+    class PoweredByMiddlewareOptions: IPoweredByMiddlewareOptions
     {
         const string PoweredByHeaderName = "X-Powered-By";
         const string PoweredByHeaderValue = "XCore";

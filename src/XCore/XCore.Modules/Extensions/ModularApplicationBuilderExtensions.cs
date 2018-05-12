@@ -18,9 +18,9 @@ namespace Microsoft.AspNetCore.Builder
             env.ContentRootFileProvider = new CompositeFileProvider(
                 new ModuleEmbeddedFileProvider(env),
                 env.ContentRootFileProvider);
-            
-            // Ensure the shell tenants are loaded when a request comes in
-            // and replaces the current service provider for the tenant's one.
+
+            // Ensure the shell tenants are loaded when a request comes in 在请求进入时加载shell租户
+            // and replaces the current service provider for the tenant's one.并替换租户的当前服务提供商(ServiceProvider)
             app.UseMiddleware<PoweredByMiddleware>();
             app.UseMiddleware<ModularTenantContainerMiddleware>();
 

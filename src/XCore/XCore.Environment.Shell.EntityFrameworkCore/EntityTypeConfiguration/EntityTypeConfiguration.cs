@@ -22,6 +22,7 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
         {
             a.ToTable("ShellFeature");
             a.HasKey(r => r.Id);
+            a.Property(b => b.Id).ValueGeneratedNever();
         }
     }
     public class ShellParameterEntityTypeConfiguration : IEntityTypeConfiguration<ShellParameter>
@@ -29,7 +30,7 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
         public void Configure(EntityTypeBuilder<ShellParameter> a)
         {
             a.ToTable("ShellParameter");
-            a.HasKey(r => r.Id);
+            a.HasKey(r => new { r.Name,r.Value,r.Component});
         }
     }
 

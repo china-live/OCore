@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using XCore.EntityFrameworkCore;
 using XCore.Environment.Shell.State;
+using XCore.Settings;
 
 namespace XCore.Migrator.Migrations
 {
@@ -18,7 +19,7 @@ namespace XCore.Migrator.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("XCore.Article.Article", b =>
@@ -121,7 +122,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("XCore_ShellDescriptor");
+                    b.ToTable("ShellDescriptor");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellFeature", b =>
@@ -183,7 +184,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("XCore_ShellState");
+                    b.ToTable("ShellState");
                 });
 
             modelBuilder.Entity("XCore.Identity.Role", b =>
@@ -348,6 +349,60 @@ namespace XCore.Migrator.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("XCore_UserTokens");
+                });
+
+            modelBuilder.Entity("XCore.Recipes.Entitys.Recipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ExecutionId");
+
+                    b.Property<string>("JsonValue");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipe");
+                });
+
+            modelBuilder.Entity("XCore.Settings.SiteSettingsEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BaseUrl");
+
+                    b.Property<string>("Calendar");
+
+                    b.Property<string>("Culture");
+
+                    b.Property<string>("HomeRoute_Action");
+
+                    b.Property<string>("HomeRoute_Area");
+
+                    b.Property<string>("HomeRoute_Controller");
+
+                    b.Property<int>("MaxPageSize");
+
+                    b.Property<int>("MaxPagedCount");
+
+                    b.Property<int>("PageSize");
+
+                    b.Property<int>("ResourceDebugMode");
+
+                    b.Property<string>("SiteName");
+
+                    b.Property<string>("SiteSalt");
+
+                    b.Property<string>("SuperUser");
+
+                    b.Property<string>("TimeZone");
+
+                    b.Property<bool>("UseCdn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteSettings");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellFeature", b =>

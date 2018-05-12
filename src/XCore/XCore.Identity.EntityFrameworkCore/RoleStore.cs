@@ -23,7 +23,7 @@ namespace XCore.Identity.EntityFrameworkCore
             Context = context;
         }
  
-        public DbContext Context { get; private set; }
+        public AppDbContext Context { get; private set; }
  
         public bool AutoSaveChanges { get; set; } = true;
 

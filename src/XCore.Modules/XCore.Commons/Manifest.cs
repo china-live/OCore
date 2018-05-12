@@ -5,7 +5,7 @@ using XCore.Modules.Manifest;
     Author = "ldming",
     Website = "http://www.ldming.com",
     Version = "1.0.0",
-    Description = "一些常用的公共组件集合",
+    Description = "提供构建SaaS应用程序的一些通用服务",
     Category = "Infrastructure"//,
     //Dependencies = new[]
     //{

@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>XCore Setup</title>
+    <link href="~/XCore.Metronic/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    @await RenderSectionAsync("Header", required: false)
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer></footer>
+    </div>
+    <script src="~/XCore.Metronic/plugins/bootstrap/js/bootstrap.js">@*3.3.7*@</script>
+    @await RenderSectionAsync("Footer", required: false)
+</body>
+</html>

@@ -55,7 +55,6 @@ namespace XCore.Mvc
             builder.AddModularRazorPages(applicationServices);
 
             // Use a custom IViewCompilerProvider so that all tenants reuse the same ICompilerCache instance
-            // 使用自定义IViewCompilerProvider，以便使所有租户重用同一个ICompilerCache实例
             builder.Services.Replace(new ServiceDescriptor(typeof(IViewCompilerProvider), typeof(SharedViewCompilerProvider), ServiceLifetime.Singleton));
 
             AddMvcModuleCoreServices(services);

@@ -21,7 +21,7 @@ namespace XCore.Article.EntityFrameworkCore
 
         private bool _disposed;
         private DbSet<Article> ArticlesSet { get { return Context.Set<Article>(); } }
-        public DbContext Context { get; private set; }
+        public AppDbContext Context { get; private set; }
         public ArticleErrorDescriber  ErrorDescriber { get; set; }
         public bool AutoSaveChanges { get; set; } = true;
  

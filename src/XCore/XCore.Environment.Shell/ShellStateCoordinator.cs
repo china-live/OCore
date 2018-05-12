@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace XCore.Environment.Shell
 {
     // This class is registered automatically as transient as it is an event handler
+    //这个类自动注册为瞬态，因为它是一个事件处理程序
     public class ShellStateCoordinator : IShellDescriptorManagerEventHandler
     {
         private readonly ShellSettings _settings;

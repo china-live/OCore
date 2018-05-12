@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\XCore\XCore.BackgroundTasks\XCore.BackgroundTasks.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.DeferredTasks\XCore.DeferredTasks.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Environment.Cache\XCore.Environment.Cache.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Environment.Extensions\XCore.Environment.Extensions.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Environment.Shell.EntityFrameworkCore\XCore.Environment.Shell.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\XCore\XCore.Environment.Shell\XCore.Environment.Shell.csproj" />

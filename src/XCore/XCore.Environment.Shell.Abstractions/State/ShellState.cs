@@ -12,6 +12,6 @@ namespace XCore.Environment.Shell.State
     public class ShellState
     {
         public int Id { get; set; }
-        public List<ShellFeatureState> Features { get; } = new List<ShellFeatureState>();
+        public List<ShellFeatureState> Features { get; set; } = new List<ShellFeatureState>();
     }
 }

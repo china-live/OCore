@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XCore\XCore.DeferredTasks.Abstractions\XCore.DeferredTasks.Abstractions.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Mvc.Core\XCore.Mvc.Core.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Recipes.Abstractions\XCore.Recipes.Abstractions.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Setup.Abstractions\XCore.Setup.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

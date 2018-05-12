@@ -14,8 +14,8 @@
 
   <ItemGroup>
     <PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="2.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.2" />
   </ItemGroup>
 </Project>

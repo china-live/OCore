@@ -24,11 +24,17 @@ namespace XCore.Mvc.Test
                 throw new Exception(":(");
             }
 
-            routes.MapAreaRoute
-            (
-                name: "Test",
-                areaName: "XCore.Mvc.Test",
-                template: "Test/{controller=Home}/{action=Index}/{id?}"
+            //routes.MapAreaRoute
+            //(
+            //    name: "Test",
+            //    areaName: "XCore.Mvc.Test",
+            //    template: "Test/{controller=Home}/{action=Index}/{id?}"
+            //);
+            routes.MapAreaRoute(
+                name: "Home",
+                areaName: "XCore.Demo",
+                template: "Home/Index",
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

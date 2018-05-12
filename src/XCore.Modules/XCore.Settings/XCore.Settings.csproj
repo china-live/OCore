@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XCore\XCore.Entities\XCore.Entities.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Environment.Cache.Abstractions\XCore.Environment.Cache.Abstractions.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Mvc.Abstractions\XCore.Mvc.Abstractions.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Recipes.Abstractions\XCore.Recipes.Abstractions.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Setup.Abstractions\XCore.Setup.Abstractions.csproj" />
+    <ProjectReference Include="..\XCore.AutoMapper\XCore.AutoMapper.csproj" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>

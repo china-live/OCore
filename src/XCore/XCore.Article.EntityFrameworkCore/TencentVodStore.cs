@@ -18,7 +18,7 @@ namespace XCore.Article.EntityFrameworkCore
 
         private bool _disposed;
         private DbSet<TencentVod> TencentVodSet { get { return Context.Set<TencentVod>(); } }
-        public DbContext Context { get; private set; }
+        public AppDbContext Context { get; private set; }
         public TencentVodErrorDescriber ErrorDescriber { get; set; }
         public bool AutoSaveChanges { get; set; } = true;
 

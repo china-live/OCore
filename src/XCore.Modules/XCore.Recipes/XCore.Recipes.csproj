@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XCore\XCore.Entities\XCore.Entities.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.EntityFrameworkCore\XCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Module.Targets\XCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\XCore\XCore.Recipes.Implementations\XCore.Recipes.Implementations.csproj" />
+  </ItemGroup>
+
+</Project>

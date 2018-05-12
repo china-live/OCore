@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using XCore.Common;
@@ -9,7 +10,7 @@ using XCore.Environment.Shell.State;
 
 namespace XCore.Environment.Shell.EntityFrameworkCore
 {
-    public class ShellStateStore : IShellStateStore<ShellState>
+    public class ShellStateStore : IShellStateStore<ShellState>, IQueryableShellStateStore<ShellState>
     {
         public ShellStateStore(AppDbContext context)
         {
@@ -17,9 +18,18 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
         }
 
         private bool _disposed;
-        public DbContext Context { get; private set; }
+        public AppDbContext Context { get; private set; }
 
         private DbSet<ShellState> ShellStateSet { get { return Context.Set<ShellState>(); } }
+        private DbSet<ShellFeatureState> ShellFeatureStateSet { get { return Context.Set<ShellFeatureState>(); } }
+
+        public IQueryable<ShellState> ShellStates { get { return ShellStateSet.Include(c => c.Features); } }
+
+        public IQueryable<ShellState> ShellStatesNoTracking { get { return ShellStateSet.Include(c => c.Features).AsNoTracking(); } }
+
+        public IQueryable<ShellFeatureState> ShellFeatureStates { get { return ShellFeatureStateSet; } }
+
+        public IQueryable<ShellFeatureState> ShellFeatureStatesNoTracking { get { return ShellFeatureStateSet.AsNoTracking(); } }
 
         public bool AutoSaveChanges { get; set; } = true;
 
@@ -29,30 +39,51 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
         }
 
 
-        public async Task<DtoResult> CreateAsync(ShellState shellState, CancellationToken cancellationToken)
+        public async Task<ShellState> GetOrCreateAsync(CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (shellState == null)
+ 
+            var model = await ShellStates.OrderByDescending(c=>c.Id).FirstOrDefaultAsync();
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(shellState));
+                ShellStateSet.Add(new ShellState());
+                await SaveChanges(cancellationToken);
             }
-            Context.Add(shellState);
-            await SaveChanges(cancellationToken);
-            return DtoResult.Success;
+            return model;
         }
 
-        public async Task<DtoResult> UpdateAsync(ShellState shellState, CancellationToken cancellationToken)
+        public async Task<ShellFeatureState> GetOrCreateFeatureStateAsync(string id, CancellationToken cancellationToken)
+        {
+            var shellState = await GetOrCreateAsync(cancellationToken);
+            var featureState = shellState.Features.FirstOrDefault(x => x.Id == id);
+
+            if (featureState == null)
+            {
+                featureState = new ShellFeatureState() { Id = id};
+                //ShellFeatureStateSet.Add(featureState);
+                //await SaveChanges(cancellationToken);
+
+                shellState.Features.Add(featureState);
+                await SaveChanges(cancellationToken);
+            }
+
+            return featureState;
+        }
+ 
+        public async Task<DtoResult> UpdateFeatureStateAsync(ShellFeatureState featureState, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (shellState == null)
+            if (featureState == null)
             {
-                throw new ArgumentNullException(nameof(shellState));
+                throw new ArgumentNullException(nameof(featureState));
             }
 
-            Context.Attach(shellState);
-            Context.Update(shellState);
+            var model = await ShellFeatureStates.SingleOrDefaultAsync(c=>c.Id == featureState.Id);
+            model.EnableState = featureState.EnableState;
+            model.InstallState = featureState.InstallState;
+            Context.Update(model);
             try
             {
                 await SaveChanges(cancellationToken);
@@ -67,6 +98,7 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
             }
             return DtoResult.Success;
         }
+
 
         public void Dispose()
         {

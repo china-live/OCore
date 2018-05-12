@@ -24,7 +24,7 @@ namespace XCore.Identity.EntityFrameworkCore
             Context = context;
         }
 
-        public DbContext Context { get; private set; }
+        public AppDbContext Context { get; private set; }
 
         private DbSet<User> UsersSet { get { return Context.Set<User>(); } }
         private DbSet<Role> Roles { get { return Context.Set<Role>(); } }

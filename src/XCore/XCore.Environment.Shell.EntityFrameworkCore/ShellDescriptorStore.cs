@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using XCore.Common;
@@ -17,9 +19,11 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
         }
 
         private bool _disposed;
-        public DbContext Context { get; private set; }
+        public AppDbContext Context { get; private set; }
 
         private DbSet<ShellDescriptor> ShellDescriptorSet { get { return Context.Set<ShellDescriptor>(); } }
+        private DbSet<ShellFeature> ShellFeatureSet { get { return Context.Set<ShellFeature>(); } }
+        private DbSet<ShellParameter> ShellParameterSet { get { return Context.Set<ShellParameter>(); } }
 
         public bool AutoSaveChanges { get; set; } = true;
 
@@ -28,44 +32,61 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
             return AutoSaveChanges ? Context.SaveChangesAsync(cancellationToken) : Task.CompletedTask;
         }
 
-
-        public async Task<DtoResult> CreateAsync(ShellDescriptor shellDescriptor, CancellationToken cancellationToken)
+        private IQueryable<ShellDescriptor> ShellDescriptorsNoTracking
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            if (shellDescriptor == null)
+            get
             {
-                throw new ArgumentNullException(nameof(shellDescriptor));
+                return ShellDescriptorSet.Include(c => c.Features).Include(c => c.Parameters).AsNoTracking();/**/
             }
-            Context.Add(shellDescriptor);
-            await SaveChanges(cancellationToken);
-            return DtoResult.Success;
+        }
+        private IQueryable<ShellDescriptor> ShellDescriptors
+        {
+            get
+            {
+                return ShellDescriptorSet.Include(c => c.Features).Include(c => c.Parameters);/**/
+            }
         }
 
-        public async Task<DtoResult> UpdateAsync(ShellDescriptor shellDescriptor, CancellationToken cancellationToken)
+        public async Task<ShellDescriptor> GetShellDescriptorAsync()
+        {
+            return await ShellDescriptorsNoTracking.FirstOrDefaultAsync();
+        }
+
+        public async Task<ShellDescriptor> CreateAsync(IEnumerable<ShellFeature> enabledFeatures, IEnumerable<ShellParameter> parameters, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
-            if (shellDescriptor == null)
-            {
-                throw new ArgumentNullException(nameof(shellDescriptor));
-            }
+            enabledFeatures = enabledFeatures ?? new List<ShellFeature>();
+            parameters = parameters ?? new List<ShellParameter>();
 
-            Context.Attach(shellDescriptor);
-            Context.Update(shellDescriptor);
-            try
-            {
-                await SaveChanges(cancellationToken);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return DtoResult.Failed(new DtoError
-                {
-                    Code = "ConcurrencyFailure",
-                    Description = "并发故障"
-                });
-            }
-            return DtoResult.Success;
+            var shellDescriptor = new ShellDescriptor { SerialNumber = 1 };
+            shellDescriptor.Features = enabledFeatures.ToList();
+            shellDescriptor.Parameters = parameters.ToList();
+            await ShellDescriptorSet.AddAsync(shellDescriptor);
+
+            await SaveChanges(cancellationToken);
+            return shellDescriptor;
+        }
+
+        public async Task<ShellDescriptor> UpdateAsync(int shellDescriptorId, IEnumerable<ShellFeature> enabledFeatures, IEnumerable<ShellParameter> parameters, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            ThrowIfDisposed();
+            enabledFeatures = enabledFeatures ?? new List<ShellFeature>();
+            parameters = parameters ?? new List<ShellParameter>();
+
+            var model = await ShellDescriptors.FirstOrDefaultAsync(c => c.Id == shellDescriptorId);
+
+            ShellFeatureSet.RemoveRange(model.Features);
+            ShellParameterSet.RemoveRange(model.Parameters);
+            await SaveChanges(cancellationToken);
+
+            model.SerialNumber++;
+            model.Features = enabledFeatures.ToList();
+            model.Parameters = parameters.ToList();
+            ShellDescriptorSet.Update(model);
+            await SaveChanges(cancellationToken);
+            return model;
         }
 
         public void Dispose()

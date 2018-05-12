@@ -11,6 +11,7 @@ namespace XCore.Modules
 {
     /// <summary>
     /// This middleware replaces the default service provider by the one for the current tenant
+    /// 该中间件将默认的服务提供者替换为当前租户的默认服务提供者。
     /// </summary>
     public class ModularTenantContainerMiddleware
     {
@@ -38,7 +39,7 @@ namespace XCore.Modules
 
             // Register the shell settings as a custom feature.
             httpContext.Features.Set(shellSettings);
-
+             
             // We only serve the next request if the tenant has been resolved.
             if (shellSettings != null)
             {
@@ -58,20 +59,22 @@ namespace XCore.Modules
                             // The tenant gets activated here
                             if (!shellContext.IsActivated)
                             {
-                                var tenantEvents = scope.ServiceProvider.GetServices<IModularTenantEvents>();
-
-                                foreach (var tenantEvent in tenantEvents)
+                                using (var activatingScope = shellContext.EnterServiceScope())
                                 {
-                                    await tenantEvent.ActivatingAsync();
+                                    var tenantEvents = activatingScope.ServiceProvider.GetServices<IModularTenantEvents>();
+
+                                    foreach (var tenantEvent in tenantEvents)
+                                    {
+                                        await tenantEvent.ActivatingAsync();
+                                    }
+
+                                    httpContext.Items["BuildPipeline"] = true;
+
+                                    foreach (var tenantEvent in tenantEvents.Reverse())
+                                    {
+                                        await tenantEvent.ActivatedAsync();
+                                    }
                                 }
-
-                                httpContext.Items["BuildPipeline"] = true;
-
-                                foreach (var tenantEvent in tenantEvents.Reverse())
-                                {
-                                    await tenantEvent.ActivatedAsync();
-                                }
-
                                 shellContext.IsActivated = true;
                             }
                         }

@@ -45,6 +45,11 @@ namespace XCore.Environment.Shell.Builders
 
             if (currentDescriptor != null)
             {
+                if (_logger.IsEnabled(LogLevel.Debug))
+                {
+                    _logger.LogDebug("Creating shell context for tenant {0}", settings.Name);
+                }
+
                 return await CreateDescribedContextAsync(settings, currentDescriptor);
             }
 

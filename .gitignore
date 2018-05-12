@@ -252,3 +252,4 @@ paket-files/
 *.sln.iml
 src/Dome/XCore.Mvc.Web/App_Data/
 src/Dome/XCore.Mvc.Web/wwwroot/lib/
+src/XCore.Samples/XCore.Mvc.Web/App_Data/

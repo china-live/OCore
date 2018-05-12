@@ -24,9 +24,9 @@ namespace XCore.Migrator
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            var serviceProvider = services.BuildServiceProvider();
-            var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
-            services.AddEntityFrameworkCore(defaultConnection);
+            //var serviceProvider = services.BuildServiceProvider();
+            //var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
+            services.AddEntityFrameworkCore(/*defaultConnection*/);
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
@@ -40,28 +40,29 @@ namespace XCore.Migrator
 //            => services.AddSingleton<IMigrationsCodeGenerator, MyMigrationsCodeGenerator>()
 //}
 
-    public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
-    {
-        public AppDbContext CreateDbContext(string[] args)
-        {
-            var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .AddUserSecrets<Startup>()
-            .Build();
+    //public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    //{
+    //    public AppDbContext CreateDbContext(string[] args)
+    //    {
+    //        var configuration = new ConfigurationBuilder()
+    //        .SetBasePath(Directory.GetCurrentDirectory())
+    //        .AddJsonFile("appsettings.json")
+    //        .AddUserSecrets<Startup>()
+    //        .Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+    //        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer(connectionString,
-                b => b.MigrationsAssembly("XCore.Migrator"));
+    //        var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+    //        optionsBuilder.UseSqlServer(connectionString,b => b.MigrationsAssembly("XCore.Migrator"));
 
-            var entityManager = new MigrationEntityManager(); //MigrationEntityManager实现了IEntityManager接口
-            entityManager.LoadAssemblys("XCore.Identity.EntityFrameworkCore");//加载实现了IEntityTypeConfiguration接口的类所在的程序集
-            entityManager.LoadAssemblys("XCore.Article.EntityFrameworkCore");
-            entityManager.LoadAssemblys("XCore.Environment.Shell.EntityFrameworkCore");
+    //        var entityManager = new MigrationEntityManager(); //MigrationEntityManager实现了IEntityManager接口
+    //        entityManager.LoadAssemblys("XCore.Identity.EntityFrameworkCore");//加载实现了IEntityTypeConfiguration接口的类所在的程序集
+    //        entityManager.LoadAssemblys("XCore.Article.EntityFrameworkCore");
+    //        entityManager.LoadAssemblys("XCore.Environment.Shell.EntityFrameworkCore");
+    //        entityManager.LoadAssemblys("XCore.Recipes");
+    //        entityManager.LoadAssemblys("XCore.Settings");
 
-            return new AppDbContext(optionsBuilder.Options, entityManager);
-        }
-    }
+    //        return new AppDbContext(optionsBuilder.Options, entityManager);
+    //    }
+    //}
 }

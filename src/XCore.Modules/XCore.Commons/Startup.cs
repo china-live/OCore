@@ -6,6 +6,7 @@ using System;
 using XCore.BackgroundTasks;
 using XCore.DeferredTasks;
 using XCore.EntityFrameworkCore;
+using XCore.Environment.Cache;
 using XCore.Environment.Shell;
 using XCore.Environment.Shell.EntityFrameworkCore;
 using XCore.Modules;
@@ -23,14 +24,14 @@ namespace XCore.Commons
         {
             services.AddDeferredTasks();
 
-            var serviceProvider = services.BuildServiceProvider();
-            var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
-            services.AddEntityFrameworkCore(defaultConnection);
+            //var serviceProvider = services.BuildServiceProvider();
+            //var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
+            services.AddEntityFrameworkCore(/*defaultConnection*/);
 
             services.AddBackgroundTasks();
             //services.AddResourceManagement();
             //services.AddGeneratorTagFilter();
-            //services.AddCaching();
+            services.AddCaching();
             services.AddShellDescriptorStorage().AddEntityFrameworkStores();
             //services.AddExtensionManager();
             //services.AddTheming();
@@ -44,16 +45,16 @@ namespace XCore.Commons
         }
     }
 
-    /// <summary>
-    /// Deferred tasks middleware is registered early as it has to run very late.
-    /// </summary>
-    public class DeferredTasksStartup : StartupBase
-    {
-        public override int Order => -50;
+    ///// <summary>
+    ///// Deferred tasks middleware is registered early as it has to run very late.
+    ///// </summary>
+    //public class DeferredTasksStartup : StartupBase
+    //{
+    //    public override int Order => -50;
 
-        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
-        {
-            app.AddDeferredTasks();
-        }
-    }
+    //    public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
+    //    {
+    //        app.AddDeferredTasks();
+    //    }
+    //}
 }
