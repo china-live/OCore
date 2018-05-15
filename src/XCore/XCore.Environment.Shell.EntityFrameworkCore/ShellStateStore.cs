@@ -47,7 +47,8 @@ namespace XCore.Environment.Shell.EntityFrameworkCore
             var model = await ShellStates.OrderByDescending(c=>c.Id).FirstOrDefaultAsync();
             if (model == null)
             {
-                ShellStateSet.Add(new ShellState());
+                model = new ShellState();
+                ShellStateSet.Add(model);
                 await SaveChanges(cancellationToken);
             }
             return model;

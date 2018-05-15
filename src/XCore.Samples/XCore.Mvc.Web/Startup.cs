@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Encodings.Web;
@@ -75,12 +76,11 @@ namespace XCore.Mvc.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app,IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                PrintAllServices(app);
             }
 
             app.UseSession();
@@ -88,6 +88,12 @@ namespace XCore.Mvc.Web
             app.UseStaticFiles();
  
             app.UseModules();
+
+            if (env.IsDevelopment())
+            {
+ 
+                PrintAllServices(app);
+            }
         }
 
         private void PrintAllServices(IApplicationBuilder app)
@@ -113,7 +119,31 @@ namespace XCore.Mvc.Web
                 await context.Response.WriteAsync("</tbody></table>");
             }));
         }
+        //private void PrintAllRoutes(IApplicationBuilder app,IRouteBuilder routes)
+        //{
+        //    app.Map("/allroutes", builder => builder.Run(async context =>
+        //    {
+        //        context.Response.ContentType = "text/html; charset=utf-8";
+        //        await context.Response.WriteAsync($"<h1>所有路由{routes.Routes.Count}个</h1>" +
+        //            $"<table border=\"1\"><thead>" +
+        //            $"<tr><th>类型</th><th>生命周期</th><th>ImplementationType</th><th>ImplementationFactory</th><th>ImplementationInstance</th></tr>" +
+        //            $"</thead><tbody>");
 
-       
+                
+
+        //        foreach (var svc in routes.Routes)
+        //        {
+        //            await context.Response.WriteAsync("<tr>");
+        //            await context.Response.WriteAsync($"<td>{svc.ToString()}</td>");
+        //            await context.Response.WriteAsync($"<td>{svc.ToString()}</td>");
+        //            await context.Response.WriteAsync($"<td>{svc.ToString()}</td>");
+        //            await context.Response.WriteAsync($"<td>{svc.ToString()}</td>");
+        //            await context.Response.WriteAsync($"<td>{svc.ToString()}</td>");
+        //            await context.Response.WriteAsync("</tr>");
+        //        }
+        //        await context.Response.WriteAsync("</tbody></table>");
+        //    }));
+        //}
+
     }
 }

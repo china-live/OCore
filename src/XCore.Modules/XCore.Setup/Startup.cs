@@ -7,13 +7,13 @@ using XCore.Setup.Services;
 
 namespace XCore.Setup
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+    //public class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
 
-        }
-    }
+    //    }
+    //}
     public class Startup : StartupBase
     {
         public override void ConfigureServices(IServiceCollection services)

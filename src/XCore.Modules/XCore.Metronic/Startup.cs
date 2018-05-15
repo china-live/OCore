@@ -7,13 +7,13 @@ using XCore.Modules;
 
 namespace XCore.Metronic
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+    //public class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
     public class Startup : StartupBase
     {

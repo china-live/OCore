@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -20,4 +20,8 @@
     <ProjectReference Include="..\XCore.Modules.Abstractions\XCore.Modules.Abstractions.csproj" />
   </ItemGroup>
 
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(MSBuildProjectDirectory)\..\..\packageshare\" />
+  </Target>
 </Project>

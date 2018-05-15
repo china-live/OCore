@@ -37,7 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
             // Let the app change the default tenant behavior and set of features 在应用中配置覆盖默认租户和功能
             configure?.Invoke(modularServiceCollection);
 
-            // Register the list of services to be resolved later on
+            // Register the list of services to be resolved later on 注册稍后要解决的服务列表
             services.AddSingleton(_ => services);
 
             return services;

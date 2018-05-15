@@ -8,7 +8,7 @@ namespace XCore.Entities
         JObject Properties { get; }
     }
 
-    public class Entity : IEntity
+    public abstract class Entity : IEntity
     {
         public JObject Properties { get; set; } = new JObject();
     }

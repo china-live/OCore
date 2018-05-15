@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
+using System.Reflection;
 using XCore.EntityFrameworkCore;
+using XCore.Environment.Shell;
 using XCore.Modules;
 
 namespace XCore.Migrator
@@ -17,6 +22,47 @@ namespace XCore.Migrator
         {
             Console.WriteLine("Hello World!");
         }
+
+        //public static void Main(string[] args)
+        //{
+        //    //var host = BuildWebHost(args);
+
+        //    ////using (var scope = host.Services.CreateScope())
+        //    ////{
+        //    ////    var services = scope.ServiceProvider;
+
+        //    ////    try
+        //    ////    {
+        //    ////        IdentityServerDatabaseInitialization.InitializeDatabase(services);
+        //    ////    }
+        //    ////    catch (Exception ex)
+        //    ////    {
+        //    ////        var logger = services.GetRequiredService<ILogger<Program>>();
+        //    ////        logger.LogError(ex, "An error occurred Initializing the DB.");
+        //    ////    }
+        //    ////}
+
+        //    //host.Run();
+
+
+        //    //var host = new Microsoft.AspNetCore.Hosting.WebHostBuilder()
+        //    //    .UseKestrel()
+        //    //    .UseContentRoot(Directory.GetCurrentDirectory())
+        //    //    .UseIISIntegration()
+        //    //    .UseStartup<Startup>()
+        //    //    .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace))
+        //    //    .Build();
+
+        //    //host.Run();
+        //}
+
+        //public static IWebHost BuildWebHost(string[] args) =>
+        //    WebHost.CreateDefaultBuilder(args)
+        //        .UseStartup<Startup>()
+        //        .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace))
+        //        .UseNLogWeb()
+        //        .Build();
+
     }
 
     public class Startup : StartupBase
@@ -26,7 +72,7 @@ namespace XCore.Migrator
         {
             //var serviceProvider = services.BuildServiceProvider();
             //var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
-            services.AddEntityFrameworkCore(/*defaultConnection*/);
+            //services.AddEntityFrameworkCore(/*defaultConnection*/);
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
@@ -34,35 +80,75 @@ namespace XCore.Migrator
         }
     }
 
-//    class MyDesignTimeServices : IDesignTimeServices
-//    {
-//        public void ConfigureDesignTimeServices(IServiceCollection services)
-//            => services.AddSingleton<IMigrationsCodeGenerator, MyMigrationsCodeGenerator>()
-//}
-
-    //public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
-    //{
-    //    public AppDbContext CreateDbContext(string[] args)
+    //    class MyDesignTimeServices : IDesignTimeServices
     //    {
-    //        var configuration = new ConfigurationBuilder()
-    //        .SetBasePath(Directory.GetCurrentDirectory())
-    //        .AddJsonFile("appsettings.json")
-    //        .AddUserSecrets<Startup>()
-    //        .Build();
-
-    //        var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-    //        var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-    //        optionsBuilder.UseSqlServer(connectionString,b => b.MigrationsAssembly("XCore.Migrator"));
-
-    //        var entityManager = new MigrationEntityManager(); //MigrationEntityManager实现了IEntityManager接口
-    //        entityManager.LoadAssemblys("XCore.Identity.EntityFrameworkCore");//加载实现了IEntityTypeConfiguration接口的类所在的程序集
-    //        entityManager.LoadAssemblys("XCore.Article.EntityFrameworkCore");
-    //        entityManager.LoadAssemblys("XCore.Environment.Shell.EntityFrameworkCore");
-    //        entityManager.LoadAssemblys("XCore.Recipes");
-    //        entityManager.LoadAssemblys("XCore.Settings");
-
-    //        return new AppDbContext(optionsBuilder.Options, entityManager);
-    //    }
+    //        public void ConfigureDesignTimeServices(IServiceCollection services)
+    //            => services.AddSingleton<IMigrationsCodeGenerator, MyMigrationsCodeGenerator>()
     //}
+
+    public class MyDesignTimeServices : IDesignTimeServices
+    {
+        public void ConfigureDesignTimeServices(IServiceCollection services)
+        {
+            //var log = new LoggerFactory();
+            //var logger = log.CreateLogger<AppDbContext>();
+            //services.AddSingleton(logger);
+
+            //services.AddSingleton(new ShellSettings()
+            //{
+            //    Name = "Default",
+            //    State = Environment.Shell.Models.TenantState.Running,
+            //    //DatabaseProvider = "SqlServer",
+            //    //ConnectionString = connectionString,
+            //    TablePrefix = "XCore"
+            //});
+        }
+    }
+
+    public class AppContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    {
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .AddUserSecrets<Startup>()
+            .Build();
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            //var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            //optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("XCore.Migrator"));
+
+            var entityManager = new MigrationEntityTypeProvider();
+            entityManager.AddAssemblys("XCore.Identity.EntityFrameworkCore");
+            entityManager.AddAssemblys("XCore.Article.EntityFrameworkCore");
+            entityManager.AddAssemblys("XCore.Environment.Shell.EntityFrameworkCore");
+            entityManager.AddAssemblys("XCore.Recipes");
+            entityManager.AddAssemblys("XCore.Settings");
+
+            Assembly assembly = typeof(AppContextFactory).GetTypeInfo().Assembly;
+            AssemblyName assemblyName = assembly.GetName();
+
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<IEntityTypeProvider>(entityManager);
+            serviceCollection.AddSingleton(new ShellSettings()
+            {
+                Name = "Default",
+                State = Environment.Shell.Models.TenantState.Running,
+                //DatabaseProvider = "SqlServer",
+                //ConnectionString = connectionString,
+                //TablePrefix = "XCore"
+            });
+            serviceCollection.AddSingleton(new AppDbContextOptions() { ConnectionString = connectionString, DatabaseProvider = "SqlServer"/*, TablePrefix = "XCore" */});
+            serviceCollection.AddSingleton(new AppDbMigrator() { MigrationsAssembly = assemblyName.Name });
+            //var log = new LoggerFactory();
+            //var logger = log.CreateLogger<AppDbContext>();
+            //serviceCollection.AddSingleton(logger);
+            var services = serviceCollection.BuildServiceProvider();
+
+ 
+            return new AppDbContext(services);
+        }
+    }
 }

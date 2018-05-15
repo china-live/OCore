@@ -5,12 +5,16 @@ using System.Collections.Generic;
 
 namespace XCore.Migrator.Migrations
 {
-    public partial class addTable : Migration
+    public partial class addtext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "abc");
+
             migrationBuilder.CreateTable(
-                name: "Recipe",
+                name: "XCore_Recipe",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,11 +24,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recipe", x => x.Id);
+                    table.PrimaryKey("PK_XCore_Recipe", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShellDescriptor",
+                name: "XCore_ShellDescriptor",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -33,11 +38,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShellDescriptor", x => x.Id);
+                    table.PrimaryKey("PK_XCore_ShellDescriptor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShellState",
+                name: "XCore_ShellState",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -45,11 +51,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShellState", x => x.Id);
+                    table.PrimaryKey("PK_XCore_ShellState", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SiteSettings",
+                name: "XCore_SiteSettings",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -72,11 +79,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SiteSettings", x => x.Id);
+                    table.PrimaryKey("PK_XCore_SiteSettings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_Articles",
+                name: "XCore_XCore_Articles",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -103,11 +111,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_Articles", x => x.Id);
+                    table.PrimaryKey("PK_XCore_XCore_Articles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_Roles",
+                name: "XCore_XCore_Roles",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -117,11 +126,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_Roles", x => x.Id);
+                    table.PrimaryKey("PK_XCore_XCore_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_TencentVods",
+                name: "XCore_XCore_TencentVods",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -144,11 +154,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_TencentVods", x => x.Id);
+                    table.PrimaryKey("PK_XCore_XCore_TencentVods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_Users",
+                name: "XCore_XCore_Users",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -171,11 +182,12 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_Users", x => x.Id);
+                    table.PrimaryKey("PK_XCore_XCore_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShellFeature",
+                name: "XCore_ShellFeature",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -183,39 +195,41 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShellFeature", x => x.Id);
+                    table.PrimaryKey("PK_XCore_ShellFeature", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShellFeature_ShellDescriptor_ShellDescriptorId",
+                        name: "FK_XCore_ShellFeature_XCore_ShellDescriptor_ShellDescriptorId",
                         column: x => x.ShellDescriptorId,
-                        principalTable: "ShellDescriptor",
+                        principalSchema: "abc",
+                        principalTable: "XCore_ShellDescriptor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShellParameter",
+                name: "XCore_ShellParameter",
+                schema: "abc",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Component = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    ShellDescriptorId = table.Column<int>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: false),
+                    Component = table.Column<string>(nullable: false),
+                    ShellDescriptorId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShellParameter", x => x.Id);
+                    table.PrimaryKey("PK_XCore_ShellParameter", x => new { x.Name, x.Value, x.Component });
                     table.ForeignKey(
-                        name: "FK_ShellParameter_ShellDescriptor_ShellDescriptorId",
+                        name: "FK_XCore_ShellParameter_XCore_ShellDescriptor_ShellDescriptorId",
                         column: x => x.ShellDescriptorId,
-                        principalTable: "ShellDescriptor",
+                        principalSchema: "abc",
+                        principalTable: "XCore_ShellDescriptor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShellFeatureState",
+                name: "XCore_ShellFeatureState",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -225,17 +239,19 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShellFeatureState", x => x.Id);
+                    table.PrimaryKey("PK_XCore_ShellFeatureState", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShellFeatureState_ShellState_ShellStateId",
+                        name: "FK_XCore_ShellFeatureState_XCore_ShellState_ShellStateId",
                         column: x => x.ShellStateId,
-                        principalTable: "ShellState",
+                        principalSchema: "abc",
+                        principalTable: "XCore_ShellState",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_RoleClaims",
+                name: "XCore_XCore_RoleClaims",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -246,17 +262,19 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_RoleClaims", x => x.Id);
+                    table.PrimaryKey("PK_XCore_XCore_RoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_XCore_RoleClaims_XCore_Roles_RoleId",
+                        name: "FK_XCore_XCore_RoleClaims_XCore_XCore_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "XCore_Roles",
+                        principalSchema: "abc",
+                        principalTable: "XCore_XCore_Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_UserClaims",
+                name: "XCore_XCore_UserClaims",
+                schema: "abc",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -267,17 +285,19 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_UserClaims", x => x.Id);
+                    table.PrimaryKey("PK_XCore_XCore_UserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_XCore_UserClaims_XCore_Users_UserId",
+                        name: "FK_XCore_XCore_UserClaims_XCore_XCore_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "XCore_Users",
+                        principalSchema: "abc",
+                        principalTable: "XCore_XCore_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_UserLogins",
+                name: "XCore_XCore_UserLogins",
+                schema: "abc",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(nullable: false),
@@ -287,17 +307,19 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_XCore_XCore_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_XCore_UserLogins_XCore_Users_UserId",
+                        name: "FK_XCore_XCore_UserLogins_XCore_XCore_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "XCore_Users",
+                        principalSchema: "abc",
+                        principalTable: "XCore_XCore_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_UserRoles",
+                name: "XCore_XCore_UserRoles",
+                schema: "abc",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -305,23 +327,26 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_XCore_XCore_UserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_XCore_UserRoles_XCore_Roles_RoleId",
+                        name: "FK_XCore_XCore_UserRoles_XCore_XCore_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "XCore_Roles",
+                        principalSchema: "abc",
+                        principalTable: "XCore_XCore_Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_XCore_UserRoles_XCore_Users_UserId",
+                        name: "FK_XCore_XCore_UserRoles_XCore_XCore_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "XCore_Users",
+                        principalSchema: "abc",
+                        principalTable: "XCore_XCore_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "XCore_UserTokens",
+                name: "XCore_XCore_UserTokens",
+                schema: "abc",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -331,65 +356,76 @@ namespace XCore.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_XCore_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_XCore_XCore_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_XCore_UserTokens_XCore_Users_UserId",
+                        name: "FK_XCore_XCore_UserTokens_XCore_XCore_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "XCore_Users",
+                        principalSchema: "abc",
+                        principalTable: "XCore_XCore_Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShellFeature_ShellDescriptorId",
-                table: "ShellFeature",
+                name: "IX_XCore_ShellFeature_ShellDescriptorId",
+                schema: "abc",
+                table: "XCore_ShellFeature",
                 column: "ShellDescriptorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShellFeatureState_ShellStateId",
-                table: "ShellFeatureState",
+                name: "IX_XCore_ShellFeatureState_ShellStateId",
+                schema: "abc",
+                table: "XCore_ShellFeatureState",
                 column: "ShellStateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShellParameter_ShellDescriptorId",
-                table: "ShellParameter",
+                name: "IX_XCore_ShellParameter_ShellDescriptorId",
+                schema: "abc",
+                table: "XCore_ShellParameter",
                 column: "ShellDescriptorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_XCore_RoleClaims_RoleId",
-                table: "XCore_RoleClaims",
+                name: "IX_XCore_XCore_RoleClaims_RoleId",
+                schema: "abc",
+                table: "XCore_XCore_RoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                table: "XCore_Roles",
+                schema: "abc",
+                table: "XCore_XCore_Roles",
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_XCore_UserClaims_UserId",
-                table: "XCore_UserClaims",
+                name: "IX_XCore_XCore_UserClaims_UserId",
+                schema: "abc",
+                table: "XCore_XCore_UserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_XCore_UserLogins_UserId",
-                table: "XCore_UserLogins",
+                name: "IX_XCore_XCore_UserLogins_UserId",
+                schema: "abc",
+                table: "XCore_XCore_UserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_XCore_UserRoles_RoleId",
-                table: "XCore_UserRoles",
+                name: "IX_XCore_XCore_UserRoles_RoleId",
+                schema: "abc",
+                table: "XCore_XCore_UserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                table: "XCore_Users",
+                schema: "abc",
+                table: "XCore_XCore_Users",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                table: "XCore_Users",
+                schema: "abc",
+                table: "XCore_XCore_Users",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
@@ -398,52 +434,68 @@ namespace XCore.Migrator.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Recipe");
+                name: "XCore_Recipe",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "ShellFeature");
+                name: "XCore_ShellFeature",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "ShellFeatureState");
+                name: "XCore_ShellFeatureState",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "ShellParameter");
+                name: "XCore_ShellParameter",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "SiteSettings");
+                name: "XCore_SiteSettings",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_Articles");
+                name: "XCore_XCore_Articles",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_RoleClaims");
+                name: "XCore_XCore_RoleClaims",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_TencentVods");
+                name: "XCore_XCore_TencentVods",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_UserClaims");
+                name: "XCore_XCore_UserClaims",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_UserLogins");
+                name: "XCore_XCore_UserLogins",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_UserRoles");
+                name: "XCore_XCore_UserRoles",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_UserTokens");
+                name: "XCore_XCore_UserTokens",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "ShellState");
+                name: "XCore_ShellState",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "ShellDescriptor");
+                name: "XCore_ShellDescriptor",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_Roles");
+                name: "XCore_XCore_Roles",
+                schema: "abc");
 
             migrationBuilder.DropTable(
-                name: "XCore_Users");
+                name: "XCore_XCore_Users",
+                schema: "abc");
         }
     }
 }

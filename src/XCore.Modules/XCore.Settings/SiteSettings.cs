@@ -26,6 +26,7 @@ namespace XCore.Settings
     /// <summary>
     /// 方便关系数据库存储
     /// </summary>
+    //[EntityAttribute]
     public class SiteSettingsEntity : SiteSettings
     {
         public string HomeRoute_Area { get; set; }

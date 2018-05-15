@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
-    <IgnorePackageAssets>true</IgnorePackageAssets>
+    <!--<IgnorePackageAssets>true</IgnorePackageAssets>-->
   </PropertyGroup>
   <!--
     When a package is not directly referenced, e.g only through the reference of this bundle package,
@@ -18,5 +18,7 @@
     <ProjectReference Include="..\XCore.Application.Targets\XCore.Application.Targets.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\..\XCore.Modules\XCore.Mvc\XCore.Mvc.csproj" PrivateAssets="none" />
   </ItemGroup>
-
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(MSBuildProjectDirectory)\..\..\packageshare\" />
+  </Target>
 </Project>

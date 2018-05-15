@@ -13,10 +13,11 @@ namespace XCore.Test
         public void Test1()
         {
             var fakeObject = new Mock<ISiteSettingStore>();
-            fakeObject.Setup(x => x.CreateAndUpdateAsync(It.IsAny<Settings.SiteSettings>()));
-            var res = fakeObject.Object.CreateAndUpdateAsync(settings);
+            fakeObject.Setup(x => x.CreateCurrentSiteSettings(It.IsAny<Settings.SiteSettings>()));
+
+            fakeObject.Object.UpdateCurrentSiteSettings(settings);
             //Assert.Equal<bool>(true, res);
-            var m = fakeObject.Object.GetSiteSettingsAsync();
+            var m = fakeObject.Object.GetCurrentSiteSettings();
             
         }
     }

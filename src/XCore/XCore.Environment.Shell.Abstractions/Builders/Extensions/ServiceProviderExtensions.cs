@@ -18,7 +18,7 @@ namespace XCore.Environment.Shell.Builders
             IServiceCollection clonedCollection = new ServiceCollection();
             var serviceTypes = new HashSet<Type>();
 
-            var xxx = serviceProvider.ToString();
+            //var xxx = serviceProvider.ToString();
 
             foreach (var service in serviceCollection)
             {
@@ -43,15 +43,7 @@ namespace XCore.Environment.Shell.Builders
 
                         // When a service from the main container is resolved, just add its instance to the container.
                         // It will be shared by all tenant service providers.
-                        //string sname = service.ServiceType.ToString();
-
-                        //if (sname == "Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet")
-                        //{
-                        //    continue;
-                        //}
-
-                        var xx = serviceProvider.GetService(service.ServiceType);
-                        clonedCollection.AddSingleton(service.ServiceType, xx);
+                        clonedCollection.AddSingleton(service.ServiceType, serviceProvider.GetService(service.ServiceType));
 
 
                         if (!serviceTypes.Add(service.ServiceType))

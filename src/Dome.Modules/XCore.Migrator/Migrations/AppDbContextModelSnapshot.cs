@@ -19,7 +19,7 @@ namespace XCore.Migrator.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("XCore.Article.Article", b =>
@@ -69,7 +69,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("XCore_Articles");
+                    b.ToTable("XCore_XCore_Articles","abc");
                 });
 
             modelBuilder.Entity("XCore.Article.TencentVod", b =>
@@ -110,7 +110,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("XCore_TencentVods");
+                    b.ToTable("XCore_XCore_TencentVods","abc");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellDescriptor", b =>
@@ -122,13 +122,12 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShellDescriptor");
+                    b.ToTable("XCore_ShellDescriptor","abc");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellFeature", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<int?>("ShellDescriptorId");
 
@@ -136,27 +135,24 @@ namespace XCore.Migrator.Migrations
 
                     b.HasIndex("ShellDescriptorId");
 
-                    b.ToTable("ShellFeature");
+                    b.ToTable("XCore_ShellFeature","abc");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellParameter", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Component");
-
                     b.Property<string>("Name");
-
-                    b.Property<int?>("ShellDescriptorId");
 
                     b.Property<string>("Value");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Component");
+
+                    b.Property<int?>("ShellDescriptorId");
+
+                    b.HasKey("Name", "Value", "Component");
 
                     b.HasIndex("ShellDescriptorId");
 
-                    b.ToTable("ShellParameter");
+                    b.ToTable("XCore_ShellParameter","abc");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.State.ShellFeatureState", b =>
@@ -174,7 +170,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasIndex("ShellStateId");
 
-                    b.ToTable("ShellFeatureState");
+                    b.ToTable("XCore_ShellFeatureState","abc");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.State.ShellState", b =>
@@ -184,7 +180,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShellState");
+                    b.ToTable("XCore_ShellState","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.Role", b =>
@@ -208,7 +204,7 @@ namespace XCore.Migrator.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("XCore_Roles");
+                    b.ToTable("XCore_XCore_Roles","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.RoleClaim", b =>
@@ -227,7 +223,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("XCore_RoleClaims");
+                    b.ToTable("XCore_XCore_RoleClaims","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.User", b =>
@@ -283,7 +279,7 @@ namespace XCore.Migrator.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("XCore_Users");
+                    b.ToTable("XCore_XCore_Users","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.UserClaim", b =>
@@ -302,7 +298,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("XCore_UserClaims");
+                    b.ToTable("XCore_XCore_UserClaims","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.UserLogin", b =>
@@ -320,7 +316,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("XCore_UserLogins");
+                    b.ToTable("XCore_XCore_UserLogins","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.UserRole", b =>
@@ -333,7 +329,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("XCore_UserRoles");
+                    b.ToTable("XCore_XCore_UserRoles","abc");
                 });
 
             modelBuilder.Entity("XCore.Identity.UserToken", b =>
@@ -348,7 +344,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("XCore_UserTokens");
+                    b.ToTable("XCore_XCore_UserTokens","abc");
                 });
 
             modelBuilder.Entity("XCore.Recipes.Entitys.Recipe", b =>
@@ -362,7 +358,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipe");
+                    b.ToTable("XCore_Recipe","abc");
                 });
 
             modelBuilder.Entity("XCore.Settings.SiteSettingsEntity", b =>
@@ -402,7 +398,7 @@ namespace XCore.Migrator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SiteSettings");
+                    b.ToTable("XCore_SiteSettings","abc");
                 });
 
             modelBuilder.Entity("XCore.Environment.Shell.Descriptor.Models.ShellFeature", b =>
