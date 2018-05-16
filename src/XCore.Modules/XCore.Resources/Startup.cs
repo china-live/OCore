@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using XCore.Modules;
 
-namespace XCore.Metronic
+namespace XCore.Resources
 {
     //public class Program
     //{
