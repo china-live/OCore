@@ -250,5 +250,6 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-src/Dome/XCore.Mvc.Web/App_Data/
-src/Dome/XCore.Mvc.Web/wwwroot/lib/
+src/Dome/OCore.Mvc.Web/App_Data/
+src/Dome/OCore.Mvc.Web/wwwroot/lib/
+src/OCore.Samples/OCore.Mvc.Web/App_Data/

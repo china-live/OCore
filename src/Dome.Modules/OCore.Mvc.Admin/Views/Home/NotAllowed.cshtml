@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>帐号未经授权</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="robots" content="none" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="~/OCore.Mvc.Admin/fonts/fonts-open-sans.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h2 class="text-danger">帐号未经授权</h2>
+            <h4 class="text-danger">可能原因：</h4>
+            <p class="text-danger">1.注册帐号未激活，请等待管理员审核</p>
+            <p class="text-danger">2.注册帐号的Email或手机号未经验证</p>
+        </header>
+        <div>
+            <a class="btn btn-primary" role="button" href="@Url.Action("index","home")">返回首页</a>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+</body>
+</html>

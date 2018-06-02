@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\OCore.Build\OCore.Commons.props" />
+  <Import Project="..\OCore\OCore.Theme.Targets\OCore.Theme.Targets.props" />
+  <Import Project="..\OCore\OCore.Module.Targets\OCore.Module.Targets.props" />
+
+  <PropertyGroup>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+</Project>

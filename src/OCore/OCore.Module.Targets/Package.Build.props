@@ -1,0 +1,11 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <!-- 
+    This file is included in the Nuget packages as "build/$(PackageId).props" file.
+    It contains the logic to be referenced as a module by the main application.
+  -->
+  <ItemGroup>
+    <!--<ModulePackageRazorFiles Include="$(MSBuildThisFileDirectory)..\..\assets\**\*.cshtml" />-->
+    <ModulePackageNames Include="$(MSBuildThisFileName)" />
+  </ItemGroup>
+</Project>

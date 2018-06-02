@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>OCore.Recipes</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.DeferredTasks\OCore.DeferredTasks.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Extensions.Abstractions\OCore.Environment.Extensions.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Shell.Abstractions\OCore.Environment.Shell.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Modules.Abstractions\OCore.Modules.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Recipes.Abstractions\OCore.Recipes.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Scripting.Abstractions\OCore.Scripting.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh-cn" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="zh-cn" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-cn">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="robots" content="none" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="~/OCore.Metronic/fonts/fonts-open-sans.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/famfamfam-flags/dist/sprite/famfamfam-flags.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/font-awesome/css/font-awesome.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/select2/css/select2.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/OCore.Metronic/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/OCore.Metronic/css/components.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/OCore.Metronic/css/plugins.css" rel="stylesheet"  asp-append-version="true" />
+    @RenderSection("css", required: false)
+</head>
+
+<body class="login">
+    <div class="logo">
+        <a href="javascript:;">
+            <img src="/OCore.Mvc.Admin/img/weblogo.png" alt="" />
+        </a>
+    </div>
+
+    <div class="content">
+        @RenderBody()
+    </div>
+
+    <div class="copyright">
+        @Html.Partial("_CopyrightPartial")
+    </div>
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~")/OCore.Metronic/plugins/respond.min.js"></script>
+    <script src="@Url.Content("~")/OCore.Metronic/plugins/excanvas.min.js"></script>
+    <script src="@Url.Content("~")/OCore.Metronic/plugins/ie8.fix.min.js"></script>
+    <![endif]-->
+    <script src="~/OCore.Metronic/plugins/jquery.js" asp-append-version="true" >@*1.12.4*@</script>
+    <script src="~/OCore.Metronic/plugins/bootstrap/js/bootstrap.js" asp-append-version="true" >@*3.3.7*@</script>
+    <script src="~/OCore.Metronic/plugins/js.cookie.js" asp-append-version="true" >@*2.1.3*@</script>
+    <script src="~/OCore.Metronic/plugins/jquery-slimscroll/jquery.slimscroll.js" asp-append-version="true" >@*1.3.2*@</script>
+    <script src="~/OCore.Metronic/plugins/jquery.blockui.js" asp-append-version="true" ></script>
+    <script src="~/OCore.Metronic/plugins/bootstrap-switch/js/bootstrap-switch.js" asp-append-version="true" ></script>
+    <script src="~/OCore.Metronic/plugins/jquery-validation/js/jquery.validate.js" asp-append-version="true" >@*1.17.0*@</script>
+    <script src="~/OCore.Metronic/plugins/jquery-validation/js/additional-methods.js" asp-append-version="true" ></script>
+    <script src="~/OCore.Metronic/plugins/jquery-validation/js/localization/messages_zh.js" asp-append-version="true"></script>
+    <script src="~/OCore.Metronic/plugins/select2/js/select2.js" asp-append-version="true"></script>
+    <script src="~/OCore.Metronic/scripts/app.js" asp-append-version="true" ></script>
+    <script type="text/javascript">
+        $(function () {
+            App.setAssetsPath('@Url.Content("~")/OCore.Metronic/'); @*修正一下metronic的资源路径 *@
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

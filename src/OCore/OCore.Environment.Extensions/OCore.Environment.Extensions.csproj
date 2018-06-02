@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.Environment.Cache.Abstractions\OCore.Environment.Cache.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Extensions.Abstractions\OCore.Environment.Extensions.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Shell.Abstractions\OCore.Environment.Shell.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Modules.Abstractions\OCore.Modules.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Parser.Yaml\OCore.Parser.Yaml.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+  </ItemGroup>
+</Project>

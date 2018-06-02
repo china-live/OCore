@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.EntityFrameworkCore\OCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Shell\OCore.Environment.Shell.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCore\OCore.Article.Core\OCore.Article.Core.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Article.EntityFrameworkCore\OCore.Article.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Module.Targets\OCore.Module.Targets.csproj" />
+  </ItemGroup>
+
+</Project>

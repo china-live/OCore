@@ -1,0 +1,60 @@
+{
+  "name": "SaaS",
+  "displayName": "Software as a Service",
+  "description": "Provides default SaaS features like managing multiple websites.",
+  "author": "The Orchard Team",
+  "website": "http://orchardproject.net",
+  "version": "2.0",
+  "issetuprecipe": true,
+  "categories": [ "default" ],
+  "tags": [ "developer", "default" ],
+  "steps": [
+    {
+      "name": "feature",
+      "disable": [],
+      "enable": [
+        // SaaS
+        //"OCore.Antiforgery",
+        //"OCore.Authentication",
+        //"OCore.DataProtection",
+        "OCore.AutoMapper",
+        "OCore.Commons",
+        //"OCore.Diagnostics",
+        //"OCore.DynamicCache",
+        "OCore.HomeRoute",
+        //"OCore.Localization",
+        "OCore.Features",
+        //"OCore.Navigation",
+        "OCore.Scripting",
+        "OCore.Recipes",
+        "OCore.Resources",
+        //"OCore.Roles",
+        "OCore.Settings",
+        //"OCore.Tenants",
+        //"OCore.Themes",
+        //"OCore.Users",
+        "OCore.Mvc",
+        "OCore.Mvc.Admin",
+        "OCore.Mvc.Test",
+
+        // Themes
+        "TheTheme",
+        "TheAdmin",
+        "SafeMode"
+      ]
+    },
+    {
+      "name": "themes",
+      "admin": "TheAdmin",
+      "site": "TheTheme"
+    },
+    {
+      "name": "settings",
+      "HomeRoute": {
+        "Action": "Index",
+        "Controller": "Home",
+        "Area": "OCore.Commons"
+      }
+    }
+  ]
+}
