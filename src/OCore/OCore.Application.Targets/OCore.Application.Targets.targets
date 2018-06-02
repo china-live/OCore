@@ -1,0 +1,45 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- 
+    This file is packaged with "OCore.Application.Targets.nupkg" in "./build" such that any
+    Application that references it will embedd in its assembly a list of the referenced modules.
+  -->
+
+  <Target Name="PublishRazorPagesAndLinkedRazorFiles" BeforeTargets="BeforePublish">
+    <ItemGroup>
+      <RazorPagesFiles Include="Pages\**\*.cshtml" />
+      <LinkedRazorFiles Include="@(Content)" Condition="'%(Content.Link)' != '' and '%(Extension)' == '.cshtml'" />
+      <ResolvedFileToPublish Include="@(RazorPagesFiles)" RelativePath="%(RazorPagesFiles.Identity)" />
+      <ResolvedFileToPublish Include="@(LinkedRazorFiles)" RelativePath="%(LinkedRazorFiles.Link)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ResolveModuleProjectReferences" AfterTargets="AfterResolveReferences">
+    <MSBuild
+      Targets="GetModuleProject"
+      BuildInParallel="$(BuildInParallel)"
+      Projects="@(_MSBuildProjectReferenceExistent)"
+      Condition="'@(_MSBuildProjectReferenceExistent)' != ''"
+      SkipNonexistentTargets="true"
+      ContinueOnError="true">
+
+      <Output ItemName="ModuleProjects" TaskParameter="TargetOutputs" />
+    </MSBuild>
+
+    <ItemGroup>
+      <ModuleProjectReferences Include="@(ModuleProjects)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ModuleProjectNames Include="%(ModuleProjectReferences.FileName)" />
+      <ModuleNames Include="@(ModulePackageNames);@(ModuleProjectNames)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AssemblyAttribute Include="OCore.Modules.Manifest.ModuleNameAttribute">
+        <_Parameter1>%(ModuleNames.Identity)</_Parameter1>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
+
+</Project>

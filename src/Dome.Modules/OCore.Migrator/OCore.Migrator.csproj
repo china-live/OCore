@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>OCore</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Recipes\OCore.Recipes.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Settings\OCore.Settings.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.EntityFrameworkCore\OCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Shell.EntityFrameworkCore\OCore.Environment.Shell.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Module.Targets\OCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Article.EntityFrameworkCore\OCore.Article.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Identity.EntityFrameworkCore\OCore.Identity.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+ 
+</Project>

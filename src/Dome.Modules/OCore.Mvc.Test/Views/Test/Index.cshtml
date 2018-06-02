@@ -1,0 +1,132 @@
+﻿<h1>My Test</h1>
+
+<div id="carousel">
+    <a href="#"><div id="item-1" class="img"><img src="~/OCore.Mvc.Test/images/1.jpg" /></div></a>
+    <a href="#"><div id="item-2" class="img"><img src="~/OCore.Mvc.Test/images/2.jpg" /></div></a>
+    <a href="#"><div id="item-3" class="img"><img src="~/OCore.Mvc.Test/images/3.jpg" /></div></a>
+    <a href="#"><div id="item-4" class="img"><img src="~/OCore.Mvc.Test/images/4.jpg" /></div></a>
+    <a href="#"><div id="item-5" class="img"><img src="~/OCore.Mvc.Test/images/5.jpg" /></div></a>
+    <a href="#"><div id="item-6" class="img"><img src="~/OCore.Mvc.Test/images/6.jpg" /></div></a>
+    <a href="#"><div id="item-7" class="img"><img src="~/OCore.Mvc.Test/images/7.jpg" /></div></a>
+    <a href="#"><div id="item-8" class="img"><img src="~/OCore.Mvc.Test/images/8.jpg" /></div></a>
+    <a href="#"><div id="item-9" class="img"><img src="~/OCore.Mvc.Test/images/9.jpg" /></div></a>
+    @*<a href="#"><div id="item-10" class="img"><img src="~/OCore.Mvc.Test/images/10.jpg" /></div></a>
+    <a href="#"><div id="item-11" class="img"><img src="~/OCore.Mvc.Test/images/11.jpg" /></div></a>
+    <a href="#"><div id="item-12" class="img"><img src="~/OCore.Mvc.Test/images/12.jpg" /></div></a>
+    <a href="#"><div id="item-13" class="img"><img src="~/OCore.Mvc.Test/images/13.jpg" /></div></a>
+    <a href="#"><div id="item-14" class="img"><img src="~/OCore.Mvc.Test/images/14.jpg" /></div></a>
+    <a href="#"><div id="item-15" class="img"><img src="~/OCore.Mvc.Test/images/15.jpg" /></div></a>
+    <a href="#"><div id="item-16" class="img"><img src="~/OCore.Mvc.Test/images/16.jpg" /></div></a>
+    <a href="#"><div id="item-17" class="img"><img src="~/OCore.Mvc.Test/images/17.jpg" /></div></a>*@
+</div>
+<a href="#" id="prev">Prev</a> | <a href="#" id="next">Next</a>
+
+<div class="prism-player" id="J_prismPlayer"></div>
+
+@section css{
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.9.2/skins/default/index.css" />
+    <style>
+        #carousel {
+            width: 100%;
+            border: 1px solid #222;
+            height: 500px;
+            position: relative;
+            clear: both;
+            overflow: hidden;
+            background: #FFF;
+        }
+
+            #carousel .img {
+                visibility: hidden; /* hide images until carousel can handle them */
+                cursor: pointer; /* otherwise it's not as obvious items can be clicked */
+            }
+
+                #carousel .img img {
+                    width: 100%;
+                    height: 100%;
+                }
+    </style>
+}
+@section scripts {
+    <script type="text/javascript" src="~/OCore.Mvc.Test/js/jquery.waterwheelCarousel.js"></script>
+    <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.9.2/prism.js"></script>
+    <script>
+        //var player = new prismplayer({
+        //    id: "J_prismPlayer",
+        //    autoplay: true,
+        //    width: "720px",
+        //    height: "480px",
+        //    source: 'http://video.chuangkaiguoji.com/8f6ac0c95884420b85c612f8678afdf1/088fb24f21b94388a47f5c4143fcc0f3-5287d2089db37e62345123a1be272f8b.mp4',
+        //    //vid: "8f6ac0c95884420b85c612f8678afdf1",
+        //    //playauth: "r7mswv3p9u7xvlcmz9n5xhpxkxnelwwfiyzs1176g6vzhs1j5w4tumydpl8fed3f",
+        //});
+
+        $(function () {
+            var player;
+            var cacheCenter;
+
+            var carousel = $("#carousel").waterwheelCarousel({
+                flankingItems: 3,
+                movingToCenter: function ($item) {
+                    console.log("进入中心前");
+                    console.log($item.attr('id'));
+
+                    var _id = $item.attr('id');
+                    cacheCenter = $item.html();
+                    //console.log(cacheCenter);
+                    $item.html("");
+
+                    player = new prismplayer({
+                        id: _id,
+                        autoplay: true,
+                        width: "720px",
+                        height: "480px",
+                        source: 'http://video.chuangkaiguoji.com/8f6ac0c95884420b85c612f8678afdf1/088fb24f21b94388a47f5c4143fcc0f3-5287d2089db37e62345123a1be272f8b.mp4'
+                        //vid: "8f6ac0c95884420b85c612f8678afdf1",
+                        //playauth: "r7mswv3p9u7xvlcmz9n5xhpxkxnelwwfiyzs1176g6vzhs1j5w4tumydpl8fed3f",
+                    });
+                },
+                movedToCenter: function ($item) {
+                    //console.log("进入中心完成");
+                    //console.log($item.attr('id'));
+                },
+                movingFromCenter: function ($item) {
+                    console.log("离开中心前");
+                    console.log($item.attr('id'));
+
+                    console.log(player);
+                    if (player != undefined) {
+                        player = undefined;
+                    }
+                    if (cacheCenter != undefined) {
+                        $item.html(cacheCenter);
+                    }
+                },
+                movedFromCenter: function ($item) {
+                    //console.log("离开中心完成");
+                    //console.log($item.attr('id'));
+                },
+                clickedCenter: function ($item) {
+                    //console.log($item.attr('id'));
+
+                    //var _id = $item.attr('id');
+                    //var width = $item.width();
+                    //var height = $item.height();
+
+                    //console.log($item.html());
+                }
+            });
+
+            $('#prev').bind('click', function () {
+                carousel.prev();
+                return false
+            });
+
+            $('#next').bind('click', function () {
+                carousel.next();
+                return false;
+            });
+
+        });
+    </script>
+}

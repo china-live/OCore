@@ -12,67 +12,67 @@
 # 源码结构介绍（文件目录）
 > - src  
 >   - Dome（示例项目主程序集）  
->   - Dome.Modules（作用和XCore.Modules一样，没有任何区别）  
->   - XCore（核心模块，大多数都是必须，具体见下面重要项目/模块介绍）  
->   - XCore.Build（该文件夹用来放置一些公用的MSBuild片段，用来统一管理项目属性，例如：版本号、引用的第三方NuGet包版本等等）  
->   - XCore.Modules（功能模块，非必须，可根据实际需要修改）  
->   - XCore.Themes（主题模块，非必须，可根据实际需要修改）  
+>   - Dome.Modules（作用和OCore.Modules一样，没有任何区别）  
+>   - OCore（核心模块，大多数都是必须，具体见下面重要项目/模块介绍）  
+>   - OCore.Build（该文件夹用来放置一些公用的MSBuild片段，用来统一管理项目属性，例如：版本号、引用的第三方NuGet包版本等等）  
+>   - OCore.Modules（功能模块，非必须，可根据实际需要修改）  
+>   - OCore.Themes（主题模块，非必须，可根据实际需要修改）  
 
 # 重要模块/项目介绍
 ## 核心项目（必需）
-* XCore.Environment.Extensions.Abstractions
-* XCore.Environment.Extensions
-* XCore.Environment.Shell.Abstractions
-* XCore.Environment.Shell
-* XCore.Modules.Abstractions
-* XCore.Modules
+* OCore.Environment.Extensions.Abstractions
+* OCore.Environment.Extensions
+* OCore.Environment.Shell.Abstractions
+* OCore.Environment.Shell
+* OCore.Modules.Abstractions
+* OCore.Modules
 ## 与应用框架集成的适配项目（目前只移植了MVC，OrchadrCore还支持Nancy）
-* XCore.Mvc.Abstractions
-* XCore.Mvc.Core
+* OCore.Mvc.Abstractions
+* OCore.Mvc.Core
 ## Targets项目（可以简单的理解为“快捷方式”，用来简化模块或应用开发时引入依赖项目和环境配置等工作）
-* XCore.Module.Targets
-> 引用该项目表示当前项目是一个XCore的功能模块。
-* XCore.Theme.Targets
-> 引用该项目表示当前项目是一个XCore主题。
-* XCore.Application.Targets
+* OCore.Module.Targets
+> 引用该项目表示当前项目是一个OCore的功能模块。
+* OCore.Theme.Targets
+> 引用该项目表示当前项目是一个OCore主题。
+* OCore.Application.Targets
 > 引用该项目表示当前项目是一个ASP.NET Core应用程序，一般只做测试用，实际项目中不会直接引用它。
-* XCore.Application.Mvc.Targets
-> 引用该项目表示当前项目是一个ASP.NeT Core MVC应用，该项目建立在XCore.Application.Targets之上。
+* OCore.Application.Mvc.Targets
+> 引用该项目表示当前项目是一个ASP.NeT Core MVC应用，该项目建立在OCore.Application.Targets之上。
 
 ## 基础项目（核心项目依赖项目，也算必需）
-* XCore.Parser.Yaml
-* XCore.DeferredTasks.Abstractions
+* OCore.Parser.Yaml
+* OCore.DeferredTasks.Abstractions
 
->以上项目是XCore(OrchardCore)的核心项目，在移植过程中会尽量保持代码不变（为了命名统一，项目名和命名空间全部更该改）以达到最大兼容的目的。
+>以上项目是OCore(OrchardCore)的核心项目，在移植过程中会尽量保持代码不变（为了命名统一，项目名和命名空间全部更该改）以达到最大兼容的目的。
 修改的地方（详情请查看项目README.md文件）：
-1.修改 XCore.Environment.Shell.Abstractions/XCore.Environment.Shell 以适配EF Core 
-2.修改 XCore.Mvc.Core 服务注册AddMvcModules返回IServiceCollection为MvcBuilder
-3.XCore.Modules.ModularServiceCollectionExtensions.cs 中添加一个WithConfiguration方法
+1.修改 OCore.Environment.Shell.Abstractions/OCore.Environment.Shell 以适配EF Core 
+2.修改 OCore.Mvc.Core 服务注册AddMvcModules返回IServiceCollection为MvcBuilder
+3.OCore.Modules.ModularServiceCollectionExtensions.cs 中添加一个WithConfiguration方法
 
 ## 辅助、功能增强
-* XCore.Common
-* XCore.Linq
-* XCore.Web.Common
-* XCore.Logging.NLog
-* XCore.DeferredTasks
-* XCore.BackgroundTasks
-* XCore.BackgroundTasks.Abstractions
-* XCore.Environment.Cache
-* XCore.Environment.Cache.Abstractions
-* XCore.Entities
-* XCore.EntityFrameworkCore
-* XCore.Environment.Shell.EntityFrameworkCore
+* OCore.Common
+* OCore.Linq
+* OCore.Web.Common
+* OCore.Logging.NLog
+* OCore.DeferredTasks
+* OCore.BackgroundTasks
+* OCore.BackgroundTasks.Abstractions
+* OCore.Environment.Cache
+* OCore.Environment.Cache.Abstractions
+* OCore.Entities
+* OCore.EntityFrameworkCore
+* OCore.Environment.Shell.EntityFrameworkCore
 
 ## 一些基本的业务模块
-* XCore.DeferredTasks（闲置）
-* XCore.BackgroundTasks.Abstractions（闲置）
-* XCore.BackgroundTasks（闲置）
-* XCore.Navigation（闲置）
-* XCore.Security.Abstractions（闲置）
-* XCore.Security（闲置）
-* XCore.Mvc.Authorization（废弃）
-* XCore.ResourceManagement.Abstractions（闲置）
-* XCore.ResourceManagement（闲置）
+* OCore.DeferredTasks（闲置）
+* OCore.BackgroundTasks.Abstractions（闲置）
+* OCore.BackgroundTasks（闲置）
+* OCore.Navigation（闲置）
+* OCore.Security.Abstractions（闲置）
+* OCore.Security（闲置）
+* OCore.Mvc.Authorization（废弃）
+* OCore.ResourceManagement.Abstractions（闲置）
+* OCore.ResourceManagement（闲置）
 
 > 标明（闲置）的模块表示从OrchardCore移植过来，但还未使用过，包括在该项目的示例Demo中也未经验证过。
  

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCore\OCore.BackgroundTasks\OCore.BackgroundTasks.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.DeferredTasks\OCore.DeferredTasks.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.EntityFrameworkCore\OCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Cache\OCore.Environment.Cache.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Extensions\OCore.Environment.Extensions.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Shell.EntityFrameworkCore\OCore.Environment.Shell.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Shell\OCore.Environment.Shell.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Module.Targets\OCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Mvc.Core\OCore.Mvc.Core.csproj" />
+  </ItemGroup>
+
+</Project>

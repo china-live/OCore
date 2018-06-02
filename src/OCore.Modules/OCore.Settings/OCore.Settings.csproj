@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCore\OCore.Entities\OCore.Entities.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.EntityFrameworkCore\OCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Cache.Abstractions\OCore.Environment.Cache.Abstractions.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Module.Targets\OCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Mvc.Abstractions\OCore.Mvc.Abstractions.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Recipes.Abstractions\OCore.Recipes.Abstractions.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Setup.Abstractions\OCore.Setup.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.AutoMapper\OCore.AutoMapper.csproj" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

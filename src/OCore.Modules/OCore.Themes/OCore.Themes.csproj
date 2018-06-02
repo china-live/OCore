@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\SelectThemesViewModel.cs" />
+    <Compile Remove="Models\ThemeEntry.cs" />
+    <Compile Remove="Recipes\ThemesStep.cs" />
+    <Compile Remove="Services\ISiteThemeService.cs" />
+    <Compile Remove="Services\IThemeService.cs" />
+    <Compile Remove="Services\SiteThemeService.cs" />
+    <Compile Remove="Services\ThemeService.cs" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+ 
+    <ProjectReference Include="..\..\OCore\OCore.DisplayManagement\OCore.DisplayManagement.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Cache.Abstractions\OCore.Environment.Cache.Abstractions.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Module.Targets\OCore.Module.Targets.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Recipes\" />
+  </ItemGroup>
+
+</Project>

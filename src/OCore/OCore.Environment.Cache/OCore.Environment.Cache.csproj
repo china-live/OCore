@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.Modules\OCore.Modules.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Cache.Abstractions\OCore.Environment.Cache.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Environment.Extensions.Abstractions\OCore.Environment.Extensions.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

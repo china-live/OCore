@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCore\OCore.Module.Targets\OCore.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Mvc.Core\OCore.Mvc.Core.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Scripting.Core\OCore.Scripting.Core.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Scripting.JavaScript\OCore.Scripting.JavaScript.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\OCore.Build\Dependencies.props" />
+  <Import Project="..\..\OCore\OCore.Application.Targets\OCore.Application.Targets.targets" />
+  
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <UserSecretsId>OCore</UserSecretsId>
+    <!--<MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>-->
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.0" />
+    <!-- This reference is necessary for view precompilation to work on publish -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.1.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dome.Modules\OCore.Migrator\OCore.Migrator.csproj" />
+    <ProjectReference Include="..\..\Dome.Modules\OCore.Mvc.Admin\OCore.Mvc.Admin.csproj" />
+    <ProjectReference Include="..\..\Dome.Modules\OCore.Mvc.HelloWorld\OCore.Mvc.HelloWorld.csproj" />
+    <ProjectReference Include="..\..\Dome.Modules\OCore.Mvc.Test\OCore.Mvc.Test.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Commons\OCore.Commons.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Features\OCore.Features.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.HomeRoute\OCore.HomeRoute.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Metronic\OCore.Metronic.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Recipes\OCore.Recipes.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Resources\OCore.Resources.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Scripting\OCore.Scripting.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Settings\OCore.Settings.csproj" />
+    <ProjectReference Include="..\..\OCore.Modules\OCore.Setup\OCore.Setup.csproj" />
+    <ProjectReference Include="..\..\OCore.Themes\SafeMode\SafeMode.csproj" />
+    <ProjectReference Include="..\..\OCore.Themes\TheAdmin\TheAdmin.csproj" />
+    <ProjectReference Include="..\..\OCore.Themes\TheTheme\TheTheme.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Application.Mvc.Targets\OCore.Application.Mvc.Targets.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Logging.NLog\OCore.Logging.NLog.csproj" />
+  </ItemGroup>
+
+</Project>

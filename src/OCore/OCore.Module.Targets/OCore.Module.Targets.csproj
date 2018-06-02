@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+ 
+  <!-- Add the OCore.Module.props file in the package -->
+  <ItemGroup>
+    <None Include="OCore.Module.Targets.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\OCore.Module.Targets.props</PackagePath>
+    </None>
+    <None Include="OCore.Module.Targets.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\OCore.Module.Targets.targets</PackagePath>
+    </None>
+    <None Include="Package.Build.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\Package.Build.props</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.Modules.Abstractions\OCore.Modules.Abstractions.csproj" />
+  </ItemGroup>
+
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(MSBuildProjectDirectory)\..\..\packageshare\" />
+  </Target>
+</Project>

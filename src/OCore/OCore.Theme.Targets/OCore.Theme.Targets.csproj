@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Extensions\**" />
+  </ItemGroup>
+ 
+  <!-- Add a ".props" file in the package specific to the "Theme" module type -->
+  <ItemGroup>
+    <None Include="OCore.Theme.Targets.props" Pack="true">
+      <PackagePath>build\netstandard2.0\OCore.Theme.Targets.props</PackagePath>
+    </None>
+  </ItemGroup>
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(MSBuildProjectDirectory)\..\..\packageshare\" />
+  </Target>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.Environment.Extensions.Abstractions\OCore.Environment.Extensions.Abstractions.csproj" />
+    <ProjectReference Include="..\OCore.Module.Targets\OCore.Module.Targets.csproj" PrivateAssets="none" />
+  </ItemGroup>
+</Project>
