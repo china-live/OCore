@@ -24,7 +24,7 @@ namespace XCore.Modules
                 {
                     if (_application == null)
                     {
-                        _application = new Application(environment.ApplicationName);
+                        _application = new Application(environment);
                     }
                 }
             }
@@ -57,26 +57,40 @@ namespace XCore.Modules
     public class Application
     {
         public const string ModulesPath = ".Modules";
+        public const string ModuleName = "Application";
         public static string ModulesRoot = ModulesPath + "/";
 
-        public Application(string application)
+        public Application(IHostingEnvironment environment)
         {
-            Name = application;
-            Assembly = Assembly.Load(new AssemblyName(application));
+            Name = environment.ApplicationName;
+            Path = environment.ContentRootPath;
+            Root = Path + '/';
 
-            ModuleNames = Assembly.GetCustomAttributes<ModuleNameAttribute>()
-                .Select(m => m.Name).ToArray();
+            Assembly = Assembly.Load(new AssemblyName(Name));
+
+            var moduleNames = Assembly.GetCustomAttributes<ModuleNameAttribute>()
+                .Select(m => m.Name).ToList();
+
+            moduleNames.Add(Name);
+            ModuleNames = moduleNames;
+
+            ModulePath = ModulesRoot + Name;
+            ModuleRoot = ModulePath + '/';
         }
 
         public string Name { get; }
+        public string Path { get; }
+        public string Root { get; }
         public Assembly Assembly { get; }
         public IEnumerable<string> ModuleNames { get; }
+        public string ModulePath { get; }
+        public string ModuleRoot { get; }
     }
 
     public class Module
     {
-        public const string ContentPath = "wwwroot";
-        public static string ContentRoot = ContentPath + "/";
+        public const string WebRootPath = "wwwroot";
+        public static string WebRoot = WebRootPath + "/";
 
         private readonly string _baseNamespace;
         private readonly DateTimeOffset _lastModified;

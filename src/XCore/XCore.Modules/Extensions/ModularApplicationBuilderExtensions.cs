@@ -11,7 +11,7 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class ModularApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseModules(this IApplicationBuilder app, Action<ModularApplicationBuilder> modules = null)
+        public static IApplicationBuilder UseModules(this IApplicationBuilder app, Action<IApplicationBuilder> modules = null)
         {
             var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
 
@@ -19,8 +19,8 @@ namespace Microsoft.AspNetCore.Builder
                 new ModuleEmbeddedFileProvider(env),
                 env.ContentRootFileProvider);
 
-            // Ensure the shell tenants are loaded when a request comes in 在请求进入时加载shell租户
-            // and replaces the current service provider for the tenant's one.并替换租户的当前服务提供商(ServiceProvider)
+            // Ensure the shell tenants are loaded when a request comes in
+            // and replaces the current service provider for the tenant's one.
             app.UseMiddleware<PoweredByMiddleware>();
             app.UseMiddleware<ModularTenantContainerMiddleware>();
 
@@ -31,52 +31,36 @@ namespace Microsoft.AspNetCore.Builder
             return app;
         }
 
-        public static IApplicationBuilder ConfigureModules(this IApplicationBuilder app, Action<ModularApplicationBuilder> modules)
+        public static IApplicationBuilder ConfigureModules(this IApplicationBuilder app, Action<IApplicationBuilder> modules)
         {
-            var modularApplicationBuilder = new ModularApplicationBuilder(app);
-            modules?.Invoke(modularApplicationBuilder);
-
+            modules?.Invoke(app);
             return app;
         }
 
-        public static ModularApplicationBuilder UseStaticFilesModules(this ModularApplicationBuilder modularApp)
+        public static IApplicationBuilder UseStaticFilesModules(this IApplicationBuilder app)
         {
-            modularApp.Configure(app =>
+            var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
+
+            IFileProvider fileProvider;
+            if (env.IsDevelopment())
             {
-                var extensionManager = app.ApplicationServices.GetRequiredService<IExtensionManager>();
-                var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
+                var fileProviders = new List<IFileProvider>();
+                fileProviders.Add(new ModuleProjectStaticFileProvider(env));
+                fileProviders.Add(new ModuleEmbeddedStaticFileProvider(env));
+                fileProvider = new CompositeFileProvider(fileProviders);
+            }
+            else
+            {
+                fileProvider = new ModuleEmbeddedStaticFileProvider(env);
+            }
 
-                // TODO: configure the location and parameters (max-age) per module.
-                var availableExtensions = extensionManager.GetExtensions();
-                foreach (var extension in availableExtensions)
-                {
-                    var contentSubPath = Path.Combine(extension.SubPath, "wwwroot");
-
-                    if (env.ContentRootFileProvider.GetDirectoryContents(contentSubPath).Exists)
-                    {
-                        IFileProvider fileProvider;
-                        if (env.IsDevelopment())
-                        {
-                            var fileProviders = new List<IFileProvider>();
-                            fileProviders.Add(new ModuleProjectContentFileProvider(env, contentSubPath));
-                            fileProviders.Add(new ModuleEmbeddedFileProvider(env, contentSubPath));
-                            fileProvider = new CompositeFileProvider(fileProviders);
-                        }
-                        else
-                        {
-                            fileProvider = new ModuleEmbeddedFileProvider(env, contentSubPath);
-                        }
-
-                        app.UseStaticFiles(new StaticFileOptions
-                        {
-                            RequestPath = "/" + extension.Id,
-                            FileProvider = fileProvider
-                        });
-                    }
-                }
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "",
+                FileProvider = fileProvider
             });
 
-            return modularApp;
+            return app;
         }
     }
 }

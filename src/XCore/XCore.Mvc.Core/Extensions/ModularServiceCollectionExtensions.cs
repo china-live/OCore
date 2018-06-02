@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Internal;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using XCore.Modules;
 using XCore.Mvc.LocationExpander;
 using XCore.Mvc.ModelBinding;
@@ -101,17 +103,21 @@ namespace XCore.Mvc
 
         internal static IMvcCoreBuilder AddModularRazorViewEngine(this IMvcCoreBuilder builder, IServiceProvider services)
         {
-            return builder.AddRazorViewEngine(options =>
-            {
-                options.ViewLocationExpanders.Add(new CompositeViewLocationExpanderProvider());
+            //return builder.AddRazorViewEngine(options =>
+            //{
+            //    options.ViewLocationExpanders.Add(new CompositeViewLocationExpanderProvider());
 
-                var env = services.GetRequiredService<IHostingEnvironment>();
+            //    var env = services.GetRequiredService<IHostingEnvironment>();
 
-                if (env.IsDevelopment())
-                {
-                    options.FileProviders.Insert(0, new ModuleProjectRazorFileProvider(env));
-                }
-            });
+            //    if (env.IsDevelopment())
+            //    {
+            //        options.FileProviders.Insert(0, new ModuleProjectRazorFileProvider(env));
+            //    }
+            //});
+            builder.Services.TryAddEnumerable(
+    ServiceDescriptor.Transient<IConfigureOptions<RazorViewEngineOptions>, ModularRazorViewEngineOptionsSetup>());
+            return builder;
+
         }
 
         internal static void AddMvcModuleCoreServices(IServiceCollection services)

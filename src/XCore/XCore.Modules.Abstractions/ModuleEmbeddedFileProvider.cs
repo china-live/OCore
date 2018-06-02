@@ -1,9 +1,12 @@
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Internal;
+using Microsoft.Extensions.FileProviders.Physical;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Primitives;
 using XCore.Modules.FileProviders;
 
 namespace XCore.Modules
@@ -14,14 +17,14 @@ namespace XCore.Modules
     /// </summary>
     public class ModuleEmbeddedFileProvider : IFileProvider
     {
-        private IHostingEnvironment _environment;
-        private string _contentRoot;
+        private readonly IHostingEnvironment _environment;
 
-        public ModuleEmbeddedFileProvider(IHostingEnvironment hostingEnvironment, string contentPath = null)
+        public ModuleEmbeddedFileProvider(IHostingEnvironment hostingEnvironment)
         {
             _environment = hostingEnvironment;
-            _contentRoot = contentPath != null ? NormalizePath(contentPath) + '/' : "";
         }
+
+        private Application Application => _environment.GetApplication();
 
         public IDirectoryContents GetDirectoryContents(string subpath)
         {
@@ -30,7 +33,7 @@ namespace XCore.Modules
                 return NotFoundDirectoryContents.Singleton;
             }
 
-            var folder = _contentRoot + NormalizePath(subpath);
+            var folder = NormalizePath(subpath);
 
             var entries = new List<IFileInfo>();
 
@@ -40,8 +43,21 @@ namespace XCore.Modules
             }
             else if (folder == Application.ModulesPath)
             {
-                entries.AddRange(_environment.GetApplication().ModuleNames
+                entries.AddRange(Application.ModuleNames
                     .Select(n => new EmbeddedDirectoryInfo(n)));
+            }
+            else if (folder == Application.ModulePath)
+            {
+                return new PhysicalDirectoryContents(Application.Path);
+            }
+            else if (folder.StartsWith(Application.ModuleRoot, StringComparison.Ordinal))
+            {
+                var tokenizer = new StringTokenizer(folder, new char[] { '/' });
+                if (tokenizer.Any(s => s == "Pages" || s == "Views"))
+                {
+                    var folderSubPath = folder.Substring(Application.ModuleRoot.Length);
+                    return new PhysicalDirectoryContents(Application.Root + folderSubPath);
+                }
             }
             else if (folder.StartsWith(Application.ModulesRoot, StringComparison.Ordinal))
             {
@@ -81,19 +97,23 @@ namespace XCore.Modules
                 return new NotFoundFileInfo(subpath);
             }
 
-            var path = _contentRoot + NormalizePath(subpath);
+            var path = NormalizePath(subpath);
 
-            if (path.StartsWith(Application.ModulesRoot, StringComparison.Ordinal))
+            if (path.StartsWith(Application.ModuleRoot, StringComparison.Ordinal))
+            {
+                var fileSubPath = path.Substring(Application.ModuleRoot.Length);
+                return new PhysicalFileInfo(new FileInfo(Application.Root + fileSubPath));
+            }
+            else if (path.StartsWith(Application.ModulesRoot, StringComparison.Ordinal))
             {
                 path = path.Substring(Application.ModulesRoot.Length);
                 var index = path.IndexOf('/');
 
                 if (index != -1)
                 {
-                    var moduleName = path.Substring(0, index);
+                    var module = path.Substring(0, index);
                     var fileSubPath = path.Substring(index + 1);
-
-                    return _environment.GetModule(moduleName).GetFileInfo(fileSubPath);
+                    return _environment.GetModule(module).GetFileInfo(fileSubPath);
                 }
             }
 
@@ -102,6 +122,20 @@ namespace XCore.Modules
 
         public IChangeToken Watch(string filter)
         {
+
+            if (filter == null)
+            {
+                return NullChangeToken.Singleton;
+            }
+
+            var path = NormalizePath(filter);
+
+            if (path.StartsWith(Application.ModuleRoot, StringComparison.Ordinal))
+            {
+                var fileSubPath = path.Substring(Application.ModuleRoot.Length);
+                return new PollingFileChangeToken(new FileInfo(Application.Root + fileSubPath));
+            }
+
             return NullChangeToken.Singleton;
         }
 
