@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using XCore.DisplayManagement.Theming;
-using XCore.Environment.Cache;
+using OCore.DisplayManagement.Theming;
+using OCore.Environment.Cache;
 
-namespace XCore.Environment.Cache.CacheContextProviders
+namespace OCore.Environment.Cache.CacheContextProviders
 {
     public class ThemeCacheContextProvider : ICacheContextProvider
     {

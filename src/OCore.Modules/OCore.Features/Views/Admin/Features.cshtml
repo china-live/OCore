@@ -90,7 +90,7 @@
                             var missingDependencies = feature.FeatureDependencies
                                 .Where(d => !Model.Features.Any(f => f.Descriptor.Id == d.Id));
                             var showDisable = true; // categoryName.ToString() != "Core";
-                            var showEnable = Model.IsAllowed(feature.Descriptor.Extension) && !missingDependencies.Any() && feature.Descriptor.Id != "XCore.Setup";
+                            var showEnable = Model.IsAllowed(feature.Descriptor.Extension) && !missingDependencies.Any() && feature.Descriptor.Id != "OCore.Setup";
 
                             <li class="list-group-item" data-filter-value="@categoryName @featureName">
                                 <div class="row">

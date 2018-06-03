@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using XCore.DisplayManagement.Theming;
+using OCore.DisplayManagement.Theming;
 
-namespace XCore.Themes.Services
+namespace OCore.Themes.Services
 {
     /// <summary>
     /// 安全模式，当设置的主题未找到主题时退回到默认主题。
