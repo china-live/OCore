@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text.Encodings.Web;
 using OCore.Environment.Extensions.Manifests;
 using OCore.Environment.Shell.EntityFrameworkCore;
+using OCore.EntityFrameworkCore;
 
 namespace OCore.Mvc.Web
 {
@@ -33,6 +34,9 @@ namespace OCore.Mvc.Web
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddSingleton(new AppDbContextOptions() { ConnectionString = connectionString, DatabaseProvider = "SqlServer"/*, TablePrefix = "OCore" */});
 
             //services.AddThemingHost();
             services.AddManifestDefinition("theme");

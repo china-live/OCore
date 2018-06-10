@@ -1,14 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
+using Newtonsoft.Json.Linq;
 using OCore.Environment.Shell;
- 
+using OCore.Environment.Shell.Descriptor.Models;
+using System;
+using System.Linq;
+using System.Reflection;
+
 namespace OCore.EntityFrameworkCore
 {
-
 
     public class AppDbContext : DbContext
     {
@@ -23,33 +26,53 @@ namespace OCore.EntityFrameworkCore
             _entityManager = serviceProvider.GetRequiredService<IEntityTypeProvider>();
             _dbMigrator = serviceProvider.GetRequiredService<AppDbMigrator>();
             _appDbContextOptions = serviceProvider.GetRequiredService<AppDbContextOptions>();
- 
+
             if (_shellSettings.Name == "Default")
             {
-                if(_shellSettings.TablePrefix == null && _shellSettings.ConnectionString == null && _shellSettings.DatabaseProvider == null)
+                if (_shellSettings.TablePrefix == null)
                 {
                     _shellSettings.TablePrefix = _appDbContextOptions?.TablePrefix;
+                }
+                if (_shellSettings.ConnectionString == null)
+                {
                     _shellSettings.ConnectionString = _appDbContextOptions?.ConnectionString;
+                }
+                if (_shellSettings.DatabaseProvider == null)
+                {
                     _shellSettings.DatabaseProvider = _appDbContextOptions?.DatabaseProvider;
                 }
             }
         }
- 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            foreach (var type in _entityManager.GetEntityTypes())
+            var types = _entityManager.GetEntityTypes();
+            foreach (var type in types)
             {
                 if (builder.Model.FindEntityType(type) == null)//防止重复附加模型，否则会在生成指令中报错
                 {
- 
+
                     builder.Model.AddEntityType(type);
                 }
             }
+            var typeConfigurations = _entityManager.GetEntityTypeConfigurations();
 
-            foreach (var type in _entityManager.GetEntityTypeConfigurations())
+            foreach (var typeConfiguration in typeConfigurations)
             {
-                dynamic mappingInstance = Activator.CreateInstance(type);
+                //var x =  typeConfiguration.BaseType;
+                //var xx = typeConfiguration.GetTypeInfo().ImplementedInterfaces;
+                //var xxx = xx.First();
+
+
+
+                dynamic mappingInstance = Activator.CreateInstance(typeConfiguration);
+                //var mappingInstance = new ArticleMap();
+
                 builder.ApplyConfiguration(mappingInstance);
+
+                //var configuration = Activator.CreateInstance<EntityTypeConfiguration>(typeConfiguration);
+
+                //configuration.ApplyConfiguration(builder);
             }
 
             //foreach (var type in builder.Model.GetEntityTypes())
@@ -68,28 +91,36 @@ namespace OCore.EntityFrameworkCore
         }
     }
 
+    //public class ArticleMap : IEntityTypeConfiguration<test>
+    //{
+    //    public void Configure(EntityTypeBuilder<test> a)
+    //    {
+    //        a.ToTable("OCore_Articles");
+    //        a.HasKey(r => r.Id);
+    //    }
+    //}
+
+    //public class test {
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+
+    //    public JObject Properties { get; set; } = new JObject();
+
+    //}
+
     //https://github.com/OrchardCMS/OCore/issues/1343
     public static class OrchardEntityFrameworkExtensions
     {
         public static DbContextOptionsBuilder UseOrchardCore(this DbContextOptionsBuilder builder, ShellSettings settings, string migrationsAssemblyName)
         {
-            if (builder == null)
-            {
-                throw new ArgumentNullException(nameof(builder));
-            }
-
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
+            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
 
             builder.ReplaceService<IModelCustomizer, OCoreModelCustomizer>();
             builder.ReplaceService<IModelCacheKeyFactory, OCoreModelCacheKeyFactory>();
 
             if (string.IsNullOrEmpty(settings.DatabaseProvider))
-            {
                 return builder;
-            }
 
             switch (settings.DatabaseProvider)
             {
@@ -163,9 +194,7 @@ namespace OCore.EntityFrameworkCore
                 var prefix = (context as AppDbContext)?._shellSettings.TablePrefix;
                 //var prefix = context.GetService<ShellSettings>().TablePrefix;
                 if (string.IsNullOrEmpty(prefix))
-                {
                     return;
-                }
 
                 foreach (var type in builder.Model.GetEntityTypes())
                 {

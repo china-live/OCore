@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using OCore.Entities;
+using System.Collections.Generic;
 
 namespace OCore.Environment.Shell.Descriptor.Models
 {
@@ -7,8 +9,9 @@ namespace OCore.Environment.Shell.Descriptor.Models
     /// The information is drawn out of the shell via IShellDescriptorManager
     /// and is passed to the ICompositionStrategy to build the ShellBlueprint.
     /// </summary>
-    public class ShellDescriptor
+    public class ShellDescriptor : IEntity
     {
+        //public JObject Properties { get; set; } = new JObject();
         public int Id { get; set; }
 
         /// <summary>

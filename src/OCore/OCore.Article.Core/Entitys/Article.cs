@@ -52,7 +52,7 @@ namespace OCore.Article
 
     public class Article : IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
 
         public virtual int Id { get; set; }
 

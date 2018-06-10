@@ -9,15 +9,15 @@ namespace OCore.Identity
 {
     public class Role : IdentityRole, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
     }
     public class RoleClaim : IdentityRoleClaim<string>, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
     }
 
     public class UserRole : IdentityUserRole<string>, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
     }
 }

@@ -120,13 +120,13 @@ namespace OCore.Migrator
             //var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             //optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("OCore.Migrator"));
 
-            var entityManager = new MigrationEntityTypeProvider();
-            entityManager.AddAssemblys("OCore.Identity.EntityFrameworkCore");
-            entityManager.AddAssemblys("OCore.Article.EntityFrameworkCore");
-            entityManager.AddAssemblys("OCore.Environment.Shell.EntityFrameworkCore");
-            entityManager.AddAssemblys("OCore.Recipes");
-            entityManager.AddAssemblys("OCore.Settings");
-
+            var entityManager = new MigrationEntityTypeProvider(new String[] { "OCore.Identity.EntityFrameworkCore",
+                //"OCore.Article.EntityFrameworkCore",
+                //"OCore.Environment.Shell.EntityFrameworkCore",
+                //"OCore.Recipes",
+                //"OCore.Settings" 
+            });
+ 
             Assembly assembly = typeof(AppContextFactory).GetTypeInfo().Assembly;
             AssemblyName assemblyName = assembly.GetName();
 
@@ -147,7 +147,7 @@ namespace OCore.Migrator
             //serviceCollection.AddSingleton(logger);
             var services = serviceCollection.BuildServiceProvider();
 
- 
+
             return new AppDbContext(services);
         }
     }

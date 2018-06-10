@@ -27,6 +27,7 @@ namespace OCore.Commons
 
             //var serviceProvider = services.BuildServiceProvider();
             //var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
+
             services.AddEntityFrameworkCore(/*defaultConnection*/);
 
             services.AddBackgroundTasks();

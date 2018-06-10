@@ -7,7 +7,7 @@ namespace OCore.Identity
 {
     public class User : IdentityUser, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
 
         //public virtual string Surname { get; set; }
 
@@ -17,16 +17,16 @@ namespace OCore.Identity
     }
     public class UserClaim:IdentityUserClaim<string>, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
     }
     
     public class UserLogin : IdentityUserLogin<string>, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
     }
 
     public class UserToken : IdentityUserToken<string>, IEntity
     {
-        public JObject Properties { get; set; } = new JObject();
+        //public JObject Properties { get; set; } = new JObject();
     }
 }

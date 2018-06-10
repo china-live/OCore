@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
+using OCore.EntityFrameworkCore;
 
 namespace OCore.Identity.EntityFrameworkCore
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserMap : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> b)
         {
             b.ToTable("OCore_Users");
             b.HasKey(u => u.Id);
-            b.Ignore(u => u.Properties);
+            //b.Ignore(u => u.Properties);
             b.HasIndex(u => u.NormalizedUserName).HasName("UserNameIndex").IsUnique();
             b.HasIndex(u => u.NormalizedEmail).HasName("EmailIndex");
             b.Property(u => u.ConcurrencyStamp).IsConcurrencyToken();
@@ -29,30 +29,30 @@ namespace OCore.Identity.EntityFrameworkCore
             b.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
         }
     }
-    public class UserClaimConfiguration : IEntityTypeConfiguration<UserClaim>
+    public class UserClaimMap : IEntityTypeConfiguration<UserClaim>
     {
         public void Configure(EntityTypeBuilder<UserClaim> b)
         {
             b.ToTable("OCore_UserClaims");
-            b.Ignore(u => u.Properties);
+            //b.Ignore(u => u.Properties);
             b.HasKey(u => u.Id);
         }
     }
-    public class UserLoginConfiguration : IEntityTypeConfiguration<UserLogin>
+    public class UserLoginMap : IEntityTypeConfiguration<UserLogin>
     {
         public void Configure(EntityTypeBuilder<UserLogin> b)
         {
             b.ToTable("OCore_UserLogins");
-            b.Ignore(u => u.Properties);
+            //b.Ignore(u => u.Properties);
             b.HasKey(l => new { l.LoginProvider, l.ProviderKey });
         }
     }
-    public class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
+    public class UserTokenMap : IEntityTypeConfiguration<UserToken>
     {
         public void Configure(EntityTypeBuilder<UserToken> b)
         {
             b.ToTable("OCore_UserTokens");
-            b.Ignore(u => u.Properties);
+            //b.Ignore(u => u.Properties);
             b.HasKey(l => new { l.UserId, l.LoginProvider, l.Name });
         }
     }

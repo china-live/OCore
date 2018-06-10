@@ -1,13 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using OCore.Entities;
 
 namespace OCore.Environment.Shell.State
 {
     /// <summary>
     /// Reprensents the state if a feature in a tenant.
     /// </summary>
-    public class ShellFeatureState
+    public class ShellFeatureState : IEntity
     {
+        //public JObject Properties { get; set; } = new JObject();
         public string Id { get; set; }
         public State InstallState { get; set; }
         public State EnableState { get; set; }

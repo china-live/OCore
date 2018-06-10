@@ -86,7 +86,7 @@ namespace OCore.Settings.Recipes
                         break;
 
                     default:
-                        site.Properties.Add(property);
+                        //site.Properties.Add(property);
                         break;
                 }
             }            

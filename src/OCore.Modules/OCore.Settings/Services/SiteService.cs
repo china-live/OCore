@@ -91,7 +91,7 @@ namespace OCore.Settings.Services
             existing.MaxPagedCount = site.MaxPagedCount;
             existing.MaxPageSize = site.MaxPageSize;
             existing.PageSize = site.PageSize;
-            existing.Properties = site.Properties;
+            //existing.Properties = site.Properties;
             existing.ResourceDebugMode = site.ResourceDebugMode;
             existing.SiteName = site.SiteName;
             existing.SiteSalt = site.SiteSalt;
