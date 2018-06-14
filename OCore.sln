@@ -85,6 +85,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E0E55809
 		src\OCore.Build\Dependencies.props = src\OCore.Build\Dependencies.props
 		src\OCore.Build\OCore.Commons.props = src\OCore.Build\OCore.Commons.props
 		src\OCore.Build\OCore.Commons.targets = src\OCore.Build\OCore.Commons.targets
+		src\OCore.Build\Packageshare.props = src\OCore.Build\Packageshare.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCore.Mvc.Web", "src\OCore.Samples\OCore.Mvc.Web\OCore.Mvc.Web.csproj", "{0D69D6F0-19C3-46B6-B747-D50A4F2298B1}"
