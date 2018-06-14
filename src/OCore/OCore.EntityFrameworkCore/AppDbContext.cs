@@ -59,20 +59,8 @@ namespace OCore.EntityFrameworkCore
 
             foreach (var typeConfiguration in typeConfigurations)
             {
-                //var x =  typeConfiguration.BaseType;
-                //var xx = typeConfiguration.GetTypeInfo().ImplementedInterfaces;
-                //var xxx = xx.First();
-
-
-
                 dynamic mappingInstance = Activator.CreateInstance(typeConfiguration);
-                //var mappingInstance = new ArticleMap();
-
                 builder.ApplyConfiguration(mappingInstance);
-
-                //var configuration = Activator.CreateInstance<EntityTypeConfiguration>(typeConfiguration);
-
-                //configuration.ApplyConfiguration(builder);
             }
 
             //foreach (var type in builder.Model.GetEntityTypes())

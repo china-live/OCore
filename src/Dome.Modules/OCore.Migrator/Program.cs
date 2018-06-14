@@ -121,10 +121,10 @@ namespace OCore.Migrator
             //optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("OCore.Migrator"));
 
             var entityManager = new MigrationEntityTypeProvider(new String[] { "OCore.Identity.EntityFrameworkCore",
-                //"OCore.Article.EntityFrameworkCore",
-                //"OCore.Environment.Shell.EntityFrameworkCore",
-                //"OCore.Recipes",
-                //"OCore.Settings" 
+                "OCore.Article.EntityFrameworkCore",
+                "OCore.Environment.Shell.EntityFrameworkCore",
+                "OCore.Recipes",
+                "OCore.Settings"
             });
  
             Assembly assembly = typeof(AppContextFactory).GetTypeInfo().Assembly;
