@@ -10,10 +10,10 @@ using OCore.Modules;
 
 namespace OCore.Environment.Shell
 {
-    //public interface IShellStateUpdater
-    //{
-    //    Task ApplyChanges();
-    //}
+    public interface IShellStateUpdater
+    {
+        Task ApplyChanges();
+    }
 
     public class ShellStateUpdater : IShellStateUpdater
     {

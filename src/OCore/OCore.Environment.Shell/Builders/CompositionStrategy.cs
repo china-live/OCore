@@ -15,14 +15,11 @@ namespace OCore.Environment.Shell.Builders
     {
         private readonly IExtensionManager _extensionManager;
         private readonly ILogger _logger;
-        private readonly ITypeFeatureProvider _typeFeatureProvider;
 
         public CompositionStrategy(
             IExtensionManager extensionManager,
-            ITypeFeatureProvider typeFeatureProvider,
             ILogger<CompositionStrategy> logger)
         {
-            _typeFeatureProvider = typeFeatureProvider;
             _extensionManager = extensionManager;
             _logger = logger;
         }

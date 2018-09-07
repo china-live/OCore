@@ -1,13 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OCore.Environment.Shell.Descriptor;
 using OCore.Environment.Shell.Descriptor.Models;
 using OCore.Hosting.ShellBuilders;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace OCore.Environment.Shell.Builders
-{
+namespace OCore.Environment.Shell.Builders {
     public class ShellContextFactory : IShellContextFactory
     {
         private readonly ICompositionStrategy _compositionStrategy;

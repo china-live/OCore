@@ -9,12 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OCore.Environment.Shell
-{
+namespace OCore.Environment.Shell {
     // This class is registered automatically as transient as it is an event handler
     //这个类自动注册为瞬态，因为它是一个事件处理程序
-    public class ShellStateCoordinator : IShellDescriptorManagerEventHandler
-    {
+    public class ShellStateCoordinator : IShellDescriptorManagerEventHandler {
         private readonly ShellSettings _settings;
         private readonly IShellStateManager _stateManager;
         private readonly IDeferredTaskEngine _deferredTaskEngine;
@@ -23,8 +21,7 @@ namespace OCore.Environment.Shell
             ShellSettings settings,
             IShellStateManager stateManager,
             IDeferredTaskEngine deferredTaskEngine,
-            ILogger<ShellStateCoordinator> logger)
-        {
+            ILogger<ShellStateCoordinator> logger) {
             _deferredTaskEngine = deferredTaskEngine;
             _settings = settings;
             _stateManager = stateManager;
@@ -33,39 +30,30 @@ namespace OCore.Environment.Shell
 
         public ILogger Logger { get; set; }
 
-        async Task IShellDescriptorManagerEventHandler.Changed(ShellDescriptor descriptor, string tenant)
-        {
+        async Task IShellDescriptorManagerEventHandler.Changed(ShellDescriptor descriptor, string tenant) {
             // deduce and apply state changes involved
             var shellState = await _stateManager.GetShellStateAsync();
-            foreach (var feature in descriptor.Features)
-            {
+            foreach (var feature in descriptor.Features) {
                 var featureId = feature.Id;
                 var featureState = shellState.Features.SingleOrDefault(f => f.Id == featureId);
-                if (featureState == null)
-                {
-                    featureState = new ShellFeatureState
-                    {
+                if (featureState == null) {
+                    featureState = new ShellFeatureState {
                         Id = featureId
                     };
                 }
-                if (!featureState.IsInstalled)
-                {
+                if (!featureState.IsInstalled) {
                     await _stateManager.UpdateInstalledStateAsync(featureState, ShellFeatureState.State.Rising);
                 }
-                if (!featureState.IsEnabled)
-                {
+                if (!featureState.IsEnabled) {
                     await _stateManager.UpdateEnabledStateAsync(featureState, ShellFeatureState.State.Rising);
                 }
             }
-            foreach (var featureState in shellState.Features)
-            {
+            foreach (var featureState in shellState.Features) {
                 var featureId = featureState.Id;
-                if (descriptor.Features.Any(f => f.Id == featureId))
-                {
+                if (descriptor.Features.Any(f => f.Id == featureId)) {
                     continue;
                 }
-                if (!featureState.IsDisabled)
-                {
+                if (!featureState.IsDisabled) {
                     await _stateManager.UpdateEnabledStateAsync(featureState, ShellFeatureState.State.Falling);
                 }
             }
@@ -73,26 +61,21 @@ namespace OCore.Environment.Shell
             FireApplyChangesIfNeeded();
         }
 
-        private void FireApplyChangesIfNeeded()
-        {
-            _deferredTaskEngine.AddTask(async context =>
-            {
+        private void FireApplyChangesIfNeeded() {
+            _deferredTaskEngine.AddTask(async context => {
                 var stateManager = context.ServiceProvider.GetRequiredService<IShellStateManager>();
                 var shellStateUpdater = context.ServiceProvider.GetRequiredService<IShellStateUpdater>();
                 var shellState = await stateManager.GetShellStateAsync();
 
-                while (shellState.Features.Any(FeatureIsChanging))
-                {
-                    var descriptor = new ShellDescriptor
-                    {
+                while (shellState.Features.Any(FeatureIsChanging)) {
+                    var descriptor = new ShellDescriptor {
                         Features = shellState.Features
                             .Where(FeatureShouldBeLoadedForStateChangeNotifications)
                             .Select(x => new ShellFeature { Id = x.Id })
                             .ToArray()
                     };
 
-                    if (Logger.IsEnabled(LogLevel.Information))
-                    {
+                    if (Logger.IsEnabled(LogLevel.Information)) {
                         Logger.LogInformation("Adding pending task 'ApplyChanges' for shell '{0}'", _settings.Name);
                     }
 
@@ -101,23 +84,19 @@ namespace OCore.Environment.Shell
             });
         }
 
-        private static bool FeatureIsChanging(ShellFeatureState shellFeatureState)
-        {
+        private static bool FeatureIsChanging(ShellFeatureState shellFeatureState) {
             if (shellFeatureState.EnableState == ShellFeatureState.State.Rising ||
-                shellFeatureState.EnableState == ShellFeatureState.State.Falling)
-            {
+                shellFeatureState.EnableState == ShellFeatureState.State.Falling) {
                 return true;
             }
             if (shellFeatureState.InstallState == ShellFeatureState.State.Rising ||
-                shellFeatureState.InstallState == ShellFeatureState.State.Falling)
-            {
+                shellFeatureState.InstallState == ShellFeatureState.State.Falling) {
                 return true;
             }
             return false;
         }
 
-        private static bool FeatureShouldBeLoadedForStateChangeNotifications(ShellFeatureState shellFeatureState)
-        {
+        private static bool FeatureShouldBeLoadedForStateChangeNotifications(ShellFeatureState shellFeatureState) {
             return FeatureIsChanging(shellFeatureState) || shellFeatureState.EnableState == ShellFeatureState.State.Up;
         }
     }

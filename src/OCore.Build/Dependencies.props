@@ -29,8 +29,8 @@
     <PackageManagement Include="Lucene.Net" Version="4.8.0-beta00005" />
     <PackageManagement Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00005" />
     <PackageManagement Include="Lucene.Net.QueryParser" Version="4.8.0-beta00005" />
-    <PackageManagement Include="YamlDotNet" Version="4.2.1" />
-    <PackageManagement Include="NLog.Web.AspNetCore" Version="4.5.0-rc2" />
+    <PackageManagement Include="YamlDotNet" Version="5.0.1" />
+    <PackageManagement Include="NLog.Web.AspNetCore" Version="4.6.0" />
     <PackageManagement Include="Castle.Core" Version="4.1.1" />
     <PackageManagement Include="SQLitePCLRaw.bundle_green" Version="1.1.10-*" />
     <PackageManagement Include="Irony.Core" Version="1.0.7" />

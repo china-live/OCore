@@ -1,11 +1,10 @@
-﻿using OCore.Environment.Extensions;
-using OCore.Environment.Shell.Descriptor.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OCore.Environment.Extensions;
+using OCore.Environment.Shell.Descriptor.Models;
 
-namespace OCore.Environment.Shell.Descriptor.Settings
-{
+namespace OCore.Environment.Shell.Descriptor.Settings {
     /// <summary>
     /// Implements <see cref="IShellDescriptorManager"/> by returning a single tenant with all the available 
     /// extensions.

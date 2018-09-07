@@ -3,10 +3,8 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using OCore.Environment.Shell;
 
-namespace OCore.Environment.Shell
-{
+namespace OCore.Environment.Shell {
     public class FileShellSettingsConfigurationProvider : IShellSettingsConfigurationProvider
     {
         private readonly IHostingEnvironment _hostingEnvironment;

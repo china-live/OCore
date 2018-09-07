@@ -83,6 +83,11 @@ namespace OCore.Modules.Manifest
         /// If not provided, defaults to 'Uncategorized'.如果没有提供，默认为'Uncategorized'（未分类）。
         /// </Summary>
         public string Category { get; set; }
+
+        /// <summary>
+        /// Set to <c>true</c> to only allow the Default tenant to enable it.
+        /// </summary>
+        public bool DefaultTenantOnly { get; set; }
     }
 
     /// <summary>

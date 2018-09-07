@@ -1,2 +1,2 @@
-# 2018/04/11
-同步到OCore dev分支，无修改
+# 2018/08/11
+同步到OrchardCore master分支1.0.0-beta2,可兼容

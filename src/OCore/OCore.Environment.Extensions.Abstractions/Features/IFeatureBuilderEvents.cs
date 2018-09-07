@@ -18,6 +18,7 @@
         public string Category { get; set; }
         public string Description { get; set; }
         public string[] FeatureDependencyIds { get; set; }
+        public bool DefaultTenantOnly { get; set; }
     }
 
     public abstract class FeatureBuilderEvents : IFeatureBuilderEvents

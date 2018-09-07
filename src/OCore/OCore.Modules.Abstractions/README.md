@@ -1,3 +1,4 @@
-# 2018/04/11
+# 2018/08/11
 
-同步到OCore dev分支，无修改，添加了一些中文注释而已
+##### 同步到OrchardCore master分支1.0.0-beta2
+> 有精简，去掉对Razor.TagHelpers的依赖

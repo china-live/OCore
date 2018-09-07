@@ -14,9 +14,7 @@ namespace OCore.Environment.Extensions
         /// <param name="services"></param>
         public static IServiceCollection AddExtensionManagerHost(this IServiceCollection services)
         {
-            services.TryAddEnumerable(
-                ServiceDescriptor.Transient<IConfigureOptions<ManifestOptions>, ManifestOptionsSetup>());
-
+ 
             services.AddSingleton<IExtensionManager, ExtensionManager>();
             {
                 services.AddSingleton<ITypeFeatureProvider, TypeFeatureProvider>();

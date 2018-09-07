@@ -1,11 +1,9 @@
-﻿using OCore.Environment.Shell.Descriptor.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using OCore.Environment.Shell.Descriptor.Models;
 
-namespace OCore.Environment.Shell.Descriptor.Settings
-{
+namespace OCore.Environment.Shell.Descriptor.Settings {
     /// <summary>
     /// Implements <see cref="IShellDescriptorManager"/> by returning a single tenant with a specified set
     /// of features. This class can be registered as a singleton as its state never changes.

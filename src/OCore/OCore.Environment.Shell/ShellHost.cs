@@ -11,15 +11,13 @@ using System.Linq;
 using OCore.Environment.Shell.Models;
 using OCore.Modules;
 
-namespace OCore.Environment.Shell
-{
+namespace OCore.Environment.Shell {
     /// <summary>
     /// All <see cref="ShellContext"/> object are loaded when <see cref="Initialize"/> is called. They can be removed when the
     /// tenant is removed, but are necessary to match an incoming request, even if they are not initialized.
     /// Each <see cref="ShellContext"/> is activated (its service provider is built) on the first request.
     /// </summary>
-    public class ShellHost : IShellHost, IShellDescriptorManagerEventHandler
-    {
+    public class ShellHost : IShellHost, IShellDescriptorManagerEventHandler {
         private static EventId TenantNotStarted = new EventId(0);
 
         private readonly IShellSettingsManager _shellSettingsManager;
@@ -36,8 +34,7 @@ namespace OCore.Environment.Shell
             IShellContextFactory shellContextFactory,
             IRunningShellTable runningShellTable,
             IExtensionManager extensionManager,
-            ILogger<ShellHost> logger)
-        {
+            ILogger<ShellHost> logger) {
             _extensionManager = extensionManager;
             _shellSettingsManager = shellSettingsManager;
             _shellContextFactory = shellContextFactory;
@@ -45,22 +42,17 @@ namespace OCore.Environment.Shell
             _logger = logger;
         }
 
-        public void Initialize()
-        {
+        public void Initialize() {
             BuildCurrent();
         }
 
         /// <summary>
         /// Ensures shells are activated, or re-activated if extensions have changed
         /// </summary>
-        IDictionary<string, ShellContext> BuildCurrent()
-        {
-            if (_shellContexts == null)
-            {
-                lock (this)
-                {
-                    if (_shellContexts == null)
-                    {
+        IDictionary<string, ShellContext> BuildCurrent() {
+            if (_shellContexts == null) {
+                lock (this) {
+                    if (_shellContexts == null) {
                         _shellContexts = new ConcurrentDictionary<string, ShellContext>();
                         CreateAndRegisterShellsAsync().Wait();
                     }
@@ -70,18 +62,15 @@ namespace OCore.Environment.Shell
             return _shellContexts;
         }
 
-        public ShellContext GetOrCreateShellContext(ShellSettings settings)
-        {
-            var shell = _shellContexts.GetOrAdd(settings.Name, tenant =>
-            {
+        public ShellContext GetOrCreateShellContext(ShellSettings settings) {
+            var shell = _shellContexts.GetOrAdd(settings.Name, tenant => {
                 var shellContext = CreateShellContextAsync(settings).Result;
                 RegisterShell(shellContext);
 
                 return shellContext;
             });
 
-            if (shell.Released)
-            {
+            if (shell.Released) {
                 _shellContexts.TryRemove(settings.Name, out var context);
                 return GetOrCreateShellContext(settings);
             }
@@ -89,16 +78,13 @@ namespace OCore.Environment.Shell
             return shell;
         }
 
-        public void UpdateShellSettings(ShellSettings settings)
-        {
+        public void UpdateShellSettings(ShellSettings settings) {
             _shellSettingsManager.SaveSettings(settings);
             ReloadShellContext(settings);
         }
 
-        async Task CreateAndRegisterShellsAsync()
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
+        async Task CreateAndRegisterShellsAsync() {
+            if (_logger.IsEnabled(LogLevel.Information)) {
                 _logger.LogInformation("Start creation of shells");
             }
 
@@ -113,34 +99,25 @@ namespace OCore.Environment.Shell
             features.Wait();
 
             // No settings, run the Setup.
-            if (allSettings.Length == 0)
-            {
+            if (allSettings.Length == 0) {
                 var setupContext = await CreateSetupContextAsync();
                 RegisterShell(setupContext);
-            }
-            else
-            {
+            } else {
                 // Load all tenants, and activate their shell.
-                Parallel.ForEach(allSettings, settings =>
-                {
-                    try
-                    {
+                Parallel.ForEach(allSettings, settings => {
+                    try {
                         GetOrCreateShellContext(settings);
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                         _logger.LogError(TenantNotStarted, ex, $"A tenant could not be started: {settings.Name}");
 
-                        if (ex.IsFatal())
-                        {
+                        if (ex.IsFatal()) {
                             throw;
                         }
                     }
                 });
             }
 
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
+            if (_logger.IsEnabled(LogLevel.Information)) {
                 _logger.LogInformation("Done creating shells");
             }
         }
@@ -148,22 +125,17 @@ namespace OCore.Environment.Shell
         /// <summary>
         /// Registers the shell settings in RunningShellTable
         /// </summary>
-        private void RegisterShell(ShellContext context)
-        {
-            if (!CanRegisterShell(context.Settings))
-            {
-                if (_logger.IsEnabled(LogLevel.Debug))
-                {
+        private void RegisterShell(ShellContext context) {
+            if (!CanRegisterShell(context.Settings)) {
+                if (_logger.IsEnabled(LogLevel.Debug)) {
                     _logger.LogDebug("Skipping shell context registration for tenant {0}", context.Settings.Name);
                 }
 
                 return;
             }
 
-            if (_shellContexts.TryAdd(context.Settings.Name, context))
-            {
-                if (_logger.IsEnabled(LogLevel.Debug))
-                {
+            if (_shellContexts.TryAdd(context.Settings.Name, context)) {
+                if (_logger.IsEnabled(LogLevel.Debug)) {
                     _logger.LogDebug("Registering shell context for tenant {0}", context.Settings.Name);
                 }
                 _runningShellTable.Add(context.Settings);
@@ -173,37 +145,26 @@ namespace OCore.Environment.Shell
         /// <summary>
         /// Creates a shell context based on shell settings
         /// </summary>
-        public Task<ShellContext> CreateShellContextAsync(ShellSettings settings)
-        {
-            if (settings.State == TenantState.Uninitialized)
-            {
-                if (_logger.IsEnabled(LogLevel.Debug))
-                {
+        public Task<ShellContext> CreateShellContextAsync(ShellSettings settings) {
+            if (settings.State == TenantState.Uninitialized) {
+                if (_logger.IsEnabled(LogLevel.Debug)) {
                     _logger.LogDebug("Creating shell context for tenant {0} setup", settings.Name);
                 }
 
                 return _shellContextFactory.CreateSetupContextAsync(settings);
-            }
-            else if (settings.State == TenantState.Disabled)
-            {
-                if (_logger.IsEnabled(LogLevel.Debug))
-                {
+            } else if (settings.State == TenantState.Disabled) {
+                if (_logger.IsEnabled(LogLevel.Debug)) {
                     _logger.LogDebug("Creating disabled shell context for tenant {0} setup", settings.Name);
                 }
 
                 return Task.FromResult(new ShellContext { Settings = settings });
-            }
-            else if (settings.State == TenantState.Running || settings.State == TenantState.Initializing)
-            {
-                if (_logger.IsEnabled(LogLevel.Debug))
-                {
+            } else if (settings.State == TenantState.Running || settings.State == TenantState.Initializing) {
+                if (_logger.IsEnabled(LogLevel.Debug)) {
                     _logger.LogDebug("Creating shell context for tenant {0}", settings.Name);
                 }
 
                 return _shellContextFactory.CreateShellContextAsync(settings);
-            }
-            else
-            {
+            } else {
                 throw new InvalidOperationException("Unexpected shell state for " + settings.Name);
             }
         }
@@ -211,10 +172,8 @@ namespace OCore.Environment.Shell
         /// <summary>
         /// Creates a transient shell for the default tenant's setup.
         /// </summary>
-        private Task<ShellContext> CreateSetupContextAsync()
-        {
-            if (_logger.IsEnabled(LogLevel.Debug))
-            {
+        private Task<ShellContext> CreateSetupContextAsync() {
+            if (_logger.IsEnabled(LogLevel.Debug)) {
                 _logger.LogDebug("Creating shell context for root setup.");
             }
 
@@ -224,20 +183,16 @@ namespace OCore.Environment.Shell
         /// <summary>
         /// A feature is enabled/disabled, the tenant needs to be restarted
         /// </summary>
-        Task IShellDescriptorManagerEventHandler.Changed(ShellDescriptor descriptor, string tenant)
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
+        Task IShellDescriptorManagerEventHandler.Changed(ShellDescriptor descriptor, string tenant) {
+            if (_logger.IsEnabled(LogLevel.Information)) {
                 _logger.LogInformation("A tenant needs to be restarted {0}", tenant);
             }
 
-            if (_shellContexts == null)
-            {
+            if (_shellContexts == null) {
                 return Task.CompletedTask;
             }
 
-            if (_shellContexts.TryRemove(tenant, out var context))
-            {
+            if (_shellContexts.TryRemove(tenant, out var context)) {
                 context.Release();
             }
 
@@ -249,12 +204,8 @@ namespace OCore.Environment.Shell
         /// while existing requests get flushed.
         /// </summary>
         /// <param name="settings"></param>
-        public void ReloadShellContext(ShellSettings settings)
-        {
-            ShellContext context;
-
-            if (_shellContexts.TryRemove(settings.Name, out context))
-            {
+        public void ReloadShellContext(ShellSettings settings) {
+            if (_shellContexts.TryRemove(settings.Name, out var context)) {
                 _runningShellTable.Remove(settings);
                 context.Release();
             }
@@ -262,16 +213,14 @@ namespace OCore.Environment.Shell
             GetOrCreateShellContext(settings);
         }
 
-        public IEnumerable<ShellContext> ListShellContexts()
-        {
+        public IEnumerable<ShellContext> ListShellContexts() {
             return _shellContexts.Values;
         }
 
         /// <summary>
         /// Whether or not a shell can be added to the list of available shells.
         /// </summary>
-        private bool CanCreateShell(ShellSettings shellSettings)
-        {
+        private bool CanCreateShell(ShellSettings shellSettings) {
             return
                 shellSettings.State == TenantState.Running ||
                 shellSettings.State == TenantState.Uninitialized ||
@@ -282,8 +231,7 @@ namespace OCore.Environment.Shell
         /// <summary>
         /// Whether or not a shell can be activated and added to the running shells.
         /// </summary>
-        private bool CanRegisterShell(ShellSettings shellSettings)
-        {
+        private bool CanRegisterShell(ShellSettings shellSettings) {
             return
                 shellSettings.State == TenantState.Running ||
                 shellSettings.State == TenantState.Uninitialized ||

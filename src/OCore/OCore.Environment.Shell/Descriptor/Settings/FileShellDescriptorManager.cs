@@ -1,12 +1,10 @@
-﻿using OCore.Environment.Shell.Descriptor.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OCore.Environment.Shell;
+using OCore.Environment.Shell.Descriptor.Models;
 
-namespace OCore.Environment.Shell.Descriptor.Settings
-{
+namespace OCore.Environment.Shell.Descriptor.Settings {
     /// <summary>
     /// Implements <see cref="IShellDescriptorManager"/> by returning the features from a configuration file.
     /// </summary>
@@ -17,12 +15,7 @@ namespace OCore.Environment.Shell.Descriptor.Settings
 
         public FileShellDescriptorManager(ShellSettingsWithTenants shellSettings)
         {
-            if (shellSettings == null)
-            {
-                throw new ArgumentException(nameof(shellSettings));
-            }
-
-            _shellSettings = shellSettings;
+            _shellSettings = shellSettings ?? throw new ArgumentException(nameof(shellSettings));
         }
 
         public Task<ShellDescriptor> GetShellDescriptorAsync()

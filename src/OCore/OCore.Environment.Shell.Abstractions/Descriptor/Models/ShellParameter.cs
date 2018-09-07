@@ -12,7 +12,5 @@ namespace OCore.Environment.Shell.Descriptor.Models
         public string Component { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-
-        //public JObject Properties { get; set; } = new JObject();
     }
 }
