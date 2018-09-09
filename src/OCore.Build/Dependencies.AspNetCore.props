@@ -1,9 +1,11 @@
 <Project>
   <ItemGroup>
     <PackageManagement Include="Libuv" Version="1.10.0" />
+    <PackageManagement Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
+    <packageManagement Include="System.ComponentModel" Version="4.3.0"/>
     <PackageManagement Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.3.0" />
-    <PackageManagement Include="Microsoft.AspNetCore" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.AspNetCore.All" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.AspNetCore" Version="2.1.3" />
+    <PackageManagement Include="Microsoft.AspNetCore.All" Version="2.1.3" />
     <PackageManagement Include="Microsoft.AspNetCore.Antiforgery" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.1.1" />
@@ -47,7 +49,7 @@
     <PackageManagement Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.HttpOverrides" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.AspNetCore.Http" Version="2.1.1" /> 
     <PackageManagement Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Identity" Version="2.1.2" />
     <PackageManagement Include="Microsoft.AspNetCore.JsonPatch" Version="2.1.1" />
@@ -56,18 +58,18 @@
     <PackageManagement Include="Microsoft.AspNetCore.MiddlewareAnalysis" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.2" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Razor.Extensions" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.2" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.2" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.1.1" />
     <PackageManagement Include="Microsoft.AspNetCore.NodeServices" Version="2.1.1" />
@@ -114,18 +116,19 @@
     <PackageManagement Include="Microsoft.DotNet.Watcher.Tools" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.EntityFrameworkCore" Version="2.1.2" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Relational.Design.Specification.Tests" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Relational.Specification.Tests" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Specification.Tests" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="2.1.1" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.2" />
     <PackageManagement Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.1" />
-    <PackageManagement Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageManagement Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.2" />
+    <PackageManagement Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.2" />
+    <PackageManagement Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.2" />
+    <PackageManagement Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
     <PackageManagement Include="Microsoft.Extensions.Caching.Redis" Version="2.1.1" />
     <PackageManagement Include="Microsoft.Extensions.Caching.SqlConfig.Tools" Version="2.1.1" />
     <PackageManagement Include="Microsoft.Extensions.Caching.SqlServer" Version="2.1.1" />

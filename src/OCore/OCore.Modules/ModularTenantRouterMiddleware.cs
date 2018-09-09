@@ -11,30 +11,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OCore.Modules
-{
+namespace OCore.Modules {
     /// <summary>
     /// Handles a request by forwarding it to the tenant specific <see cref="IRouter"/> instance.
     /// It also initializes the middlewares for the requested tenant on the first request.
+    /// 将请求转发给特定租户<see cref="IRouter"/>的实例来处理，并在第一次请求时初始化所有租户。
     /// </summary>
-    public class ModularTenantRouterMiddleware
-    {
+    public class ModularTenantRouterMiddleware {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
         private readonly Dictionary<string, RequestDelegate> _pipelines = new Dictionary<string, RequestDelegate>();
 
         public ModularTenantRouterMiddleware(
             RequestDelegate next,
-            ILogger<ModularTenantRouterMiddleware> logger)
-        {
+            ILogger<ModularTenantRouterMiddleware> logger) {
             _next = next;
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext httpContext)
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
+        public async Task Invoke(HttpContext httpContext) {
+            if (_logger.IsEnabled(LogLevel.Information)) {
                 _logger.LogInformation("Begin Routing Request");
             }
 
@@ -43,8 +39,7 @@ namespace OCore.Modules
             // Define a PathBase for the current request that is the RequestUrlPrefix.
             // This will allow any view to reference ~/ as the tenant's base url.
             // Because IIS or another middleware might have already set it, we just append the tenant prefix value.
-            if (!string.IsNullOrEmpty(shellContext.Settings.RequestUrlPrefix))
-            {
+            if (!string.IsNullOrEmpty(shellContext.Settings.RequestUrlPrefix)) {
                 httpContext.Request.PathBase += ("/" + shellContext.Settings.RequestUrlPrefix);
                 httpContext.Request.Path = httpContext.Request.Path.ToString().Substring(httpContext.Request.PathBase.Value.Length);
             }
@@ -55,24 +50,19 @@ namespace OCore.Modules
 
             // Do we need to rebuild the pipeline ?
             var rebuildPipeline = httpContext.Items["BuildPipeline"] != null;
-            if (rebuildPipeline && _pipelines.ContainsKey(shellContext.Settings.Name))
-            {
+            if (rebuildPipeline && _pipelines.ContainsKey(shellContext.Settings.Name)) {
                 _pipelines.Remove(shellContext.Settings.Name);
             }
 
             RequestDelegate pipeline;
 
-            if (!_pipelines.TryGetValue(shellContext.Settings.Name, out pipeline))
-            {
+            if (!_pipelines.TryGetValue(shellContext.Settings.Name, out pipeline)) {
                 // Building a pipeline can't be done by two requests
-                lock (_pipelines)
-                {
-                    if (!_pipelines.TryGetValue(shellContext.Settings.Name, out pipeline))
-                    {
+                lock (_pipelines) {
+                    if (!_pipelines.TryGetValue(shellContext.Settings.Name, out pipeline)) {
                         pipeline = BuildTenantPipeline(shellContext.ServiceProvider, httpContext.RequestServices);
 
-                        if (shellContext.Settings.State == TenantState.Running)
-                        {
+                        if (shellContext.Settings.State == TenantState.Running) {
                             _pipelines.Add(shellContext.Settings.Name, pipeline);
                         }
                     }
@@ -83,20 +73,17 @@ namespace OCore.Modules
         }
 
         // Build the middleware pipeline for the current tenant
-        public RequestDelegate BuildTenantPipeline(IServiceProvider rootServiceProvider, IServiceProvider scopeServiceProvider)
-        {
+        public RequestDelegate BuildTenantPipeline(IServiceProvider rootServiceProvider, IServiceProvider scopeServiceProvider) {
             var appBuilder = new ApplicationBuilder(rootServiceProvider);
 
             // Create a nested pipeline to configure the tenant middleware pipeline
             var startupFilters = appBuilder.ApplicationServices.GetService<IEnumerable<IStartupFilter>>();
 
-            Action<IApplicationBuilder> configure = builder =>
-            {
+            Action<IApplicationBuilder> configure = builder => {
                 ConfigureTenantPipeline(builder, scopeServiceProvider);
             };
 
-            foreach (var filter in startupFilters.Reverse())
-            {
+            foreach (var filter in startupFilters.Reverse()) {
                 configure = filter.Configure(configure);
             }
 
@@ -107,8 +94,7 @@ namespace OCore.Modules
             return pipeline;
         }
 
-        private void ConfigureTenantPipeline(IApplicationBuilder appBuilder, IServiceProvider scopeServiceProvider)
-        {
+        private void ConfigureTenantPipeline(IApplicationBuilder appBuilder, IServiceProvider scopeServiceProvider) {
             var startups = appBuilder.ApplicationServices.GetServices<IStartup>();
 
             // IStartup instances are ordered by module dependency with an Order of 0 by default.
@@ -122,8 +108,7 @@ namespace OCore.Modules
             // the TenantRoute resolution we can create a single Router type that would index the
             // TenantRoute object by their ShellSetting. This way there would just be one lookup.
             // And the ShellSettings test in TenantRoute would also be useless.
-            foreach (var startup in startups)
-            {
+            foreach (var startup in startups) {
                 startup.Configure(appBuilder, routeBuilder, scopeServiceProvider);
             }
 

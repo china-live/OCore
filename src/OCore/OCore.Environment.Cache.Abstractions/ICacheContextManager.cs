@@ -9,6 +9,6 @@ namespace OCore.Environment.Cache
     /// </summary>
     public interface ICacheContextManager
     {
-        Task<IEnumerable<CacheContextEntry>> GetContextAsync(IEnumerable<string> contexts);
+        Task<IEnumerable<CacheContextEntry>> GetDiscriminatorsAsync(IEnumerable<string> contexts);
     }
 }

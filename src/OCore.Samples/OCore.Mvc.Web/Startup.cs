@@ -39,25 +39,28 @@ namespace OCore.Mvc.Web
             services.AddSingleton(new AppDbContextOptions() { ConnectionString = connectionString, DatabaseProvider = "SqlServer"/*, TablePrefix = "OCore" */});
 
             //services.AddThemingHost();
-            services.AddManifestDefinition("theme");
+            //services.AddManifestDefinition("theme");
 
             //services.AddExtensionLocation("Themes");
-            services.AddSitesFolder();
+            //services.AddSitesFolder();
 
-            services.AddModules(modules =>
-                {
-                    //modules.WithConfiguration(Configuration);
-                    //modules.WithDefaultFeatures("OCore.Commons");
-                    modules.WithDefaultFeatures(
-                    "OCore.Mvc.Admin", 
-                    "OCore.Mvc.HelloWorld", 
-                    "OCore.Mvc.Test",
-                    "OCore.Settings",
-                    "OCore.Recipes",
-                    "OCore.Setup",
-                    "OCore.Commons");
-                }
-            );
+            //services.AddModules(modules =>
+            //    {
+            //        //modules.WithConfiguration(Configuration);
+            //        //modules.WithDefaultFeatures("OCore.Commons");
+            //        modules.WithDefaultFeatures(
+            //        "OCore.Mvc.Admin", 
+            //        "OCore.Mvc.HelloWorld", 
+            //        "OCore.Mvc.Test",
+            //        "OCore.Settings",
+            //        "OCore.Recipes",
+            //        "OCore.Setup",
+            //        "OCore.Commons");
+            //    }
+            //);
+            services
+                .AddOrchardCore()
+                .AddMvc();
 
             _services = services;
 
@@ -90,8 +93,8 @@ namespace OCore.Mvc.Web
             app.UseSession();
 
             app.UseStaticFiles();
- 
-            app.UseModules();
+
+            app.UseOrchardCore();
 
             if (env.IsDevelopment())
             {

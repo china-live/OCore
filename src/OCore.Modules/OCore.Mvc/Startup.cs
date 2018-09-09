@@ -17,12 +17,12 @@ namespace OCore.Mvc
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcModules(_applicationServices);//.AddSessionStateTempDataProvider();
+            //services.AddMvcModules(_applicationServices);//.AddSessionStateTempDataProvider();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            app.UseStaticFilesModules();
+            //app.UseStaticFilesModules();
         }
     }
 }

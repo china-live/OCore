@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using OCore.Environment.Cache;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
-namespace OCore.Environment.Cache.CacheContextProviders
-{
+namespace OCore.Environment.Cache.CacheContextProviders {
     public class QueryCacheContextProvider : ICacheContextProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

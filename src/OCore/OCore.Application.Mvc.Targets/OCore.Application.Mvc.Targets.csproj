@@ -16,7 +16,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\OCore.Application.Targets\OCore.Application.Targets.csproj" PrivateAssets="none" />
-    <ProjectReference Include="..\..\OCore.Modules\OCore.Mvc\OCore.Mvc.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\OCore.Mvc.Core\OCore.Mvc.Core.csproj"/>
   </ItemGroup>
   <Target Name="CopyPackage" AfterTargets="Pack">
     <Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(MSBuildProjectDirectory)\..\..\packageshare\" />

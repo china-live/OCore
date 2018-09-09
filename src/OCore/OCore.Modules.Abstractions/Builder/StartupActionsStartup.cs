@@ -20,7 +20,7 @@ namespace OCore.Modules
             Order = order;
         }
 
-        public override int Order { get; }
+        public override int Order { get; internal set; }
 
         public override void ConfigureServices(IServiceCollection services)
         {

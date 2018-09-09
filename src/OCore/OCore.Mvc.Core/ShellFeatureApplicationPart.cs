@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using OCore.Environment.Shell.Builders.Models;
+using OCore.Modules;
 
 namespace OCore.Mvc
 {
@@ -42,10 +43,24 @@ namespace OCore.Mvc
         /// <inheritdoc />
         public IEnumerable<TypeInfo> Types
         {
-            get
-            {
-                var shellBluePrint = _httpContextAccessor.HttpContext.RequestServices?.GetRequiredService<ShellBlueprint>();
-                return shellBluePrint?.Dependencies.Keys.Select(type => type.GetTypeInfo()) ?? Enumerable.Empty<TypeInfo>();
+            //get
+            //{
+            //    var shellBluePrint = _httpContextAccessor.HttpContext.RequestServices?.GetRequiredService<ShellBlueprint>();
+            //    return shellBluePrint?.Dependencies.Keys.Select(type => type.GetTypeInfo()) ?? Enumerable.Empty<TypeInfo>();
+            //}
+
+            get {
+                var services = _httpContextAccessor.HttpContext.RequestServices;
+
+                if (services == null) {
+                    return Enumerable.Empty<TypeInfo>();
+                }
+
+                var tagHelpers = services.GetServices<ITagHelpersProvider>();
+                var shellBluePrint = services.GetRequiredService<ShellBlueprint>();
+
+                return shellBluePrint.Dependencies.Keys.Select(type => type.GetTypeInfo())
+                    .Concat(tagHelpers.SelectMany(p => p.Types));
             }
         }
 

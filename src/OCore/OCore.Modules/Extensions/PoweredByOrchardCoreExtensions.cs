@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using OCore.Modules;
 
-namespace Microsoft.AspNetCore.Builder
-{
+namespace Microsoft.AspNetCore.Builder {
     public static class PoweredByOrchardCoreExtensions
     {
         /// <summary>

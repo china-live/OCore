@@ -4,25 +4,42 @@ using System.Linq;
 
 namespace OCore.Environment.Cache
 {
-    public class CacheContext
-    {
+    public class CacheContext {
         private HashSet<string> _contexts;
         private HashSet<string> _tags;
         private string _cacheId;
-        private TimeSpan? _duration;
+        private DateTimeOffset? _expiresOn;
+        private TimeSpan? _expiresAfter;
+        private TimeSpan? _expiresSliding;
 
-        public CacheContext(string cacheId)
-        {
+        public CacheContext(string cacheId) {
             _cacheId = cacheId;
         }
 
         /// <summary>
-        /// Defines the absolute time the shape should be cached for.
+        /// Defines the absolute time the value should be cached for.
         /// If not called a sliding value will be used.
         /// </summary>
-        public CacheContext During(TimeSpan duration)
-        {
-            _duration = duration;
+        public CacheContext WithExpiryOn(DateTimeOffset expiry) {
+            _expiresOn = expiry;
+            return this;
+        }
+
+        /// <summary>
+        /// Defines the absolute time (relative from now) the value should be cached for.
+        /// If not called a sliding value will be used.
+        /// </summary>
+        public CacheContext WithExpiryAfter(TimeSpan duration) {
+            _expiresAfter = duration;
+            return this;
+        }
+
+        /// <summary>
+        /// Defines the sliding expiry time the value should be cached for.
+        /// If not called a default sliding value will be used (unless an absolute expiry time has been specified).
+        /// </summary>
+        public CacheContext WithExpirySliding(TimeSpan window) {
+            _expiresSliding = window;
             return this;
         }
 
@@ -30,15 +47,12 @@ namespace OCore.Environment.Cache
         /// Defines a dimension to cache the shape for. For instance by using <code>"user"</code>
         /// each user will get a different value.
         /// </summary>
-        public CacheContext AddContext(params string[] contexts)
-        {
-            if (_contexts == null)
-            {
+        public CacheContext AddContext(params string[] contexts) {
+            if (_contexts == null) {
                 _contexts = new HashSet<string>();
             }
 
-            foreach (var context in contexts)
-            {
+            foreach (var context in contexts) {
                 _contexts.Add(context);
             }
 
@@ -48,53 +62,28 @@ namespace OCore.Environment.Cache
         /// <summary>
         /// Removes a specific context.
         /// </summary>
-        public CacheContext RemoveContext(string context)
-        {
-            if (_contexts != null)
-            {
+        public CacheContext RemoveContext(string context) {
+            if (_contexts != null) {
                 _contexts.Remove(context);
             }
 
             return this;
         }
 
-        /// <summary>
-        /// Defines a dimension that will invalidate the cache entry when it changes.
-        /// For instance by using <code>"features"</code> every time the list of features
-        /// will change the value of the cache will be invalidated.
-        /// </summary>
-        public CacheContext AddDependency(params string[] context)
-        {
-            return AddContext(context);
-        }
-
-        /// <summary>
-        /// Removes a specific dependency.
-        /// </summary>
-        public CacheContext RemoveDependency(string context)
-        {
-            return RemoveContext(context);
-        }
-
-        public CacheContext AddTag(params string[] tags)
-        {
-            if (_tags == null)
-            {
+        public CacheContext AddTag(params string[] tags) {
+            if (_tags == null) {
                 _tags = new HashSet<string>();
             }
 
-            foreach (var tag in tags)
-            {
+            foreach (var tag in tags) {
                 _tags.Add(tag);
             }
 
             return this;
         }
 
-        public CacheContext RemoveTag(string tag)
-        {
-            if (_tags != null)
-            {
+        public CacheContext RemoveTag(string tag) {
+            if (_tags != null) {
                 _tags.Remove(tag);
             }
 
@@ -102,9 +91,11 @@ namespace OCore.Environment.Cache
         }
 
         public string CacheId => _cacheId;
-        public IEnumerable<string> Contexts => _contexts ?? Enumerable.Empty<string>();
+        public ICollection<string> Contexts => (ICollection<string>)_contexts ?? Array.Empty<string>();
         public IEnumerable<string> Tags => _tags ?? Enumerable.Empty<string>();
-        public TimeSpan? Duration => _duration;
+        public DateTimeOffset? ExpiresOn => _expiresOn;
+        public TimeSpan? ExpiresAfter => _expiresAfter;
+        public TimeSpan? ExpiresSliding => _expiresSliding;
 
     }
 }

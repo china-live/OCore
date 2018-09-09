@@ -101,61 +101,92 @@ namespace OCore.Mvc
                 provider.PopulateFeature(assemblyParts, feature);
             }
 
-            var application = _hostingEnvironment.GetApplication();
-            foreach (var descriptor in feature.ViewDescriptors)
-            {
-                if (descriptor.RelativePath.StartsWith(Application.ModulesRoot) ||
-                    !(descriptor.ViewAttribute?.ViewType.Name.StartsWith("Pages_") ?? false))
-                {
-                    continue;
-                }
-
-                descriptor.RelativePath = '/' + application.ModulePath + descriptor.RelativePath;
-            }
-
-            if (!_hostingEnvironment.IsDevelopment())
-            {
+            if (!_hostingEnvironment.IsDevelopment()) {
                 var moduleNames = _hostingEnvironment.GetApplication().ModuleNames;
                 var moduleFeature = new ViewsFeature();
 
-                foreach (var name in moduleNames)
-                {
+                foreach (var name in moduleNames) {
                     var module = _hostingEnvironment.GetModule(name);
-
-                    if (module.Name == application.Name)
-                    {
-                        continue;
-                    }
 
                     var precompiledAssemblyPath = Path.Combine(Path.GetDirectoryName(module.Assembly.Location),
                         module.Assembly.GetName().Name + ".Views.dll");
 
-                    if (File.Exists(precompiledAssemblyPath))
-                    {
-                        try
-                        {
+                    if (File.Exists(precompiledAssemblyPath)) {
+                        try {
                             var assembly = Assembly.LoadFile(precompiledAssemblyPath);
 
-                            foreach (var provider in featureProviders)
-                            {
+                            foreach (var provider in featureProviders) {
                                 provider.PopulateFeature(new ApplicationPart[] { new CompiledRazorAssemblyPart(assembly) }, moduleFeature);
                             }
 
-                            foreach (var descriptor in moduleFeature.ViewDescriptors)
-                            {
+                            foreach (var descriptor in moduleFeature.ViewDescriptors) {
                                 descriptor.RelativePath = '/' + module.SubPath + descriptor.RelativePath;
                                 feature.ViewDescriptors.Add(descriptor);
                             }
 
                             moduleFeature.ViewDescriptors.Clear();
-                        }
-                        catch (FileLoadException)
-                        {
+                        } catch (FileLoadException) {
                             // Don't throw if assembly cannot be loaded. This can happen if the file is not a managed assembly.
                         }
                     }
                 }
             }
+
+            //var application = _hostingEnvironment.GetApplication();
+            //foreach (var descriptor in feature.ViewDescriptors)
+            //{
+            //    if (descriptor.RelativePath.StartsWith(Application.ModulesRoot) ||
+            //        !(descriptor.ViewAttribute?.ViewType.Name.StartsWith("Pages_") ?? false))
+            //    {
+            //        continue;
+            //    }
+
+            //    descriptor.RelativePath = '/' + application.ModulePath + descriptor.RelativePath;
+            //}
+
+            //if (!_hostingEnvironment.IsDevelopment())
+            //{
+            //    var moduleNames = _hostingEnvironment.GetApplication().ModuleNames;
+            //    var moduleFeature = new ViewsFeature();
+
+            //    foreach (var name in moduleNames)
+            //    {
+            //        var module = _hostingEnvironment.GetModule(name);
+
+            //        if (module.Name == application.Name)
+            //        {
+            //            continue;
+            //        }
+
+            //        var precompiledAssemblyPath = Path.Combine(Path.GetDirectoryName(module.Assembly.Location),
+            //            module.Assembly.GetName().Name + ".Views.dll");
+
+            //        if (File.Exists(precompiledAssemblyPath))
+            //        {
+            //            try
+            //            {
+            //                var assembly = Assembly.LoadFile(precompiledAssemblyPath);
+
+            //                foreach (var provider in featureProviders)
+            //                {
+            //                    provider.PopulateFeature(new ApplicationPart[] { new CompiledRazorAssemblyPart(assembly) }, moduleFeature);
+            //                }
+
+            //                foreach (var descriptor in moduleFeature.ViewDescriptors)
+            //                {
+            //                    descriptor.RelativePath = '/' + module.SubPath + descriptor.RelativePath;
+            //                    feature.ViewDescriptors.Add(descriptor);
+            //                }
+
+            //                moduleFeature.ViewDescriptors.Clear();
+            //            }
+            //            catch (FileLoadException)
+            //            {
+            //                // Don't throw if assembly cannot be loaded. This can happen if the file is not a managed assembly.
+            //            }
+            //        }
+            //    }
+            //}
 
             return new SharedRazorViewCompiler(
                 _fileProviderAccessor.FileProvider,

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using OCore.Environment.Cache.CacheContextProviders;
 
 namespace OCore.Environment.Cache
 {
@@ -11,16 +12,20 @@ namespace OCore.Environment.Cache
             services.AddTransient<ITagCache, DefaultTagCache>();
             services.AddSingleton<ISignal, Signal>();
             services.AddScoped<ICacheContextManager, CacheContextManager>();
+            services.AddScoped<ICacheScopeManager, CacheScopeManager>();
 
-            // MVC is already registering IMemoryCache as host singleton. We are registering it again
-            // in this module so that there is one instance for each tenant.
-            // Important: we can't call AddMemoryCache as it's using the TryAdd pattern and hence would
-            // not override any existing instance defined at the host level by MVC
+            services.AddScoped<ICacheContextProvider, FeaturesCacheContextProvider>();
+            services.AddScoped<ICacheContextProvider, QueryCacheContextProvider>();
+            services.AddScoped<ICacheContextProvider, RolesCacheContextProvider>();
+            services.AddScoped<ICacheContextProvider, RouteCacheContextProvider>();
+            services.AddScoped<ICacheContextProvider, UserCacheContextProvider>();
+            services.AddScoped<ICacheContextProvider, KnownValueCacheContextProvider>();
+
+            // IMemoryCache is registered at the tenant level so that there is one instance for each tenant.
             services.AddSingleton<IMemoryCache, MemoryCache>();
 
-            // LocalCache is registered as transient as its implementation resolves IMemoryCache, thus
-            // there is no state to keep in its instance.
-            services.AddTransient<IDistributedCache, MemoryDistributedCache>();
+            // MemoryDistributedCache needs to be registered as a singleton as it owns a MemoryCache instance.
+            services.AddSingleton<IDistributedCache, MemoryDistributedCache>();
 
             return services;
         }

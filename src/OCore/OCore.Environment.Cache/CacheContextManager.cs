@@ -13,7 +13,7 @@ namespace OCore.Environment.Cache
             _cacheContextProviders = cacheContextProviders;
         }
 
-        public async Task<IEnumerable<CacheContextEntry>> GetContextAsync(IEnumerable<string> contexts)
+        public async Task<IEnumerable<CacheContextEntry>> GetDiscriminatorsAsync(IEnumerable<string> contexts)
         {
             var entries = new List<CacheContextEntry>();
 
