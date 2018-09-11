@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
   
   <!--
@@ -11,6 +13,9 @@
     You can optionally leave out the $targetFramework subdirectory. 
     Caution: this will make NuGet treat your packages as compatible with “any” target framework.
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\OCore.Modules\OCore.Modules.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="OCore.Application.Targets.targets" Pack="true">

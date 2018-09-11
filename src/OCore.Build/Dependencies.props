@@ -21,7 +21,7 @@
     <PackageManagement Include="YesSql.Provider.MySql" Version="1.0.0-beta-1194" />
     <PackageManagement Include="YesSql.Provider.SqlServer" Version="1.0.0-beta-1194" />-->
     <PackageManagement Include="Nancy" Version="2.0.0-clinteastwood" />
-    <PackageManagement Include="NodaTime" Version="2.3.0" />
+    <PackageManagement Include="NodaTime" Version="2.4.0" />
     <PackageManagement Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageManagement Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc2-final" />
     <PackageManagement Include="OpenIddict" Version="2.0.0-rc2-final" />

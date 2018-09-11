@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
  
   <!-- Add the OCore.Module.props file in the package -->
@@ -16,6 +18,7 @@
       <PackagePath>build\$(TargetFramework)\Package.Build.props</PackagePath>
     </None>
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\OCore.Modules.Abstractions\OCore.Modules.Abstractions.csproj" />
   </ItemGroup>
