@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <!--<IncludeBuildOutput>false</IncludeBuildOutput>-->
   </PropertyGroup>
  
   <!-- Add the OCore.Module.props file in the package -->

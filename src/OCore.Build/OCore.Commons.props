@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="Dependencies.props" />
-  <Import Project="Packageshare.props" />
+
 
   <PropertyGroup>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -16,5 +16,5 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
-
+  <Import Project="Packageshare.props" />
 </Project>

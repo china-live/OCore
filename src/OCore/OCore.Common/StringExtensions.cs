@@ -33,15 +33,14 @@ namespace OCore.Common
  
     public class DtoResult
     {
-        private static readonly DtoResult _success = new DtoResult { Succeeded = true };
         private List<DtoError> _errors = new List<DtoError>();
  
         public bool Succeeded { get; protected set; }
  
         public IEnumerable<DtoError> Errors => _errors;
 
- 
-        public static DtoResult Success => _success;
+
+        public static DtoResult Success { get; } = new DtoResult { Succeeded = true };
 
 
         public static DtoResult Failed(params DtoError[] errors)
