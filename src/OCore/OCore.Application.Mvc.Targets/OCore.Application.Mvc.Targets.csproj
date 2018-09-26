@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <!--<IncludeBuildOutput>false</IncludeBuildOutput>-->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
     <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
     <!--<IgnorePackageAssets>true</IgnorePackageAssets>-->
   </PropertyGroup>

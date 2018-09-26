@@ -61,6 +61,8 @@ namespace OCore.EntityFrameworkCore
             {
                 dynamic mappingInstance = Activator.CreateInstance(typeConfiguration);
                 builder.ApplyConfiguration(mappingInstance);
+                //builder.ApplyConfiguration<T>(mappingInstance);
+                //builder.ApplyConfiguration(typeConfiguration);
             }
 
             //foreach (var type in builder.Model.GetEntityTypes())
