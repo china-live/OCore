@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CSharp;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -59,7 +60,10 @@ namespace OCore.EntityFrameworkCore
 
             foreach (var typeConfiguration in typeConfigurations)
             {
+                //var entity = builder.Entity(typeConfiguration);
+ 
                 dynamic mappingInstance = Activator.CreateInstance(typeConfiguration);
+                //mappingInstance.Configure(entity);
                 builder.ApplyConfiguration(mappingInstance);
                 //builder.ApplyConfiguration<T>(mappingInstance);
                 //builder.ApplyConfiguration(typeConfiguration);
