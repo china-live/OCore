@@ -23,17 +23,17 @@ namespace OCore.Commons
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddDeferredTasks();
+            //services.AddDeferredTasks();
 
             //var serviceProvider = services.BuildServiceProvider();
             //var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
 
-            services.AddEntityFrameworkCore(/*defaultConnection*/);
+            //services.AddEntityFrameworkCore(/*defaultConnection*/);
 
-            services.AddBackgroundTasks();
+            //services.AddBackgroundTasks();
             //services.AddResourceManagement();
             //services.AddGeneratorTagFilter();
-            services.AddCaching();
+            //services.AddCaching();
             services.AddShellDescriptorStorage().AddEntityFrameworkStores();
             //services.AddExtensionManager();
             //services.AddTheming();

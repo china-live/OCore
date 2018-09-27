@@ -17,10 +17,10 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore"/>
-    <PackageReference Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup"  />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory"  />
-    <PackageReference Include="Microsoft.AspNetCore.Session"  />
+    <PackageReference Include="Microsoft.AspNetCore" />
+    <PackageReference Include="Microsoft.AspNetCore.ApplicationInsights.HostingStartup" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" />
     <!-- This reference is necessary for view precompilation to work on publish -->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.1.1" PrivateAssets="All" />
   </ItemGroup>
@@ -30,7 +30,6 @@
     <ProjectReference Include="..\..\Dome.Modules\OCore.Mvc.Admin\OCore.Mvc.Admin.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\OCore.Mvc.HelloWorld\OCore.Mvc.HelloWorld.csproj" />
     <ProjectReference Include="..\..\Dome.Modules\OCore.Mvc.Test\OCore.Mvc.Test.csproj" />
-    <ProjectReference Include="..\..\OCore.Modules\OCore.Commons\OCore.Commons.csproj" />
     <ProjectReference Include="..\..\OCore.Modules\OCore.Features\OCore.Features.csproj" />
     <ProjectReference Include="..\..\OCore.Modules\OCore.HomeRoute\OCore.HomeRoute.csproj" />
     <ProjectReference Include="..\..\OCore.Modules\OCore.Metronic\OCore.Metronic.csproj" />
@@ -43,7 +42,15 @@
     <ProjectReference Include="..\..\OCore.Themes\TheAdmin\TheAdmin.csproj" />
     <ProjectReference Include="..\..\OCore.Themes\TheTheme\TheTheme.csproj" />
     <ProjectReference Include="..\..\OCore\OCore.Application.Mvc.Targets\OCore.Application.Mvc.Targets.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Cache\OCore.Environment.Cache.csproj" />
     <ProjectReference Include="..\..\OCore\OCore.Logging.NLog\OCore.Logging.NLog.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.BackgroundTasks\OCore.BackgroundTasks.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.DeferredTasks\OCore.DeferredTasks.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.EntityFrameworkCore\OCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Cache\OCore.Environment.Cache.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Extensions\OCore.Environment.Extensions.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Shell.EntityFrameworkCore\OCore.Environment.Shell.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\OCore\OCore.Environment.Shell\OCore.Environment.Shell.csproj" />
   </ItemGroup>
 
   <Import Project="..\..\OCore.Build\OCore.Commons.targets" />

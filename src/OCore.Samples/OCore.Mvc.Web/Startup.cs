@@ -8,6 +8,9 @@ using System.Text.Encodings.Web;
 using OCore.Environment.Extensions.Manifests;
 using OCore.Environment.Shell.EntityFrameworkCore;
 using OCore.EntityFrameworkCore;
+using OCore.Environment.Cache;
+using OCore.BackgroundTasks;
+using OCore.DeferredTasks;
 
 namespace OCore.Mvc.Web
 {
@@ -38,6 +41,9 @@ namespace OCore.Mvc.Web
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddSingleton(new AppDbContextOptions() { ConnectionString = connectionString, DatabaseProvider = "SqlServer"/*, TablePrefix = "OCore" */});
 
+            //var serviceProvider = services.BuildServiceProvider();
+            //var defaultConnection = serviceProvider.GetService<IConfiguration>().GetConnectionString("DefaultConnection");
+
             //services.AddThemingHost();
             //services.AddManifestDefinition("theme");
 
@@ -60,7 +66,21 @@ namespace OCore.Mvc.Web
             //);
             services
                 .AddOrchardCore()
-                .AddMvc();
+                .AddMvc()
+
+                .AddSetupFeatures("OCore.Setup")
+
+                //.AddDataAccess()
+                //.AddDataStorage()
+                .AddBackgroundTasks()
+                .AddDeferredTasks()
+                .AddEntityFrameworkCore()
+
+                //.AddTheming()
+                //.AddLiquidViews()
+                //.AddResourceManagement()
+                //.AddGeneratorTagFilter()
+                .AddCaching();
 
             _services = services;
 

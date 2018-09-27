@@ -24,13 +24,15 @@ namespace OCore.Environment.Shell.EntityFrameworkCore
         /// <param name="services"></param>
         /// <param name="sitesPath"></param>
         /// <returns></returns>
-        public static IServiceCollection AddSitesFolder(this IServiceCollection services)
+        public static OCoreBuilder AddSitesFolder(this OCoreBuilder builder)
         {
+            var services = builder.ApplicationServices;
+
             services.AddSingleton<IShellSettingsConfigurationProvider, ShellSettingsConfigurationProvider>();
             services.AddSingleton<IShellSettingsManager, ShellSettingsManager>();
             services.AddTransient<IConfigureOptions<ShellOptions>, ShellOptionsSetup>();
 
-            return services;
+            return builder;
         }
 
         /// <summary>

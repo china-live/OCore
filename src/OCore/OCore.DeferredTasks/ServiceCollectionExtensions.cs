@@ -5,11 +5,16 @@ namespace OCore.DeferredTasks
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDeferredTasks(this IServiceCollection services)
-        {
-            services.TryAddScoped<IDeferredTaskEngine, DeferredTaskEngine>();
-            services.TryAddScoped<IDeferredTaskState, HttpContextTaskState>();
-            return services;
+        /// <summary>
+        /// Adds tenant level deferred tasks services.
+        /// </summary>
+        public static OCoreBuilder AddDeferredTasks(this OCoreBuilder builder) {
+            builder.ConfigureServices(services => {
+                services.TryAddScoped<IDeferredTaskEngine, DeferredTaskEngine>();
+                services.TryAddScoped<IDeferredTaskState, HttpContextTaskState>();
+            });
+
+            return builder;
         }
     }
 }
